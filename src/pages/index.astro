@@ -137,16 +137,47 @@ const programmas = [
   </Section>
 
   <!-- Video -->
-  <Section tone="sand">
-    <div class="grid items-center gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-      <div>
-        <p class="eyebrow mb-3">Keeping humanity human</p>
-        <h2 class="text-3xl font-bold sm:text-4xl">Een kijkje bij Redwoods</h2>
-        <p class="measure mt-5 text-lg text-muted">Wie we zijn, hoe we werken en wat ons drijft: in twee minuten zie je het in deze video.</p>
-      </div>
-      <YouTube id="8DnQq_ybABg" title="Kennismaken met Redwoods People Services" poster={videoPoster} />
+  <section class="relative isolate overflow-hidden bg-ink text-white" data-video-bg="8DnQq_ybABg">
+    <div class="absolute inset-0 -z-10">
+      <Image src={videoPoster} alt="" width={1280} height={720} class="h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-black/45" aria-hidden="true"></div>
     </div>
-  </Section>
+    <div class="container-site py-32 sm:py-44">
+      <p class="eyebrow text-white/80">Redwoods People Services</p>
+      <h2 class="mt-3 max-w-[16ch] text-4xl font-bold text-white sm:text-5xl">Keeping humanity human</h2>
+      <p class="measure mt-5 text-lg text-white/90">Mens blijven, in verbinding met jezelf en de ander. Daar werken we elke dag aan, met oprechte aandacht en deskundige begeleiding.</p>
+      <a href="https://www.youtube.com/watch?v=8DnQq_ybABg" target="_blank" rel="noopener" class="btn mt-8 border border-white/70 text-white hover:bg-white/10">Bekijk de video met geluid</a>
+    </div>
+  </section>
+
+  <script>
+    // Achtergrondvideo via YouTube (gedempt, in een lus). Niet bij "minder beweging"-voorkeur.
+    const box = document.querySelector<HTMLElement>("[data-video-bg]");
+    const id = box?.dataset.videoBg;
+    if (box && id && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const load = () => {
+        const f = document.createElement("iframe");
+        f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3`;
+        f.title = "Sfeervideo Redwoods (zonder geluid)";
+        f.setAttribute("aria-hidden", "true");
+        f.tabIndex = -1;
+        f.allow = "autoplay; encrypted-media";
+        f.className = "video-cover pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-1000";
+        f.addEventListener("load", () => setTimeout(() => f.classList.remove("opacity-0"), 800));
+        box.querySelector(".absolute.inset-0.-z-10 > div")?.before(f);
+      };
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some((e) => e.isIntersecting)) { io.disconnect(); load(); }
+        }, { rootMargin: "400px" });
+        io.observe(box);
+      } else load();
+    }
+  </script>
+  <style>
+    /* 16:9-frame dat de sectie altijd volledig bedekt */
+    .video-cover { width: 100vw; height: 56.25vw; min-width: 177.78%; min-height: 100%; }
+  </style>
 
   <!-- Praktijk -->
   <Section>
