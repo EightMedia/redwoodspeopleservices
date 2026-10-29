@@ -13,10 +13,12 @@ Dit document legt uit wat er in het project zit, welke onderdelen er zijn, hoe z
 5. [Lokaal werken](#5-lokaal-werken)
 6. [Content beheren (Keystatic)](#6-content-beheren-keystatic)
 7. [Contactformulier](#7-contactformulier)
-8. [Uitrollen op Vercel](#8-uitrollen-op-vercel)
-9. [SEO en vindbaarheid](#9-seo-en-vindbaarheid)
-10. [Livegang vanaf WordPress](#10-livegang-vanaf-wordpress)
-11. [Onderhoud](#11-onderhoud)
+8. [Aanmelden Houd me Vast met aanbetaling (Mollie)](#7b-aanmelden-houd-me-vast-met-aanbetaling-mollie)
+9. [Uitrollen op Vercel](#8-uitrollen-op-vercel)
+10. [Accounts en stand van zaken](#12-accounts-en-stand-van-zaken)
+11. [SEO en vindbaarheid](#9-seo-en-vindbaarheid)
+12. [Livegang vanaf WordPress](#10-livegang-vanaf-wordpress)
+13. [Onderhoud](#11-onderhoud)
 
 ---
 
@@ -185,9 +187,9 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 
 **Instellen**
 
-- Maak een account op [resend.com](https://resend.com) (gratis tot 3.000 mails per maand).
+- Het Resend-account bestaat; de inloggegevens staan in Proton Pass (Eight). Gratis tot 3.000 mails per maand.
 - Verifieer het domein `redwoodspeopleservices.nl` (DNS-records die Resend toont), zodat je kunt verzenden vanaf `noreply@redwoodspeopleservices.nl`.
-- Zet `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` in Vercel (Settings → Environment Variables).
+- `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` staan in Vercel (Settings → Environment Variables). Verzenden vanaf het eigen domein werkt pas als de DNS-records van Resend bij Strato staan.
 - Optioneel: maak een Turnstile-widget aan in het Cloudflare-dashboard en zet `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` in Vercel.
 
 ## 7b. Aanmelden Houd me Vast met aanbetaling (Mollie)
@@ -231,6 +233,21 @@ Buiten de code, maar minstens zo belangrijk: Google Bedrijfsprofiel claimen (cat
 3. In Google Search Console: eigendom verifiëren voor het nieuwe domein, sitemap `https://www.redwoodspeopleservices.nl/sitemap-index.xml` indienen, en onder "Verwijderingen" de URL's onder `/nl/nieuwe-casinos/` laten verwijderen.
 4. Controleer de omgevingsvariabelen in Vercel (Resend, eventueel Turnstile en Keystatic) en stuur een testbericht via het contactformulier.
 5. Vraag de praktijk de teksten voor privacybeleid en algemene voorwaarden na te lopen; de huidige teksten zijn een beknopt startpunt.
+
+## 12. Accounts en stand van zaken
+
+Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
+
+| Dienst | Waar | Status |
+|---|---|---|
+| GitHub | organisatie EightMedia, repo `redwoodspeopleservices` | Gekoppeld aan Vercel; elke push naar `main` deployt |
+| Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op redwoodspeopleservices.vercel.app; domeinen toegevoegd, wachten op DNS |
+| Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel; domeinverificatie wacht op DNS-records bij Strato |
+| Mollie | nog aan te vragen door de praktijk | Code staat klaar; zie `docs/mail-opdrachtgever-mollie.md` voor wat we nodig hebben |
+| Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
+| DNS | Strato, beheerd door de domeinhouder | Te zetten: A `@` → 216.150.16.1, CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com`, plus de drie Resend-records. MX (Google Workspace) en SPF niet wijzigen |
+
+Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, Mollie-account, Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
 
 ## 11. Onderhoud
 
