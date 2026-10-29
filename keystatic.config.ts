@@ -119,7 +119,8 @@ export default config({
       format: "json",
       schema: {
         prijs: fields.text({ label: "Prijs per stel", description: "Bijvoorbeeld: € 1.395,-" }),
-        aanbetaling: fields.text({ label: "Aanbetaling", description: "Bijvoorbeeld: € 697,50" }),
+        aanbetaling: fields.text({ label: "Aanbetaling (tekst)", description: "Bijvoorbeeld: € 697,50" }),
+        aanbetalingBedrag: fields.text({ label: "Aanbetaling (bedrag voor Mollie)", description: "Alleen cijfers met punt, bijvoorbeeld 697.50", validation: { isRequired: true, pattern: { regex: /^\d+\.\d{2}$/, message: "Gebruik het formaat 697.50" } } }),
         data: fields.array(
           fields.object({
             datum: fields.text({ label: "Datum", description: "Bijvoorbeeld: 22 – 24 januari 2027" }),

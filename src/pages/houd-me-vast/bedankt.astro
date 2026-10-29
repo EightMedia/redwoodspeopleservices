@@ -1,0 +1,53 @@
+---
+import Base from "../../layouts/Base.astro";
+import Section from "../../components/Section.astro";
+import { getPayment, mollieEnabled, euro, type MolliePayment } from "../../lib/mollie";
+
+// Op aanvraag gerenderd: toont de betaalstatus als Mollie een id meegeeft
+export const prerender = false;
+
+const id = Astro.url.searchParams.get("id") ?? "";
+let payment: MolliePayment | null = null;
+if (mollieEnabled() && /^tr_[A-Za-z0-9]+$/.test(id)) {
+  try {
+    payment = await getPayment(id);
+  } catch {
+    payment = null;
+  }
+}
+const status = payment?.status;
+const geslaagd = !payment || status === "paid" || status === "pending" || status === "authorized";
+const titel = !payment
+  ? "Bedankt voor jullie aanmelding"
+  : status === "paid"
+    ? "Aanbetaling ontvangen, jullie zijn aangemeld"
+    : status === "pending" || status === "authorized"
+      ? "Je betaling wordt verwerkt"
+      : status === "open"
+        ? "De betaling is nog niet afgerond"
+        : "De betaling is niet gelukt";
+---
+
+<Base title={titel} description="Bevestiging van je aanmelding voor het Houd me Vast relatieweekend." noindex>
+  <Section>
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow">Houd me Vast relatieweekend</p>
+      <h1 class="mt-3 text-4xl font-bold">{titel}</h1>
+      {geslaagd ? (
+        <p class="mt-5 text-xl text-muted">
+          {payment?.status === "paid"
+            ? `De aanbetaling van ${euro(payment.amount.value)} is betaald (kenmerk ${payment.id}). Jullie ontvangen een bevestiging per e-mail en we nemen contact op voor het intakegesprek via Zoom.`
+            : "Jullie ontvangen een bevestiging per e-mail zodra alles is verwerkt. We nemen daarna contact op voor het intakegesprek via Zoom."}
+        </p>
+      ) : (
+        <p class="mt-5 text-xl text-muted">
+          Er is geen aanbetaling ontvangen, dus de aanmelding is nog niet definitief. Probeer het opnieuw of neem contact met ons op via <a href="mailto:secretariaat@redwoodspeopleservices.nl" class="text-brand-dark underline underline-offset-4">secretariaat@redwoodspeopleservices.nl</a>.
+        </p>
+      )}
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        {!geslaagd && <a href="/houd-me-vast/#aanmelden" class="btn-primary">Opnieuw aanmelden</a>}
+        <a href="/" class={geslaagd ? "btn-primary" : "btn-secondary"}>Naar de homepage</a>
+      </div>
+    </div>
+  </Section>
+</Base>

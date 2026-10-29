@@ -190,6 +190,18 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 - Zet `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` in Vercel (Settings → Environment Variables).
 - Optioneel: maak een Turnstile-widget aan in het Cloudflare-dashboard en zet `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` in Vercel.
 
+## 7b. Aanmelden Houd me Vast met aanbetaling (Mollie)
+
+Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) vraagt beide namen, e-mail, telefoon, gewenst weekend, opmerkingen en akkoord met de voorwaarden. Er is geen database; de flow loopt volledig via Mollie en e-mail.
+
+1. `POST /api/inschrijven` valideert en maakt met `MOLLIE_API_KEY` een betaling aan voor het bedrag in `src/data/houd-me-vast.json` (`aanbetalingBedrag`, beheerbaar in Keystatic). De formuliergegevens gaan mee als metadata van de betaling.
+2. De bezoeker betaalt op de Mollie-checkout (iDEAL, creditcard) en komt terug op `/houd-me-vast/bedankt/?id=tr_…`, die de status toont.
+3. Mollie roept `POST /api/mollie/webhook` aan. De site haalt de betaling op bij Mollie (echtheidscontrole) en mailt bij status `paid` het secretariaat én het stel. Het restant factureert de praktijk na de intake.
+
+Zonder `MOLLIE_API_KEY` valt het formulier terug op een aanmelding per mail; de praktijk regelt de aanbetaling dan zelf. Zet daarom ook `PUBLIC_MOLLIE_ENABLED=true` zodra de sleutel er is, zodat het formulier de betaalstap aankondigt.
+
+Testen: gebruik de `test_`-sleutel van Mollie in een Vercel Preview-omgeving (de webhook moet publiek bereikbaar zijn, dus niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren.
+
 ## 8. Uitrollen op Vercel
 
 1. Importeer de GitHub-repo in Vercel (Add New → Project). Vercel herkent Astro; framework preset "Astro", build command `astro build`, output wordt door de adapter bepaald.

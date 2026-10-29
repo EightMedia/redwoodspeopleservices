@@ -1,0 +1,88 @@
+---
+/**
+ * Aanmeldformulier Houd me Vast: beide namen, e-mail, telefoon, weekend, opmerkingen, voorwaarden.
+ * Post naar /api/inschrijven; met Mollie volgt de checkout voor de aanbetaling.
+ */
+import hmv from "../data/houd-me-vast.json";
+const mollie = Boolean(import.meta.env.PUBLIC_MOLLIE_ENABLED === "true");
+const weekends = hmv.data;
+const fout = Astro.url.searchParams.get("fout");
+---
+
+<form method="post" action="/api/inschrijven" class="space-y-5" data-inschrijf-form novalidate>
+  <div class="hidden" aria-hidden="true">
+    <label>Laat dit veld leeg <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+  {fout && <p class="rounded-xl bg-brand-soft p-4 text-brand-deep">{fout}</p>}
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="partner1" class="label">Naam partner 1</label>
+      <input id="partner1" name="partner1" type="text" class="field" required autocomplete="name" />
+    </div>
+    <div>
+      <label for="partner2" class="label">Naam partner 2</label>
+      <input id="partner2" name="partner2" type="text" class="field" required />
+    </div>
+  </div>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="email" class="label">E-mailadres</label>
+      <input id="email" name="email" type="email" class="field" required autocomplete="email" />
+    </div>
+    <div>
+      <label for="telefoon" class="label">Telefoonnummer</label>
+      <input id="telefoon" name="telefoon" type="tel" class="field" required autocomplete="tel" />
+    </div>
+  </div>
+  <div>
+    <label for="weekend" class="label">Gewenst weekend</label>
+    <select id="weekend" name="weekend" class="field" required>
+      <option value="">Kies een weekend</option>
+      {weekends.map((w) => <option value={w.datum} disabled={w.vol}>{w.datum}{w.vol ? " (vol)" : ""}</option>)}
+      <option value="Wachtlijst / eerstvolgende beschikbare weekend">Wachtlijst / eerstvolgende beschikbare weekend</option>
+    </select>
+  </div>
+  <div>
+    <label for="opmerkingen" class="label">Dieetwensen of opmerkingen <span class="font-normal text-muted">(optioneel)</span></label>
+    <textarea id="opmerkingen" name="opmerkingen" rows="3" class="field"></textarea>
+  </div>
+  <label class="flex items-start gap-3 text-sm">
+    <input type="checkbox" name="voorwaarden" value="ja" required class="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand" />
+    <span>We gaan akkoord met de <a href="/algemene-voorwaarden/" class="underline underline-offset-4">algemene en annuleringsvoorwaarden</a> en het <a href="/privacybeleid/" class="underline underline-offset-4">privacybeleid</a>.</span>
+  </label>
+
+  <div class="rounded-2xl bg-sand p-4 text-sm text-muted">
+    {mollie
+      ? <p>Na het versturen betaal je de aanbetaling van <strong class="text-ink">{hmv.aanbetaling}</strong> veilig via iDEAL of creditcard (Mollie). Het restant factureren we na het intakegesprek.</p>
+      : <p>Na je aanmelding nemen we contact op over de aanbetaling van <strong class="text-ink">{hmv.aanbetaling}</strong> en het intakegesprek.</p>}
+  </div>
+
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="submit" class="btn-primary">{mollie ? "Aanmelden en aanbetaling voldoen" : "Aanmelden"}</button>
+    <p class="text-sm text-muted" role="status" aria-live="polite" data-status></p>
+  </div>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-inschrijf-form]");
+  if (form) {
+    const status = form.querySelector<HTMLElement>("[data-status]")!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      button.disabled = true;
+      status.textContent = "Even geduld…";
+      try {
+        const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || "Versturen is niet gelukt.");
+        window.location.href = data.checkoutUrl || data.redirect || "/houd-me-vast/bedankt/";
+      } catch (err) {
+        status.textContent = (err as Error).message;
+        button.disabled = false;
+      }
+    });
+  }
+</script>

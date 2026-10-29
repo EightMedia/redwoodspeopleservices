@@ -5,7 +5,7 @@ import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Section from "../components/Section.astro";
 import Faq from "../components/Faq.astro";
-import ContactForm from "../components/ContactForm.astro";
+import InschrijfForm from "../components/InschrijfForm.astro";
 import foto from "../assets/houd-me-vast.jpg";
 import YouTube from "../components/YouTube.astro";
 import videoPoster from "../assets/video-PA3rLgrEs_c.jpg";
@@ -116,11 +116,11 @@ const ld = {
     <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
       <div>
         <h2 class="text-3xl font-bold sm:text-4xl">Als stel aanmelden</h2>
-        <p class="measure mt-4 text-muted">Schrijf je op tijd in, want we hebben een beperkt aantal plekken. Is het gewenste weekend vol, dan plaatsen we je op de wachtlijst of kun je je aanmelden voor het volgende weekend. Vermeld in je bericht welk weekend jullie voorkeur heeft en de namen van jullie beiden.</p>
-        <p class="measure mt-4 text-muted">Na je aanmelding nemen we contact op voor een intakegesprek via Zoom. Bij aanmelding vragen we een aanbetaling van 50%; de algemene en annuleringsvoorwaarden zijn van toepassing.</p>
+        <p class="measure mt-4 text-muted">Schrijf je op tijd in, want we hebben een beperkt aantal plekken. Is het gewenste weekend vol, dan plaatsen we je op de wachtlijst of kun je je aanmelden voor het volgende weekend. Kies het weekend van jullie voorkeur en vul de namen van jullie beiden in.</p>
+        <p class="measure mt-4 text-muted">Bij aanmelding vragen we een aanbetaling van 50%. Daarna nemen we contact op voor een intakegesprek via Zoom; het restant factureren we na dat gesprek. De algemene en annuleringsvoorwaarden zijn van toepassing.</p>
         <p class="mt-6 text-muted">Vragen? Mail <a href="mailto:secretariaat@redwoodspeopleservices.nl" class="text-brand-dark underline underline-offset-4">secretariaat@redwoodspeopleservices.nl</a> of bel <a href="tel:+31624913779" class="text-brand-dark underline underline-offset-4">+31 6 24913779</a>.</p>
       </div>
-      <ContactForm subject="Aanmelding Houd me Vast relatieweekend" buttonLabel="Aanmelden" questionLabel="Jullie bericht" questionPlaceholder="Welk weekend heeft jullie voorkeur? En hoe heet je partner?" />
+      <InschrijfForm />
     </div>
   </Section>
 </Base>
