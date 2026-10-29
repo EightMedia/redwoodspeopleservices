@@ -1,0 +1,21 @@
+---
+interface Props {
+  tone?: "paper" | "sand" | "brand" | "tint" | "forest";
+  class?: string;
+  id?: string;
+}
+const { tone = "paper", class: cls, id } = Astro.props;
+const tones = {
+  paper: "bg-paper",
+  sand: "bg-sand",
+  tint: "bg-brand-tint",
+  brand: "bg-brand text-white [&_h2]:text-white [&_h3]:text-white",
+  forest: "bg-forest text-white [&_h2]:text-white [&_h3]:text-white",
+};
+---
+
+<section id={id} class:list={["py-16 sm:py-24", tones[tone], cls]}>
+  <div class="container-site">
+    <slot />
+  </div>
+</section>

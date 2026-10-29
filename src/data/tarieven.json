@@ -1,0 +1,15 @@
+{
+  "geldigVanaf": "1 januari 2026",
+  "tarieven": [
+    { "naam": "Psychosociale zorg door ervaren therapeuten", "prijs": "€ 115,-", "btw": "btw-vrij", "info": "Eén sessie van 60 minuten. Prestatiecode 24500. Maandelijkse factuur. No-show: € 75,-." },
+    { "naam": "Psychosociale zorg door senior therapeuten", "prijs": "€ 135,-", "btw": "btw-vrij", "info": "Eén sessie van 60 minuten. Prestatiecode 24500. Maandelijkse factuur. No-show: € 85,-." },
+    { "naam": "Relatietherapie (EFT)", "prijs": "€ 215,-", "btw": "incl. 21% btw", "info": "Eén sessie van 90 minuten. Maandelijkse factuur. No-show: € 105,-." },
+    { "naam": "Individuele supervisie", "prijs": "€ 145,-", "btw": "incl. 21% btw", "info": "Eén sessie van 60 minuten. Maandelijkse factuur. No-show: € 100,-." },
+    { "naam": "Coaching", "prijs": "Op maat", "btw": "", "info": "Het tarief hangt af van je rol binnen het bedrijf, zoals medewerker of (mede)eigenaar (DGA)." }
+  ],
+  "studenten": [
+    { "naam": "Leertherapie", "prijs": "€ 90,-", "btw": "btw-vrij", "info": "Eén sessie van 60 minuten. Maandelijkse factuur." },
+    { "naam": "Individuele supervisie (60 min)", "prijs": "€ 115,-", "btw": "btw-vrij", "info": "Maandelijkse factuur." },
+    { "naam": "Individuele supervisie (90 min)", "prijs": "€ 140,-", "btw": "btw-vrij", "info": "Maandelijkse factuur." }
+  ]
+}

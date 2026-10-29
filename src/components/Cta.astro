@@ -1,0 +1,31 @@
+---
+interface Props {
+  title?: string;
+  text?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+const {
+  title = "Benieuwd of Redwoods bij je past?",
+  text = "Neem vrijblijvend contact op. Onze praktijkcoördinator Edwin belt of mailt je terug en denkt mee over de aanpak die bij je past.",
+  primary = { label: "Neem contact op", href: "/contact/" },
+  secondary = { label: "Bekijk de tarieven", href: "/tarieven/" },
+} = Astro.props;
+---
+
+<section class="py-16 sm:py-24">
+  <div class="container-site">
+    <div class="rounded-3xl bg-brand px-6 py-12 text-white sm:px-12 sm:py-16">
+      <div class="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+        <div>
+          <h2 class="text-3xl font-bold text-white sm:text-4xl">{title}</h2>
+          <p class="measure mt-4 text-lg text-white/95">{text}</p>
+        </div>
+        <div class="flex flex-wrap gap-3 lg:flex-col">
+          <a href={primary.href} class="btn bg-white text-brand-dark hover:bg-brand-tint">{primary.label}</a>
+          {secondary && <a href={secondary.href} class="btn border border-white/70 text-white hover:bg-white/10">{secondary.label}</a>}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

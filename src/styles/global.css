@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+@import "@fontsource/roboto-slab/500.css";
+@import "@fontsource/roboto-slab/700.css";
+
+@theme {
+  --font-sans: "Roboto", system-ui, sans-serif;
+  --font-display: "Roboto Slab", Georgia, serif;
+
+  --color-brand: #e75c50;
+  --color-brand-dark: #b7392e;
+  --color-brand-deep: #8f2a22;
+  --color-brand-soft: #fbe9e6;
+  --color-brand-tint: #fdf4f2;
+  --color-forest: #3f5d4b;
+  --color-forest-soft: #e6ede8;
+  --color-ink: #2b2b2b;
+  --color-muted: #5c5c5c;
+  --color-line: #e8e2dc;
+  --color-sand: #f7f3ee;
+  --color-paper: #ffffff;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+    line-height: 1.15;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+  ::selection {
+    @apply bg-brand-soft;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .measure {
+    max-width: 65ch;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-colors;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-colors bg-brand text-white hover:bg-brand-dark;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-colors border border-brand text-brand-dark hover:bg-brand-soft;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-colors text-brand-dark hover:bg-brand-soft;
+  }
+  .eyebrow {
+    @apply text-sm font-medium uppercase tracking-wider text-brand-dark;
+  }
+  .prose-site {
+    @apply prose prose-lg max-w-none prose-headings:font-display prose-headings:text-ink prose-a:text-brand-dark prose-a:underline-offset-4 prose-strong:text-ink prose-p:max-w-[65ch] prose-li:max-w-[65ch] prose-headings:max-w-[30ch] prose-img:rounded-2xl prose-blockquote:border-brand prose-blockquote:text-ink;
+  }
+  .field {
+    @apply w-full rounded-xl border border-line bg-paper px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+}

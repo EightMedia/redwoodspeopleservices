@@ -1,0 +1,24 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+import { site } from "../data/site";
+---
+
+<Base title="Privacybeleid" description="Hoe Redwoods People Services omgaat met je persoonsgegevens.">
+  <PageHeader eyebrow="Informatie" title="Privacybeleid" />
+  <Section>
+    <div class="prose-site max-w-3xl">
+      <p>Redwoods People Services, gevestigd aan de {site.address.street}, {site.address.postalCode} {site.address.city} (KvK {site.kvk}), gaat zorgvuldig om met je persoonsgegevens. Op deze pagina lees je welke gegevens we verwerken en waarom.</p>
+      <h2>Contactformulier</h2>
+      <p>Vul je het contactformulier in, dan verwerken we je naam, e-mailadres, telefoonnummer en je bericht om contact met je op te nemen. Je bericht wordt per e-mail aan ons secretariaat bezorgd via de maildienst Resend en wordt niet in een database op de website opgeslagen. Als je vraag is beantwoord en er geen traject volgt, bewaren we je gegevens niet langer.</p>
+      <h2>Cliëntdossier</h2>
+      <p>Word je cliënt, dan houden we een dossier bij zoals de Wet op de geneeskundige behandelingsovereenkomst (WGBO) en de richtlijnen van onze beroepsverenigingen voorschrijven. Dit dossier is alleen toegankelijk voor je behandelaar. Je hebt recht op inzage, correctie en, binnen de wettelijke kaders, verwijdering.</p>
+      <h2>Website en cookies</h2>
+      <p>Deze website plaatst geen trackingcookies en gebruikt geen advertentienetwerken. Voor de spamcontrole van het contactformulier kan Cloudflare Turnstile een functionele cookie plaatsen.</p>
+      <h2>Je rechten</h2>
+      <p>Je kunt ons altijd vragen welke gegevens we van je hebben, deze laten corrigeren of verwijderen. Mail daarvoor naar <a href={`mailto:${site.email}`}>{site.email}</a>. Heb je een klacht over hoe we met je gegevens omgaan, dan kun je terecht bij de Autoriteit Persoonsgegevens.</p>
+      <p class="text-sm text-muted">Deze tekst is een beknopte weergave en wordt bij publicatie van de nieuwe website nagelopen door de praktijk.</p>
+    </div>
+  </Section>
+</Base>

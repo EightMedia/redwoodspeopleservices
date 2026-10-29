@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Section from "../../components/Section.astro";
+import Faq from "../../components/Faq.astro";
+import ContactForm from "../../components/ContactForm.astro";
+
+export async function getStaticPaths() {
+  const diensten = await getCollection("diensten");
+  return diensten.map((d) => ({ params: { id: d.id }, props: { dienst: d } }));
+}
+const { dienst } = Astro.props;
+const { Content } = await render(dienst);
+const others = (await getCollection("diensten")).filter((d) => d.id !== dienst.id).sort((a, b) => a.data.order - b.data.order);
+const shortName = dienst.data.title.toLowerCase().replace(" (eft)", "");
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: dienst.data.title,
+  description: dienst.data.description,
+  provider: { "@id": "https://www.redwoodspeopleservices.nl/#organization" },
+  areaServed: ["Rozendaal", "Arnhem", "Velp", "Rheden", "Gelderland"],
+  url: new URL(Astro.url.pathname, Astro.site).href,
+};
+---
+
+<Base title={`${dienst.data.title} in Rozendaal bij Arnhem`} description={dienst.data.description} jsonLd={ld}>
+  <PageHeader eyebrow="Diensten" title={dienst.data.title} intro={dienst.data.intro} />
+  <Section>
+    <div class="grid gap-12 lg:grid-cols-[1fr_320px]">
+      <div class="prose-site">
+        <Content />
+      </div>
+      <aside class="space-y-6 lg:sticky lg:top-28 lg:self-start">
+        <div class="rounded-3xl bg-brand-tint p-6">
+          <p class="font-display text-xl font-bold">Een eerste stap zetten?</p>
+          <p class="mt-2 text-muted">Bel of mail ons, of laat je gegevens achter. Edwin, onze praktijkcoördinator, neemt contact met je op.</p>
+          <a href="/contact/" class="btn-primary mt-4 w-full">Neem contact op</a>
+          <a href="/tarieven/" class="btn-ghost mt-2 w-full">Tarieven en vergoeding</a>
+        </div>
+        <div class="rounded-3xl border border-line p-6">
+          <p class="font-display text-lg font-bold">Andere diensten</p>
+          <ul class="mt-3 space-y-2">
+            {others.map((o) => <li><a href={`/diensten/${o.id}/`} class="text-brand-dark hover:underline">{o.data.title}</a></li>)}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </Section>
+  {dienst.data.faq.length > 0 && (
+    <Section tone="sand">
+      <div class="max-w-3xl"><Faq items={dienst.data.faq} /></div>
+    </Section>
+  )}
+  <Section>
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-bold sm:text-4xl">Stel je vraag over {shortName}</h2>
+        <p class="measure mt-4 text-muted">Twijfel je of dit bij je past, of wil je weten of er plek is? Laat je vraag achter en we nemen contact met je op.</p>
+      </div>
+      <ContactForm subject={`Vraag over ${dienst.data.title}`} />
+    </div>
+  </Section>
+</Base>

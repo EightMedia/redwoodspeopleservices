@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+const items = [
+  { title: "Houd me Vast relatieweekend", text: "In één weekend werken aan een diepere emotionele band, op basis van EFT. Kleine groep, ervaren relatietherapeuten, klooster in Denekamp.", href: "/houd-me-vast/" },
+  { title: "Verbinden met Verlies", text: "Therapeutisch begeleide groep voor mensen die een dierbare hebben verloren. Vijf bijeenkomsten in Rozendaal.", href: "/verbinden-met-verlies/" },
+  { title: "Greenwoods", text: "Spiritual direction, retraites in de natuur en leiderschapsontwikkeling. Leven vanuit de diepte.", href: "/greenwoods/" },
+];
+---
+
+<Base title="Programma's" description="Groepsprogramma's van Redwoods: het Houd me Vast relatieweekend, de rouwgroep Verbinden met Verlies en de retraites en spiritual direction van Greenwoods.">
+  <PageHeader eyebrow="Programma's" title="Samen op weg, in een groep" intro="Naast individuele trajecten bieden we programma's waarin je met anderen aan de slag gaat." />
+  <Section>
+    <div class="grid gap-6 lg:grid-cols-3">
+      {items.map((p) => (
+        <a href={p.href} class="group flex flex-col rounded-3xl border border-line p-8 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg">
+          <h2 class="text-2xl font-bold group-hover:text-brand-dark">{p.title}</h2>
+          <p class="mt-3 flex-1 text-muted">{p.text}</p>
+          <span class="mt-6 font-medium text-brand-dark">Lees meer →</span>
+        </a>
+      ))}
+    </div>
+  </Section>
+</Base>

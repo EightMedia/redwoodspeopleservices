@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+import { site } from "../data/site";
+---
+
+<Base title="Algemene voorwaarden" description="Algemene en annuleringsvoorwaarden van Redwoods People Services.">
+  <PageHeader eyebrow="Informatie" title="Algemene voorwaarden" />
+  <Section>
+    <div class="prose-site max-w-3xl">
+      <h2>Afspraken en annulering</h2>
+      <p>Een afspraak kun je tot 24 uur van tevoren kosteloos verzetten of afzeggen. Bij niet verschijnen of later afzeggen brengen we het no-showtarief in rekening dat op de <a href="/tarieven/">tarievenpagina</a> staat vermeld.</p>
+      <h2>Facturering</h2>
+      <p>Je ontvangt maandelijks een factuur. Voor vergoeding vanuit een aanvullende zorgverzekering dien je de factuur zelf in bij je verzekeraar.</p>
+      <h2>Programma's en weekenden</h2>
+      <p>Bij aanmelding voor het Houd me Vast relatieweekend vragen we een aanbetaling van 50% van het totaalbedrag. Het resterende bedrag wordt na het intakegesprek gefactureerd. Voor annulering van programma's gelden de annuleringsvoorwaarden die je bij aanmelding ontvangt.</p>
+      <h2>Klachten</h2>
+      <p>Onze therapeuten zijn aangesloten bij beroepsverenigingen (onder meer VIT, RBCZ en SCAG) met een klacht- en tuchtregeling. Heb je een klacht, bespreek die dan eerst met je behandelaar of mail naar <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <p class="text-sm text-muted">De volledige algemene en annuleringsvoorwaarden worden door de praktijk aangeleverd en hier geplaatst vóór publicatie van de nieuwe website.</p>
+    </div>
+  </Section>
+</Base>

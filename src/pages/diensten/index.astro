@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Section from "../../components/Section.astro";
+import Cta from "../../components/Cta.astro";
+const diensten = (await getCollection("diensten")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title="Diensten" description="Psychotherapie, EFT-relatietherapie, coaching en supervisie bij Redwoods People Services in Rozendaal, bij Arnhem en Velp.">
+  <PageHeader eyebrow="Diensten" title="Therapie, coaching en supervisie op maat" intro="Of je nu zoekt naar persoonlijke groei, hulp in je relatie of professionele begeleiding: we kijken samen welke aanpak bij je past." />
+  <Section>
+    <div class="grid gap-6 md:grid-cols-2">
+      {diensten.map((d) => (
+        <a href={`/diensten/${d.id}/`} class="group rounded-3xl border border-line p-8 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg">
+          <h2 class="text-2xl font-bold group-hover:text-brand-dark">{d.data.title}</h2>
+          <p class="mt-3 text-muted">{d.data.intro}</p>
+          <span class="mt-5 inline-flex items-center gap-1 font-medium text-brand-dark">Lees meer <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-12 rounded-3xl bg-sand p-8">
+      <h2 class="text-2xl font-bold">Programma's in groepsverband</h2>
+      <p class="measure mt-3 text-muted">Naast individuele trajecten bieden we het <a href="/houd-me-vast/" class="text-brand-dark underline underline-offset-4">Houd me Vast relatieweekend</a>, de rouwgroep <a href="/verbinden-met-verlies/" class="text-brand-dark underline underline-offset-4">Verbinden met Verlies</a> en via <a href="/greenwoods/" class="text-brand-dark underline underline-offset-4">Greenwoods</a> spiritual direction en retraites.</p>
+    </div>
+  </Section>
+  <Cta />
+</Base>

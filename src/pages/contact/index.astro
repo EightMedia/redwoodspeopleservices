@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Section from "../../components/Section.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import { site } from "../../data/site";
+import pand from "../../assets/pand-rosendaalselaan.jpg";
+const fout = Astro.url.searchParams.has("fout");
+---
+
+<Base title="Contact en route" description="Neem contact op met Redwoods People Services in Rozendaal: telefoon, e-mail, contactformulier en routebeschrijving vanaf Arnhem en Velp.">
+  <PageHeader eyebrow="Contact" title="Neem contact op" intro="Heb je een vraag of wil je een afspraak maken? Bel, mail of laat je gegevens achter. Onze praktijkcoördinator Edwin neemt contact met je op." />
+  <Section>
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-2xl font-bold">Bereikbaarheid</h2>
+          <p class="mt-3 text-muted">Edwin is op maandag, woensdag en donderdag tussen 09:00 en 13:00 uur aanwezig. In die uren beantwoordt hij de telefoon, e-mails en berichten via het contactformulier.</p>
+          <ul class="mt-4 space-y-2 text-lg">
+            <li><a href={`tel:${site.phoneHref}`} class="text-brand-dark hover:underline">{site.phone}</a></li>
+            <li><a href={`mailto:${site.email}`} class="text-brand-dark hover:underline">{site.email}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold">Adres</h2>
+          <address class="mt-3 not-italic text-lg">{site.address.street}<br />{site.address.postalCode} {site.address.city}</address>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Rosendaalselaan+30,+6891+DG+Rozendaal" rel="noopener" target="_blank" class="btn-secondary mt-4">Routebeschrijving in Google Maps</a>
+        </div>
+        <Image src={pand} alt="Het witte monumentale pand van Redwoods aan de Rosendaalselaan" width={900} height={600} class="w-full rounded-3xl object-cover" />
+      </div>
+      <div class="rounded-3xl border border-line p-6 sm:p-8">
+        <h2 class="text-2xl font-bold">Contactformulier</h2>
+        <p class="mt-2 text-muted">We nemen zo snel mogelijk contact met je op, per e-mail of telefoon.</p>
+        {fout && <p class="mt-4 rounded-xl bg-brand-soft p-4 text-brand-deep">Versturen is niet gelukt. Probeer het opnieuw of mail ons rechtstreeks.</p>}
+        <div class="mt-6"><ContactForm /></div>
+      </div>
+    </div>
+  </Section>
+  <Section tone="sand">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div class="prose-site">
+        <h2>Met het openbaar vervoer</h2>
+        <p><strong>Vanaf Arnhem Centraal:</strong> neem bus 8 (15 minuten). Stap uit op de Ringallee, vlak voor de rotonde met de Rosendaalselaan. Ga bij de rotonde linksaf; ons pand is na zo'n twee minuten lopen aan je linkerhand.</p>
+        <p><strong>Vanaf station Velp:</strong> loop vanaf het stationsplein de Havelaarstraat helemaal uit, ga bij de T-splitsing links naar de bushalte en neem bus 8 richting Rozendaal (4 minuten). Stap uit op de Ringallee en ga bij de rotonde rechtsaf. Je kunt vanaf station Velp ook in ongeveer twintig minuten naar ons lopen.</p>
+      </div>
+      <div class="prose-site">
+        <h2>Met de auto</h2>
+        <p>Rozendaal ligt direct ten noordoosten van Arnhem, aan de rand van de Veluwezoom. Vanaf de A12 neem je afslag Arnhem-Noord/Velp (afrit 27) en volg je de borden Rozendaal. Parkeren kan bij het pand.</p>
+        <h2>Privacy</h2>
+        <p>Je gegevens gebruiken we alleen om contact met je op te nemen. Als je vraag is beantwoord, bewaren we je naam, telefoonnummer en e-mailadres niet. Lees ons <a href="/privacybeleid/">privacybeleid</a>.</p>
+      </div>
+    </div>
+  </Section>
+</Base>

@@ -1,0 +1,79 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Section from "../../components/Section.astro";
+import Cta from "../../components/Cta.astro";
+
+export async function getStaticPaths() {
+  const team = await getCollection("team");
+  return team.map((m) => ({ params: { id: m.id }, props: { member: m } }));
+}
+const { member } = Astro.props;
+const { Content } = await render(member);
+const others = (await getCollection("team")).filter((m) => m.id !== member.id).sort((a, b) => a.data.order - b.data.order);
+const d = member.data;
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: d.name,
+  jobTitle: d.role,
+  description: d.intro,
+  worksFor: { "@id": "https://www.redwoodspeopleservices.nl/#organization" },
+  url: new URL(Astro.url.pathname, Astro.site).href,
+  knowsAbout: d.specialties,
+};
+---
+
+<Base title={d.name} description={`${d.name}, ${d.role.toLowerCase()} bij Redwoods People Services in Rozendaal. ${d.intro}`} image={d.photo} jsonLd={ld}>
+  <Section class="pt-10 sm:pt-14">
+    <a href="/team/" class="inline-flex items-center gap-1 text-brand-dark hover:underline"><span aria-hidden="true">←</span> Het hele team</a>
+    <div class="mt-6 grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <Image src={d.photo} alt={`Portret van ${d.name}`} width={760} height={855} loading="eager" class="aspect-[8/9] w-full rounded-3xl object-cover" />
+        {d.specialties.length > 0 && (
+          <div class="mt-6">
+            <p class="eyebrow">Specialisaties</p>
+            <ul class="mt-3 flex flex-wrap gap-2">
+              {d.specialties.map((s) => <li class="rounded-full bg-brand-soft px-3 py-1 text-sm text-brand-deep">{s}</li>)}
+            </ul>
+          </div>
+        )}
+        {d.registrations.length > 0 && (
+          <div class="mt-6 rounded-2xl border border-line p-5">
+            <p class="font-display font-bold">Registraties</p>
+            <ul class="mt-2 space-y-1 text-sm text-muted">
+              {d.registrations.map((r) => <li>{r}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div>
+        <p class="eyebrow mb-3">{d.role}</p>
+        <h1 class="text-4xl font-bold sm:text-5xl">{d.name}</h1>
+        <p class="measure mt-5 text-xl text-muted">{d.intro}</p>
+        <div class="prose-site mt-8">
+          <Content />
+        </div>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="/contact/" class="btn-primary">Maak kennis</a>
+          <a href="/diensten/" class="btn-secondary">Onze diensten</a>
+        </div>
+      </div>
+    </div>
+  </Section>
+  <Section tone="sand">
+    <h2 class="text-2xl font-bold">Ook in het team</h2>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {others.map((o) => (
+        <li>
+          <a href={`/team/${o.id}/`} class="flex items-center gap-4 rounded-2xl bg-paper p-3 transition hover:shadow">
+            <Image src={o.data.photo} alt="" width={112} height={112} class="h-14 w-14 rounded-full object-cover" />
+            <span><span class="block font-medium">{o.data.name}</span><span class="block text-sm text-muted">{o.data.role}</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Section>
+  <Cta />
+</Base>

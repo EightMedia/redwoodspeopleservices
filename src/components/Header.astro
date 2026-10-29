@@ -1,0 +1,94 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo-redwoods.png";
+import { nav, site } from "../data/site";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+---
+
+<header class="sticky top-0 z-40 border-b border-line/70 bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
+  <div class="container-site flex h-20 items-center justify-between gap-6">
+    <a href="/" class="flex shrink-0 items-center" aria-label={`${site.name}, naar de homepage`}>
+      <Image src={logo} alt={site.name} width={230} height={53} loading="eager" class="h-11 w-auto" />
+    </a>
+
+    <nav class="hidden lg:block" aria-label="Hoofdmenu">
+      <ul class="flex items-center gap-1">
+        {nav.map((item) => (
+          <li class="group relative">
+            <a
+              href={item.href}
+              class:list={["inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[17px] font-medium transition-colors hover:bg-brand-soft hover:text-brand-dark", isActive(item.href) && "text-brand-dark"]}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+              {item.children && (
+                <svg class="h-4 w-4 opacity-60" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd"></path></svg>
+              )}
+            </a>
+            {item.children && (
+              <div class="invisible absolute left-0 top-full pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <ul class="min-w-64 rounded-2xl border border-line bg-paper p-2 shadow-lg">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} class="block rounded-xl px-4 py-2.5 text-[16px] hover:bg-brand-soft hover:text-brand-dark">{child.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="/contact/" class="btn-primary hidden sm:inline-flex">Contact</a>
+      <button
+        type="button"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line lg:hidden"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Menu openen"
+        data-menu-toggle
+      >
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-line bg-paper lg:hidden" hidden>
+    <nav class="container-site py-4" aria-label="Mobiel menu">
+      <ul class="flex flex-col gap-1">
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} class="block rounded-xl px-3 py-2.5 text-lg font-medium hover:bg-brand-soft">{item.label}</a>
+            {item.children && (
+              <ul class="mb-2 ml-3 border-l border-line pl-3">
+                {item.children.map((child) => (
+                  <li><a href={child.href} class="block rounded-xl px-3 py-2 text-base text-muted hover:bg-brand-soft hover:text-brand-dark">{child.label}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+        <li class="mt-2"><a href="/contact/" class="btn-primary w-full">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.getElementById("mobile-menu");
+  btn?.addEventListener("click", () => {
+    const open = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", String(!open));
+    btn.setAttribute("aria-label", open ? "Menu openen" : "Menu sluiten");
+    if (menu) {
+      menu.hidden = open;
+      menu.classList.toggle("hidden", open);
+    }
+  });
+</script>

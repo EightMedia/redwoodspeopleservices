@@ -1,0 +1,95 @@
+---
+/**
+ * Contactformulier: naam, e-mail, telefoon, vraag.
+ * Verstuurt naar /api/contact (serverless op Vercel) dat via Resend mailt.
+ */
+interface Props {
+  subject?: string;
+  buttonLabel?: string;
+  questionLabel?: string;
+  questionPlaceholder?: string;
+}
+const {
+  subject = "Contactformulier website",
+  buttonLabel = "Verstuur",
+  questionLabel = "Je vraag",
+  questionPlaceholder = "Waar kunnen we je mee helpen?",
+} = Astro.props;
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+---
+
+<form method="post" action="/api/contact" class="space-y-5" data-contact-form novalidate>
+  <input type="hidden" name="onderwerp" value={subject} />
+  <input type="hidden" name="pagina" value={Astro.url.pathname} />
+  <div class="hidden" aria-hidden="true">
+    <label>Laat dit veld leeg <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="naam" class="label">Naam</label>
+      <input id="naam" name="naam" type="text" class="field" required autocomplete="name" />
+    </div>
+    <div>
+      <label for="telefoon" class="label">Telefoonnummer</label>
+      <input id="telefoon" name="telefoon" type="tel" class="field" autocomplete="tel" />
+    </div>
+  </div>
+  <div>
+    <label for="email" class="label">E-mailadres</label>
+    <input id="email" name="email" type="email" class="field" required autocomplete="email" />
+  </div>
+  <div>
+    <label for="vraag" class="label">{questionLabel}</label>
+    <textarea id="vraag" name="vraag" rows="5" class="field" required placeholder={questionPlaceholder}></textarea>
+  </div>
+
+  {turnstileKey && (
+    <>
+      <div class="cf-turnstile" data-sitekey={turnstileKey} data-language="nl"></div>
+      <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    </>
+  )}
+
+  <p class="text-sm text-muted">We gebruiken je gegevens alleen om je vraag te beantwoorden. Zie ons <a href="/privacybeleid/" class="underline underline-offset-4">privacybeleid</a>.</p>
+
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="submit" class="btn-primary">{buttonLabel}</button>
+    <p class="text-sm text-muted" role="status" aria-live="polite" data-status></p>
+  </div>
+  <div class="hidden rounded-2xl bg-forest-soft p-6 text-ink" data-success>
+    <p class="font-display text-xl font-bold">Bedankt, je bericht is verstuurd.</p>
+    <p class="mt-2">We nemen zo snel mogelijk contact met je op, per e-mail of telefoon.</p>
+  </div>
+</form>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>("[data-contact-form]");
+  forms.forEach((form) => {
+    const status = form.querySelector<HTMLElement>("[data-status]")!;
+    const success = form.querySelector<HTMLElement>("[data-success]")!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      button.disabled = true;
+      status.textContent = "Bezig met versturen…";
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || "Versturen is niet gelukt.");
+        status.textContent = "";
+        form.querySelectorAll<HTMLElement>(".field, .label, .grid, .btn-primary").forEach((el) => (el.style.display = "none"));
+        success.classList.remove("hidden");
+      } catch (err) {
+        status.textContent = (err as Error).message + " Mail ons gerust rechtstreeks op secretariaat@redwoodspeopleservices.nl.";
+        button.disabled = false;
+      }
+    });
+  });
+</script>

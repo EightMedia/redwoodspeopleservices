@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Cta from "../components/Cta.astro";
+import bg from "../assets/greenwoods-achtergrond.jpg";
+import logo from "../assets/greenwoods-logo.png";
+import natuur from "../assets/natuurcoaching.jpg";
+---
+
+<Base title="Greenwoods: spiritual direction, retraites en leiderschap" description="Greenwoods is de plek van Redwoods voor spiritualiteit, zingeving en de innerlijke weg: spiritual direction, retraites in de natuur en leiderschapsontwikkeling." image={bg}>
+  <section class="relative isolate overflow-hidden bg-forest text-white">
+    <Image src={bg} alt="" width={1920} height={980} loading="eager" class="absolute inset-0 -z-10 h-full w-full object-cover opacity-40" />
+    <div class="container-site py-20 sm:py-28">
+      <Image src={logo} alt="Greenwoods People Services" width={360} height={155} loading="eager" class="h-20 w-auto rounded-xl bg-white/90 p-3" />
+      <p class="eyebrow mt-8 text-white/80">Greenwoods</p>
+      <h1 class="mt-3 max-w-[18ch] text-4xl font-bold text-white sm:text-5xl">Leven vanuit de diepte. Een plek om te wortelen, te groeien en te bloeien.</h1>
+      <p class="measure mt-6 text-xl text-white/95">Greenwoods is de plek waar onze begeleiding op het gebied van spiritualiteit, zingeving en de innerlijke weg een thuis heeft gevonden. Voor mensen en leiders die door een overgangsperiode gaan, merken dat oude structuren niet meer werken en verlangen naar vernieuwing van binnenuit.</p>
+    </div>
+  </section>
+
+  <Section>
+    <div class="prose-site max-w-3xl">
+      <h2>Dezelfde wortels als Redwoods</h2>
+      <p>Greenwoods is ontstaan vanuit de overtuiging dat echte verandering ontstaat waar groei en kwetsbaarheid elkaar ontmoeten. Waar Redwoods zich richt op therapie, coaching en relatiebegeleiding, biedt Greenwoods een huis voor spiritualiteit, innerlijke verdieping en de weg van de ziel. Spiritual direction was eerst onderdeel van Redwoods; nu vind je het, samen met retraites en andere verdiepende trajecten, bij Greenwoods.</p>
+    </div>
+  </Section>
+
+  <Section tone="sand">
+    <h2 class="text-3xl font-bold sm:text-4xl">Wat je bij Greenwoods kunt vinden</h2>
+    <div class="mt-10 grid gap-6 lg:grid-cols-3">
+      <div class="rounded-3xl bg-paper p-8">
+        <h3 class="text-2xl font-bold">Spiritual direction</h3>
+        <p class="mt-3 text-muted">Individueel of in een groep leer je luisteren naar de diepere lagen van je leven: naar je innerlijke grond, naar de stem van God, naar wat werkelijk leven, rust en ruimte geeft. De begeleiding is contemplatief, liefdevol en holistisch, met aandacht voor jou als geheel mens.</p>
+      </div>
+      <div class="rounded-3xl bg-paper p-8" id="retraites">
+        <h3 class="text-2xl font-bold">Retraites</h3>
+        <p class="mt-3 text-muted">Momenten en plekken om tot rust te komen en je opnieuw te oriënteren: retraites in de natuur, dagen van stilte en bezinning, ruimtes waar je kunt 'ontstappen' aan de drukte en weer thuiskomen bij jezelf.</p>
+      </div>
+      <div class="rounded-3xl bg-paper p-8">
+        <h3 class="text-2xl font-bold">Leiderschapsontwikkeling</h3>
+        <p class="mt-3 text-muted">Trajecten voor leiders en teams die zoeken naar leidinggeven dat dieper geworteld is in authenticiteit, relationeel en verantwoord is, en duurzaam in plaats van uitputtend. Leiderschap vanuit heelheid en verbondenheid.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <Image src={natuur} alt="Wandelaars in een bos bij ochtendlicht" width={1000} height={571} class="w-full rounded-3xl object-cover" />
+      <div class="prose-site">
+        <h2>Natuurcoaching: groei in en door de natuur</h2>
+        <p>Zonder getrainde zintuigen mis je zomaar een boodschap, een aanwijzing of een stuk verwondering. Bij natuurcoaching train je je vijf zintuigen én je intuïtie, zodat je weer in verbinding komt met je omgeving, met je verleden, met de ander en met de Schepper. Natuurcoaching bieden we individueel aan, als wandelcoaching, en in groepsretraites.</p>
+        <p><a href="/contact/">Vraag naar de mogelijkheden</a> of lees meer over <a href="/diensten/coaching/">coaching bij Redwoods</a>.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Cta title="Benieuwd naar Greenwoods?" text="Vertel ons waar je naar verlangt. We denken graag mee over spiritual direction, een retraite of een traject voor je team." secondary={{ label: "Ons team", href: "/team/" }} />
+</Base>

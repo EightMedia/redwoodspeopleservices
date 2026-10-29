@@ -1,0 +1,181 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import Cta from "../components/Cta.astro";
+import TeamCard from "../components/TeamCard.astro";
+import hero from "../assets/hero-redwoods.jpg";
+import praktijk from "../assets/praktijkruimte.jpg";
+import wortels from "../assets/wortels.png";
+
+const diensten = (await getCollection("diensten")).sort((a, b) => a.data.order - b.data.order);
+const team = (await getCollection("team")).sort((a, b) => a.data.order - b.data.order).filter((m) => m.id !== "edwin-meuleman").slice(0, 3);
+const posts = (await getCollection("blog")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const fmt = (d: Date) => d.toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
+
+const programmas = [
+  {
+    title: "Houd me Vast relatieweekend",
+    text: "Een weekend lang werken aan een diepere emotionele band, in een kleine groep stellen en onder begeleiding van ervaren relatietherapeuten.",
+    href: "/houd-me-vast/",
+    label: "Data en aanmelden",
+  },
+  {
+    title: "Verbinden met Verlies",
+    text: "Een therapeutisch begeleide groep voor mensen die een dierbare hebben verloren. Vijf bijeenkomsten met ruimte voor jouw verhaal.",
+    href: "/verbinden-met-verlies/",
+    label: "Meer over de groep",
+  },
+  {
+    title: "Greenwoods",
+    text: "Spiritual direction, retraites en leiderschapsontwikkeling. Een plek om te wortelen, te groeien en te bloeien.",
+    href: "/greenwoods/",
+    label: "Ontdek Greenwoods",
+  },
+];
+---
+
+<Base
+  title="Psychotherapie, relatietherapie en coaching in Rozendaal bij Arnhem"
+  bareTitle
+  description="Redwoods People Services is een praktijk voor psychotherapie, EFT-relatietherapie, coaching en supervisie in Rozendaal, op tien minuten van Arnhem en Velp. Oprechte aandacht en deskundige begeleiding."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-paper">
+    <div class="container-site grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:gap-16">
+      <div class="relative z-10">
+        <p class="eyebrow mb-4">Praktijk in Rozendaal, bij Arnhem en Velp</p>
+        <h1 class="text-4xl font-bold sm:text-5xl lg:text-[3.4rem]">Weer sterk in het leven staan, met mensen om je heen.</h1>
+        <p class="measure mt-6 text-xl leading-relaxed text-muted">
+          Verlang je naar heling en ontwikkeling? Wil je meer vrijheid, verbinding en zingeving ervaren? Bij Redwoods vind je oprechte persoonlijke aandacht en deskundige begeleiding: psychotherapie, relatietherapie, coaching en supervisie.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/contact/" class="btn-primary">Maak een afspraak</a>
+          <a href="/diensten/" class="btn-secondary">Bekijk onze diensten</a>
+        </div>
+        <ul class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted">
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand" aria-hidden="true"></span>Sinds 2000</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand" aria-hidden="true"></span>Aangesloten bij VIT, RBCZ en SCAG</li>
+          <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand" aria-hidden="true"></span>Iedereen is welkom</li>
+        </ul>
+      </div>
+      <div class="relative">
+        <Image src={hero} alt="Illustratie van drie redwoodbomen in rood en roze tinten" width={1100} height={487} loading="eager" fetchpriority="high" class="aspect-[5/4] w-full rounded-3xl object-cover object-right lg:aspect-[4/3]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Redwood metafoor -->
+  <Section tone="brand" class="relative overflow-hidden">
+    <Image src={wortels} alt="" width={1920} height={800} class="pointer-events-none absolute inset-x-0 bottom-0 w-full opacity-25 mix-blend-multiply" aria-hidden="true" />
+    <div class="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <h2 class="text-3xl font-bold sm:text-4xl">Redwoodbomen hebben elkaar nodig.</h2>
+        <p class="measure mt-5 text-lg text-white/95">
+          De wortels van een redwood zijn, in verhouding tot zijn hoogte, opvallend ondiep: drie à vier meter. Toch doorstaan deze bomen stormen, aardbevingen en bosbranden. Hoe? Ze staan bij elkaar. Hun wortels reiken in de breedte twintig tot dertig meter en verstrengelen zich met die van hun buren. Ze houden elkaar letterlijk overeind.
+        </p>
+      </div>
+      <div>
+        <p class="measure text-lg text-white/95">
+          Zo werkt het ook bij mensen. Redwoods helpt jou groeien om net zo sterk in het leven te staan als deze bomen. En niet jij alleen: ook je relatie, je gezin, je team of je organisatie kan bij ons terecht om de kracht die in iedereen zit te ontplooien. Zodat je er uiteindelijk sterker en zekerder van jezelf uitspringt.
+        </p>
+        <a href="/over-ons/" class="btn mt-6 border border-white/70 text-white hover:bg-white/10">Lees ons verhaal</a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Diensten -->
+  <Section>
+    <div class="max-w-2xl">
+      <p class="eyebrow mb-3">Diensten</p>
+      <h2 class="text-3xl font-bold sm:text-4xl">Waar we je mee helpen</h2>
+      <p class="mt-4 text-lg text-muted">Of je nu zoekt naar persoonlijke groei, hulp in je relatie of professionele begeleiding: we kijken samen welke aanpak bij je past.</p>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      {diensten.map((d) => (
+        <a href={`/diensten/${d.id}/`} class="group rounded-3xl border border-line bg-paper p-8 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg">
+          <h3 class="text-2xl font-bold group-hover:text-brand-dark">{d.data.title}</h3>
+          <p class="mt-3 text-muted">{d.data.intro}</p>
+          <span class="mt-5 inline-flex items-center gap-1 font-medium text-brand-dark">Meer over {d.data.title.toLowerCase().replace(" (eft)", "")} <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Programma's -->
+  <Section tone="sand">
+    <div class="max-w-2xl">
+      <p class="eyebrow mb-3">Programma's</p>
+      <h2 class="text-3xl font-bold sm:text-4xl">Samen op weg, in een groep</h2>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      {programmas.map((p) => (
+        <div class="flex flex-col rounded-3xl bg-paper p-8">
+          <h3 class="text-2xl font-bold">{p.title}</h3>
+          <p class="mt-3 flex-1 text-muted">{p.text}</p>
+          <a href={p.href} class="mt-6 inline-flex items-center gap-1 font-medium text-brand-dark">{p.label} <span aria-hidden="true">→</span></a>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Praktijk -->
+  <Section>
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <Image src={praktijk} alt="Lichte praktijkruimte met een bank, planten en houten bijzettafels" width={1000} height={667} class="w-full rounded-3xl object-cover" />
+      <div>
+        <p class="eyebrow mb-3">Onze praktijk</p>
+        <h2 class="text-3xl font-bold sm:text-4xl">Een rustige plek aan de rand van Arnhem</h2>
+        <p class="measure mt-5 text-lg text-muted">
+          Je vindt ons aan de Rosendaalselaan 30 in Rozendaal, in een monumentaal pand tussen het groen. Vanaf station Arnhem Centraal ben je er met bus 8 in een kwartier, vanaf station Velp in vier minuten. Parkeren kan bij het pand.
+        </p>
+        <p class="measure mt-4 text-lg text-muted">
+          Iedereen is welkom, ongeacht geloof of achtergrond. Jij staat centraal, en we werken in jouw tempo.
+        </p>
+        <a href="/contact/" class="btn-secondary mt-6">Adres en route</a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Team -->
+  <Section tone="tint">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-3">Ons team</p>
+        <h2 class="text-3xl font-bold sm:text-4xl">Ervaren therapeuten, met plezier en passie voor het vak</h2>
+      </div>
+      <a href="/team/" class="btn-secondary">Het hele team</a>
+    </div>
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((m) => <TeamCard member={m} compact />)}
+    </div>
+  </Section>
+
+  <!-- Blog -->
+  <Section>
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-3">Blog</p>
+        <h2 class="text-3xl font-bold sm:text-4xl">Inspiratie en inzichten</h2>
+      </div>
+      <a href="/blog/" class="btn-ghost">Alle artikelen →</a>
+    </div>
+    <div class="mt-12 grid gap-8 md:grid-cols-3">
+      {posts.map((p) => (
+        <article class="flex flex-col">
+          {p.data.cover && (
+            <a href={`/blog/${p.id}/`} tabindex="-1" aria-hidden="true" class="block overflow-hidden rounded-3xl bg-sand">
+              <Image src={p.data.cover} alt="" width={640} height={400} class="aspect-[16/10] w-full object-cover" />
+            </a>
+          )}
+          <p class="mt-5 text-sm text-muted">{fmt(p.data.date)}</p>
+          <h3 class="mt-2 text-xl font-bold"><a href={`/blog/${p.id}/`} class="hover:text-brand-dark">{p.data.title}</a></h3>
+          <p class="mt-2 line-clamp-3 text-muted">{p.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Cta />
+</Base>

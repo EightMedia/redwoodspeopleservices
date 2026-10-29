@@ -1,0 +1,124 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+import Faq from "../components/Faq.astro";
+import ContactForm from "../components/ContactForm.astro";
+import foto from "../assets/houd-me-vast.jpg";
+
+const trainers = (await getCollection("team")).filter((m) => ["cris-van-dusseldorp", "michelle-van-dusseldorp", "joost-de-wolf", "marielle-kattouw", "joke-francissen"].includes(m.id)).sort((a, b) => a.data.order - b.data.order);
+
+import hmv from "../data/houd-me-vast.json";
+const data = hmv.data;
+const themas = ["Liefde en hechting", "Omgaan met emoties", "Doorbreken van terugkerende patronen", "Ruzies stoppen en relaties herstellen", "Verbinden door gesprekken", "Vergeving en helen van pijnplekken", "Intimiteit: liefde en seks", "Veiligheid creëren in je relatie", "Onderling vertrouwen opbouwen"];
+const faq = [
+  { q: "Voor wie is het Houd me Vast relatieweekend?", a: "Voor stellen die hun relatie willen versterken, de emotionele band willen verdiepen of de verbinding weer willen opbouwen. Ideaal als eerste stap vóór relatietherapie, als aanvulling op een lopend traject, of als 'APK' voor je relatie. Ook voor jonge stellen die overwegen samen te gaan wonen of te trouwen. Je hoeft niet getrouwd te zijn en deelname staat open voor iedereen, ongeacht religie." },
+  { q: "Moet ik persoonlijke dingen delen met de groep?", a: "Nee. Je werkt vooral samen met je partner aan oefeningen, onder begeleiding van een relatietherapeut. Er zijn ontmoetingsmomenten met drie tot vier andere stellen, maar jullie bepalen zelf wat je deelt." },
+  { q: "Wat kost het weekend en wat is inbegrepen?", a: "Het weekend kost 1395 euro per stel, met een aanbetaling van 697,50 euro. Dit is inclusief materialen, begeleiding, twee overnachtingen en maaltijden in het Franciscaans Klooster in Denekamp. Het boek Houd me Vast is niet inbegrepen, maar wordt aanbevolen om vooraf te lezen." },
+  { q: "Hoe groot is de groep?", a: "We werken met maximaal 14 stellen en vier therapeuten die ook de rol van trainer vervullen, zodat er genoeg tijd is voor persoonlijke aandacht." },
+  { q: "Is er ruimte voor rust?", a: "Ja. Naast de oefeningen is er tijd om te ontspannen en van de omgeving te genieten. Bij de accommodatie zijn gratis fietsen beschikbaar." },
+  { q: "Hoe zit het met eten en dieetwensen?", a: "De kloosterkeuken verzorgt tussen de middag een warme maaltijd en 's avonds een broodmaaltijd. Dieetwensen of allergieën geef je vooraf door via secretariaat@redwoodspeopleservices.nl." },
+  { q: "Kunnen onze kinderen mee?", a: "Nee, kinderen kunnen helaas niet mee naar de locatie. Regel vooraf oppas, zodat jullie je volledig op elkaar kunnen richten." },
+  { q: "Is er huiswerk vooraf?", a: "Nee, maar we raden aan om samen het boek Houd me Vast van Sue Johnson te lezen, of de christelijke versie Met jou en God verbonden. Tip: maak er een wekelijkse 'date night' van en lees samen een hoofdstuk." },
+  { q: "Wat gebeurt er na aanmelding?", a: "We plannen een intakegesprek van ongeveer 30 minuten via Zoom. We bespreken waarom jullie kiezen voor het weekend, jullie interactiepatronen, hoe jullie relatie begon en wat jullie hopen te halen uit het weekend. Bij aanmelding vragen we een aanbetaling van 50%; de rest wordt na de intake gefactureerd." },
+  { q: "En na het weekend?", a: "Jullie kunnen de inzichten direct toepassen. Indien gewenst kan het weekend de eerste stap zijn naar EFT-relatietherapie of individuele coaching. We raden aan de vrijdag ervoor rustig aan te doen en de maandag erna vrij te houden." },
+];
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: "Houd me Vast relatieweekend",
+  description: "Relatieweekend voor stellen op basis van EFT, begeleid door relatietherapeuten van Redwoods People Services.",
+  startDate: "2027-01-22",
+  endDate: "2027-01-24",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  location: { "@type": "Place", name: "Franciscaans Klooster Denekamp", address: { "@type": "PostalAddress", streetAddress: "Gravenallee 30", postalCode: "7591 PE", addressLocality: "Denekamp", addressCountry: "NL" } },
+  organizer: { "@id": "https://www.redwoodspeopleservices.nl/#organization" },
+  offers: { "@type": "Offer", price: "1395", priceCurrency: "EUR", url: "https://www.redwoodspeopleservices.nl/houd-me-vast/" },
+};
+---
+
+<Base title="Houd me Vast relatieweekend" description="Het Houd me Vast relatieweekend: in één weekend werken aan een diepere emotionele band, op basis van EFT. Kleine groep, ervaren relatietherapeuten, klooster in Denekamp. Data en aanmelden." image={foto} jsonLd={ld}>
+  <PageHeader eyebrow="Programma voor stellen" title="Houd me Vast relatieweekend" intro="Voelt het alsof je elkaar niet meer bereikt, dat de emotionele verbinding ontbreekt en dat jullie vastzitten in dezelfde conflicten? In één weekend werken jullie stap voor stap aan een diepere band en een veiligere relatie.">
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="#aanmelden" class="btn-primary">Aanmelden als stel</a>
+      <a href="#data" class="btn-secondary">Bekijk de data</a>
+    </div>
+  </PageHeader>
+
+  <Section>
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="prose-site">
+        <h2>Een toegankelijke versie van EFT-relatietherapie</h2>
+        <p>Het Houd me Vast relatieweekend is speciaal voor stellen die willen werken aan een diepere emotionele band. Je krijgt stap voor stap de tools aangereikt om elkaar beter te begrijpen en de verbinding te versterken. Het programma heeft een heldere structuur, met het boek <em>Houd me Vast</em>, inspirerende filmpjes en praktische opdrachten.</p>
+        <p>Het is een 'lightversie' van EFT-relatietherapie: in korte tijd werken jullie aan de thema's die normaal in zeven sessies aan bod komen. Je hoeft je persoonlijke issues niet met de groep te delen. Je werkt samen met je partner aan oefeningen, onder begeleiding van een ervaren relatietherapeut.</p>
+        <p>Samen leer je ruzies te stoppen, emoties op een gezonde manier te delen, en veiligheid en vertrouwen op te bouwen. Het weekend biedt direct resultaat.</p>
+      </div>
+      <Image src={foto} alt="Twee mensen houden elkaars handen vast" width={1000} height={667} class="w-full rounded-3xl object-cover" />
+    </div>
+  </Section>
+
+  <Section tone="brand" id="data">
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <h2 class="text-3xl font-bold sm:text-4xl">Data en prijs</h2>
+        <p class="mt-3 text-white/90">Van vrijdagavond tot en met zondagmiddag, in het Franciscaans Klooster in Denekamp.</p>
+        <ul class="mt-6 divide-y divide-white/20 border-y border-white/20">
+          {data.map((x) => (
+            <li class="flex items-center justify-between gap-4 py-3 text-lg">
+              <span>{x.datum}</span>
+              {x.vol ? <span class="rounded-full bg-white/20 px-3 py-0.5 text-sm">Vol</span> : <span class="rounded-full bg-white px-3 py-0.5 text-sm text-brand-dark">Plek beschikbaar</span>}
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-xl"><strong>{hmv.prijs} per stel</strong> <span class="text-white/85">(aanbetaling {hmv.aanbetaling})</span></p>
+        <p class="mt-2 text-white/85">Inclusief begeleiding, materialen, twee overnachtingen en maaltijden.</p>
+      </div>
+      <div>
+        <h2 class="text-3xl font-bold sm:text-4xl">De thema's die we behandelen</h2>
+        <ul class="mt-6 grid gap-2 sm:grid-cols-2">
+          {themas.map((t) => <li class="flex items-start gap-2"><span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white" aria-hidden="true"></span>{t}</li>)}
+        </ul>
+        <blockquote class="mt-8 border-l-2 border-white/60 pl-5 text-lg italic text-white/95">"Dit weekend heeft ons in korte tijd dichter bij elkaar gebracht en ons geholpen onze relatie naar een dieper niveau te tillen."</blockquote>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="prose-site">
+        <h2>Wat zijn de effecten?</h2>
+        <p>Vele duizenden stellen zijn jullie voorgegaan met dit programma. Uit onderzoek blijkt dat de tevredenheid over de relatie na afloop werkelijk groter is. Stellen ervaren een sterkere band en hebben minder conflicten. Partners begrijpen zichzelf en de ander beter, waardoor er meer ruimte komt voor emoties en meer harmonie in het dagelijks leven.</p>
+      </div>
+      <div>
+        <h2 class="text-3xl font-bold">Jullie begeleiders</h2>
+        <p class="mt-3 text-muted">Alle vijf zijn EFT-advanced relatietherapeut en hebben zelf de Houd me Vast-training gevolgd.</p>
+        <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+          {trainers.map((t) => (
+            <li><a href={`/team/${t.id}/`} class="flex items-center gap-3 rounded-2xl border border-line p-3 hover:border-brand/40">
+              <Image src={t.data.photo} alt="" width={96} height={96} class="h-12 w-12 rounded-full object-cover" />
+              <span class="font-medium">{t.data.name}</span>
+            </a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="sand">
+    <div class="max-w-3xl"><Faq items={faq} title="Alles wat je wilt weten over het weekend" /></div>
+  </Section>
+
+  <Section id="aanmelden">
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <h2 class="text-3xl font-bold sm:text-4xl">Als stel aanmelden</h2>
+        <p class="measure mt-4 text-muted">Schrijf je op tijd in, want we hebben een beperkt aantal plekken. Is het gewenste weekend vol, dan plaatsen we je op de wachtlijst of kun je je aanmelden voor het volgende weekend. Vermeld in je bericht welk weekend jullie voorkeur heeft en de namen van jullie beiden.</p>
+        <p class="measure mt-4 text-muted">Na je aanmelding nemen we contact op voor een intakegesprek via Zoom. Bij aanmelding vragen we een aanbetaling van 50%; de algemene en annuleringsvoorwaarden zijn van toepassing.</p>
+        <p class="mt-6 text-muted">Vragen? Mail <a href="mailto:secretariaat@redwoodspeopleservices.nl" class="text-brand-dark underline underline-offset-4">secretariaat@redwoodspeopleservices.nl</a> of bel <a href="tel:+31624913779" class="text-brand-dark underline underline-offset-4">+31 6 24913779</a>.</p>
+      </div>
+      <ContactForm subject="Aanmelding Houd me Vast relatieweekend" buttonLabel="Aanmelden" questionLabel="Jullie bericht" questionPlaceholder="Welk weekend heeft jullie voorkeur? En hoe heet je partner?" />
+    </div>
+  </Section>
+</Base>

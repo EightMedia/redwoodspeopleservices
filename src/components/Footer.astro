@@ -1,0 +1,73 @@
+---
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+const cols = [
+  {
+    title: "Diensten",
+    links: [
+      { label: "Psychotherapie", href: "/diensten/psychotherapie/" },
+      { label: "Relatietherapie (EFT)", href: "/diensten/relatietherapie/" },
+      { label: "Coaching", href: "/diensten/coaching/" },
+      { label: "Supervisie", href: "/diensten/supervisie/" },
+      { label: "Tarieven", href: "/tarieven/" },
+    ],
+  },
+  {
+    title: "Programma's",
+    links: [
+      { label: "Houd me Vast relatieweekend", href: "/houd-me-vast/" },
+      { label: "Verbinden met Verlies", href: "/verbinden-met-verlies/" },
+      { label: "Greenwoods", href: "/greenwoods/" },
+    ],
+  },
+  {
+    title: "Over Redwoods",
+    links: [
+      { label: "Ons team", href: "/team/" },
+      { label: "Over ons", href: "/over-ons/" },
+      { label: "Blog", href: "/blog/" },
+      { label: "Contact en route", href: "/contact/" },
+    ],
+  },
+];
+---
+
+<footer class="mt-24 border-t border-line bg-sand">
+  <div class="container-site grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-5">
+    <div class="lg:col-span-2">
+      <p class="font-display text-2xl font-bold text-ink">Redwoods People Services</p>
+      <p class="mt-3 max-w-sm text-muted">Praktijk voor psychotherapie, relatietherapie, coaching en supervisie in Rozendaal, op tien minuten van Arnhem en Velp.</p>
+      <address class="mt-6 not-italic leading-relaxed">
+        <p>{site.address.street}<br />{site.address.postalCode} {site.address.city}</p>
+        <p class="mt-3">
+          <a href={`tel:${site.phoneHref}`} class="hover:text-brand-dark">{site.phone}</a><br />
+          <a href={`mailto:${site.email}`} class="hover:text-brand-dark">{site.email}</a>
+        </p>
+      </address>
+      <p class="mt-4 text-sm text-muted">Telefonisch bereikbaar op maandag, woensdag en donderdag van 09:00 tot 13:00 uur.</p>
+    </div>
+    {cols.map((col) => (
+      <div>
+        <p class="font-display text-lg font-bold">{col.title}</p>
+        <ul class="mt-4 space-y-2.5">
+          {col.links.map((l) => (
+            <li><a href={l.href} class="text-muted hover:text-brand-dark">{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <div class="border-t border-line">
+    <div class="container-site flex flex-col gap-4 py-6 text-sm text-muted md:flex-row md:items-center md:justify-between">
+      <p>© {year} Redwoods People Services · KvK {site.kvk}</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-2">
+        <li><a href="/privacybeleid/" class="hover:text-brand-dark">Privacybeleid</a></li>
+        <li><a href="/algemene-voorwaarden/" class="hover:text-brand-dark">Algemene voorwaarden</a></li>
+        <li><a href={site.socials.linkedin} rel="noopener" target="_blank" class="hover:text-brand-dark">LinkedIn</a></li>
+        <li><a href={site.socials.instagram} rel="noopener" target="_blank" class="hover:text-brand-dark">Instagram</a></li>
+        <li><a href={site.socials.facebook} rel="noopener" target="_blank" class="hover:text-brand-dark">Facebook</a></li>
+        <li><a href={site.socials.youtube} rel="noopener" target="_blank" class="hover:text-brand-dark">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  tone?: "light" | "brand";
+}
+const { eyebrow, title, intro, tone = "light" } = Astro.props;
+---
+
+<section class:list={["py-16 sm:py-20", tone === "brand" ? "bg-brand text-white" : "bg-brand-tint"]}>
+  <div class="container-site">
+    {eyebrow && <p class:list={["eyebrow mb-3", tone === "brand" && "text-white/85"]}>{eyebrow}</p>}
+    <h1 class:list={["max-w-[20ch] text-4xl font-bold sm:text-5xl", tone === "brand" && "text-white"]}>{title}</h1>
+    {intro && <p class:list={["measure mt-5 text-xl leading-relaxed", tone === "brand" ? "text-white/95" : "text-muted"]}>{intro}</p>}
+    <slot />
+  </div>
+</section>

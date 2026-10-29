@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+import Faq from "../components/Faq.astro";
+import Cta from "../components/Cta.astro";
+
+import data from "../data/tarieven.json";
+const { tarieven, studenten, geldigVanaf } = data;
+const faq = [
+  { q: "Wordt therapie vergoed door mijn zorgverzekeraar?", a: "Veel van onze therapieën worden (deels) vergoed vanuit het aanvullende pakket van je zorgverzekering en vallen niet onder het verplichte eigen risico. Vraag je verzekeraar naar de voorwaarden en percentages voor (psychosociale) therapie, ook wel integratieve psychotherapie genoemd. Op de website van Zorgwijzer vind je een overzicht." },
+  { q: "Worden coaching en supervisie vergoed?", a: "Coaching en supervisie worden doorgaans niet vergoed door zorgverzekeraars, maar vaak wel betaald door je werkgever." },
+  { q: "Ik ben al cliënt. Gelden deze tarieven ook voor mij?", a: "Deze tarieven gelden voor nieuwe cliënten en voor trajecten die starten vanaf {geldigVanaf}. Ben je al cliënt, dan blijven de eerder afgesproken tarieven voor je lopende traject van kracht, tenzij we samen iets anders afspreken." },
+  { q: "Wat als de kosten een uitdaging zijn?", a: "We denken graag met je mee om samen een passende oplossing te vinden. Laat het ons weten." },
+];
+---
+
+<Base title="Tarieven en vergoedingen" description="Tarieven voor psychotherapie, relatietherapie, coaching en supervisie bij Redwoods in Rozendaal, en hoe vergoeding via je zorgverzekeraar werkt.">
+  <PageHeader eyebrow="Tarieven" title="Tarieven en vergoedingen" intro="De financiële kant van therapie is belangrijk. Hier vind je onze tarieven en hoe eventuele vergoeding via je zorgverzekeraar werkt." />
+  <Section>
+    <div class="max-w-3xl">
+      <p class="text-muted">Deze tarieven gelden voor nieuwe cliënten en voor trajecten die starten vanaf {geldigVanaf}.</p>
+      <ul class="mt-8 divide-y divide-line border-y border-line">
+        {tarieven.map((t) => (
+          <li class="grid gap-2 py-5 sm:grid-cols-[1fr_auto] sm:gap-8">
+            <div>
+              <p class="text-lg font-medium">{t.naam}</p>
+              <p class="mt-1 text-sm text-muted">{t.info}</p>
+            </div>
+            <p class="text-left sm:text-right"><span class="font-display text-2xl font-bold">{t.prijs}</span>{t.btw && <span class="block text-sm text-muted">{t.btw}</span>}</p>
+          </li>
+        ))}
+      </ul>
+      <h2 class="mt-14 text-2xl font-bold">Tarieven studenten Groundwork Academy</h2>
+      <ul class="mt-6 divide-y divide-line border-y border-line">
+        {studenten.map((t) => (
+          <li class="grid gap-2 py-4 sm:grid-cols-[1fr_auto] sm:gap-8">
+            <div>
+              <p class="font-medium">{t.naam}</p>
+              <p class="mt-1 text-sm text-muted">{t.info}</p>
+            </div>
+            <p class="sm:text-right"><span class="font-display text-xl font-bold">{t.prijs}</span><span class="block text-sm text-muted">{t.btw}</span></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <Section tone="sand">
+    <div class="max-w-3xl"><Faq items={faq} title="Vergoeding en voorwaarden" /></div>
+  </Section>
+  <Cta title="Vragen over kosten of vergoeding?" text="Twijfel je over je situatie, of zijn de kosten een uitdaging? Laat het ons weten. We denken graag met je mee." secondary={{ label: "Onze diensten", href: "/diensten/" }} />
+</Base>
