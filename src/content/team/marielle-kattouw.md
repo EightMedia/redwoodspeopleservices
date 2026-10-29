@@ -1,7 +1,7 @@
 ---
 name: Mariëlle Kattouw
 role: Integratief therapeut en EFT-relatietherapeut
-intro: Creëert rust en overzicht, zodat mensen zich snel vertrouwd voelen en vrijuit hun verhaal kunnen vertellen. Begeleidt ook de groep Verbinden met Verlies.
+intro: Creëert rust en overzicht, zodat mensen zich snel vertrouwd voelen en vrijuit hun verhaal kunnen vertellen. Begeleidt ook de groep Rouw en Verlies.
 photo: ../../assets/team/marielle-kattouw.jpg
 order: 3
 specialties:
@@ -20,4 +20,4 @@ Mariëlle ontdekte gaandeweg dat het begeleiden van mensen naar innerlijke genez
 
 Mariëlle is sterk in het creëren van rust en overzicht, en daarmee in een veilige en vertrouwde setting. Mensen voelen zich snel bij haar op hun gemak en voelen zich vrij om hun verhaal te vertellen.
 
-Samen met Joke Francissen begeleidt ze de groep [Verbinden met Verlies](/verbinden-met-verlies/) voor mensen die een dierbare hebben verloren. Naast haar werk is ze graag op pad met haar gezin of vrienden en houdt ze van gezelligheid.
+Samen met Joke Francissen begeleidt ze de groep [Rouw en Verlies](/rouw-en-verlies/) voor mensen die een dierbare hebben verloren. Naast haar werk is ze graag op pad met haar gezin of vrienden en houdt ze van gezelligheid.

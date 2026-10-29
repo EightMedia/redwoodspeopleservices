@@ -96,7 +96,7 @@ De oude site draaide op WordPress met Elementor en WooCommerce. Die combinatie g
 │   │   ├── site.ts         Naam, adres, telefoon, socials, navigatie
 │   │   ├── tarieven.json   Tarieventabel (beheerbaar in Keystatic)
 │   │   ├── houd-me-vast.json           Data en prijs relatieweekend
-│   │   └── verbinden-met-verlies.json  Data en prijs rouwgroep
+│   │   └── rouw-en-verlies.json  Data en prijs rouwgroep
 │   ├── assets/             Afbeeldingen (worden bij de build geoptimaliseerd)
 │   ├── components/         Header, Footer, ContactForm, Faq, TeamCard, Section, Cta, PageHeader
 │   ├── layouts/Base.astro  HTML-skelet, <head>, SEO-tags, JSON-LD, header en footer
@@ -105,7 +105,7 @@ De oude site draaide op WordPress met Elementor en WooCommerce. Die combinatie g
 │   │   ├── diensten/[id].astro       /diensten/psychotherapie/ enz.
 │   │   ├── team/[id].astro           /team/cris-van-dusseldorp/ enz.
 │   │   ├── blog/[id].astro           /blog/<slug>/
-│   │   ├── houd-me-vast.astro, verbinden-met-verlies.astro, greenwoods.astro
+│   │   ├── houd-me-vast.astro, rouw-en-verlies.astro, greenwoods.astro
 │   │   ├── over-ons.astro, tarieven.astro, contact/index.astro
 │   │   ├── privacybeleid.astro, algemene-voorwaarden.astro, 404.astro
 │   │   └── api/contact.ts            Serverless endpoint voor het formulier
@@ -140,7 +140,7 @@ Keystatic is bereikbaar op **`/keystatic`**. Het toont formulieren voor:
 | Diensten | Teksten en veelgestelde vragen per dienst | `src/content/diensten/<slug>.md` |
 | Tarieven | De tarieventabel en de studententarieven | `src/data/tarieven.json` |
 | Houd me Vast | Weekenddata (met "vol"-vinkje), prijs en aanbetaling | `src/data/houd-me-vast.json` |
-| Verbinden met Verlies | Startdatum, omvang, prijs | `src/data/verbinden-met-verlies.json` |
+| Rouw en Verlies | Startdatum, omvang, prijs | `src/data/rouw-en-verlies.json` |
 
 De homepage, Over ons, Greenwoods en Contact staan bewust in code. Daar verandert zelden iets, en zo blijft de structuur (en de leesbaarheid) intact.
 
@@ -174,7 +174,7 @@ Tekst in Markdown. Koppen met `##`, nadruk met `**vet**`.
 
 ## 7. Contactformulier
 
-Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de contactpagina en, met een ander onderwerp, op de dienstpagina's, Houd me Vast en Verbinden met Verlies.
+Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de contactpagina en, met een ander onderwerp, op de dienstpagina's, Houd me Vast en Rouw en Verlies.
 
 **Flow**
 

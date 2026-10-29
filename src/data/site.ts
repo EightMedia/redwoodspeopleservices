@@ -42,7 +42,7 @@ export const nav = [
     href: "/programmas/",
     children: [
       { label: "Houd me Vast relatieweekend", href: "/houd-me-vast/" },
-      { label: "Verbinden met Verlies", href: "/verbinden-met-verlies/" },
+      { label: "Rouw en Verlies", href: "/rouw-en-verlies/" },
       { label: "Greenwoods", href: "/greenwoods/" },
     ],
   },

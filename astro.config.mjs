@@ -24,6 +24,7 @@ export default defineConfig({
     "/afrekenen/": "/",
     "/mijn-account/": "/",
     "/natuurcoaching/": "/greenwoods/",
+    "/verbinden-met-verlies/": "/rouw-en-verlies/",
     "/programmas-retreats/": "/greenwoods/",
     "/blog-goed-voelen/": "/blog/",
     "/een-fragiel-evenwicht/": "/blog/",

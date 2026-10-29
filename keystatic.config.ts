@@ -33,7 +33,7 @@ export default config({
     brand: { name: "Redwoods website" },
     navigation: {
       Content: ["blog", "team", "diensten"],
-      Instellingen: ["tarieven", "houdMeVast", "verbindenMetVerlies"],
+      Instellingen: ["tarieven", "houdMeVast", "rouwEnVerlies"],
     },
   },
   collections: {
@@ -129,9 +129,9 @@ export default config({
         ),
       },
     }),
-    verbindenMetVerlies: singleton({
-      label: "Verbinden met Verlies: data en prijs",
-      path: "src/data/verbinden-met-verlies",
+    rouwEnVerlies: singleton({
+      label: "Rouw en Verlies: data en prijs",
+      path: "src/data/rouw-en-verlies",
       format: "json",
       schema: {
         wanneer: fields.text({ label: "Wanneer", description: "Bijvoorbeeld: Start 12 maart 2027, of: data volgen binnenkort", multiline: true }),

@@ -26,7 +26,7 @@ Hoe je als kind leerde verbinden met belangrijke anderen, vormt een blauwdruk vo
 
 ## Rouw en verlies
 
-Rouw en verlies horen onvermijdelijk bij het leven. Door het verlies van mijn man weet ik hoe ingrijpend en ontwrichtend rouw kan zijn. Tegelijk heb ik ervaren dat er, midden in het verdriet, ook veerkracht en verdieping kan ontstaan. Deze ervaring maakt dat ik met zachtheid en stevigheid aanwezig kan zijn bij verlies, zonder iets op te lossen of kleiner te maken. Samen met Mariëlle Kattouw begeleid ik de groep [Verbinden met Verlies](/verbinden-met-verlies/).
+Rouw en verlies horen onvermijdelijk bij het leven. Door het verlies van mijn man weet ik hoe ingrijpend en ontwrichtend rouw kan zijn. Tegelijk heb ik ervaren dat er, midden in het verdriet, ook veerkracht en verdieping kan ontstaan. Deze ervaring maakt dat ik met zachtheid en stevigheid aanwezig kan zijn bij verlies, zonder iets op te lossen of kleiner te maken. Samen met Mariëlle Kattouw begeleid ik de groep [Rouw en Verlies](/rouw-en-verlies/).
 
 ## Hoe ik werk
 

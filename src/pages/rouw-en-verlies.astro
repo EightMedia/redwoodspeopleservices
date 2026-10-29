@@ -5,13 +5,13 @@ import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Section from "../components/Section.astro";
 import ContactForm from "../components/ContactForm.astro";
-import vmv from "../data/verbinden-met-verlies.json";
+import vmv from "../data/rouw-en-verlies.json";
 
 const begeleiders = (await getCollection("team")).filter((m) => ["marielle-kattouw", "joke-francissen"].includes(m.id)).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Base title="Verbinden met Verlies, rouwgroep in Rozendaal" description="Verbinden met Verlies is een therapeutisch begeleide groep voor mensen die een dierbare hebben verloren. Vijf bijeenkomsten in Rozendaal bij Arnhem, begeleid door ervaren integratief therapeuten.">
-  <PageHeader eyebrow="Groep bij rouw en verlies" title="Verbinden met Verlies" intro="Voelt het alsof je na een verlies bent vastgelopen en het moeilijk is om weer ruimte te voelen voor jezelf en het leven? In deze groep ontmoet je anderen die ook met verlies leven.">
+<Base title="Rouw en Verlies, groepstraject in Rozendaal bij Arnhem" description="Rouw en Verlies is een therapeutisch begeleide groep voor mensen die een dierbare hebben verloren. Vijf bijeenkomsten in Rozendaal bij Arnhem, begeleid door ervaren integratief therapeuten.">
+  <PageHeader eyebrow="Groepstraject na het verlies van een dierbare" title="Rouw en Verlies" intro="Voelt het alsof je na een verlies bent vastgelopen en het moeilijk is om weer ruimte te voelen voor jezelf en het leven? In deze groep ontmoet je anderen die ook met verlies leven.">
     <div class="mt-8 flex flex-wrap gap-3">
       <a href="#aanmelden" class="btn-primary">Aanmelden als geïnteresseerde</a>
     </div>
@@ -22,7 +22,7 @@ const begeleiders = (await getCollection("team")).filter((m) => ["marielle-katto
       <div class="prose-site">
         <h2>Opnieuw je evenwicht vinden</h2>
         <p>Als rouw en verlies je leven raken, doet dat pijn. Pijn waar we soms moeilijk mee om weten te gaan. Het is meer dan verdriet: het raakt ons in de kern van ons bestaan. Niets is meer vanzelfsprekend. De wereld om je heen gaat gewoon door, en toch is alles veranderd.</p>
-        <p>In de groep Verbinden met Verlies ontmoet je anderen die eveneens met verlies leven. In een veilige en respectvolle omgeving is er ruimte voor jouw verhaal, emoties en vragen. Je hoeft niets te delen wat je niet wilt; luisteren mag ook.</p>
+        <p>In de groep Rouw en Verlies ontmoet je anderen die eveneens met verlies leven. In een veilige en respectvolle omgeving is er ruimte voor jouw verhaal, emoties en vragen. Je hoeft niets te delen wat je niet wilt; luisteren mag ook.</p>
         <p>Samen staan we stil bij wat verlies met je doet en zoeken we naar manieren om verder te leven met wat er is gebeurd. Er is aandacht voor herkenning, verbinding en het hervinden van veerkracht.</p>
         <blockquote>Rouw en verlies horen bij het leven, maar de weg erdoorheen is voor iedereen anders.</blockquote>
       </div>
@@ -53,7 +53,7 @@ const begeleiders = (await getCollection("team")).filter((m) => ["marielle-katto
     <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
       <div class="prose-site">
         <h2>Voor wie is deze groep?</h2>
-        <p>Verbinden met Verlies is een professioneel therapeutisch begeleid groepstraject voor mensen die een dierbare door overlijden hebben verloren.</p>
+        <p>Rouw en Verlies is een professioneel therapeutisch begeleid groepstraject voor mensen die een dierbare door overlijden hebben verloren.</p>
         <p>Naast herkenning en ontmoeting bieden we een veilige, gestructureerde omgeving waarin je niet alleen steun ervaart, maar ook actief werkt aan het doorvoelen van je verlies en het hervinden van balans. We gebruiken bewezen effectieve methoden en modellen uit de rouwbegeleiding. Je krijgt inzicht in wat rouw met je doet, praktische handvatten en oefeningen die je ondersteunen bij het leren leven met verlies.</p>
       </div>
       <div>
@@ -79,7 +79,7 @@ const begeleiders = (await getCollection("team")).filter((m) => ["marielle-katto
         <p class="measure mt-4 text-muted">Meld je alvast aan, want we werken met een beperkt aantal plekken. Zodra de nieuwe data bekend zijn, openen we de inschrijving en nemen we contact met je op. Bij definitieve inschrijving zijn de algemene en annuleringsvoorwaarden van toepassing.</p>
         <p class="measure mt-4 text-muted">Heb je vragen of wil je weten of deze groep bij je past? Stel ze gerust in je bericht.</p>
       </div>
-      <ContactForm subject="Interesse in groep Verbinden met Verlies" buttonLabel="Aanmelden" questionLabel="Je bericht" questionPlaceholder="Vertel kort waarom je interesse hebt, of stel je vraag." />
+      <ContactForm subject="Interesse in groep Rouw en Verlies" buttonLabel="Aanmelden" questionLabel="Je bericht" questionPlaceholder="Vertel kort waarom je interesse hebt, of stel je vraag." />
     </div>
   </Section>
 </Base>
