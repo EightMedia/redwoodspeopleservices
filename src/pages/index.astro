@@ -8,6 +8,8 @@ import TeamCard from "../components/TeamCard.astro";
 import hero from "../assets/hero-redwoods.jpg";
 import praktijk from "../assets/praktijkruimte.jpg";
 import wortels from "../assets/wortels.png";
+import YouTube from "../components/YouTube.astro";
+import videoPoster from "../assets/video-8DnQq_ybABg.jpg";
 
 const diensten = (await getCollection("diensten")).sort((a, b) => a.data.order - b.data.order);
 const team = (await getCollection("team")).sort((a, b) => a.data.order - b.data.order).filter((m) => m.id !== "edwin-meuleman").slice(0, 3);
@@ -103,6 +105,32 @@ const programmas = [
     </div>
   </Section>
 
+  <!-- Team -->
+  <Section tone="tint">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-3">Ons team</p>
+        <h2 class="text-3xl font-bold sm:text-4xl">Ervaren therapeuten, met plezier en passie voor het vak</h2>
+      </div>
+      <a href="/team/" class="btn-secondary">Het hele team</a>
+    </div>
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((m) => <TeamCard member={m} compact />)}
+    </div>
+  </Section>
+
+  <!-- Video -->
+  <Section tone="sand">
+    <div class="grid items-center gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+      <div>
+        <p class="eyebrow mb-3">Keeping humanity human</p>
+        <h2 class="text-3xl font-bold sm:text-4xl">Een kijkje bij Redwoods</h2>
+        <p class="measure mt-5 text-lg text-muted">Wie we zijn, hoe we werken en wat ons drijft: in twee minuten zie je het in deze video.</p>
+      </div>
+      <YouTube id="8DnQq_ybABg" title="Kennismaken met Redwoods People Services" poster={videoPoster} />
+    </div>
+  </Section>
+
   <!-- Programma's -->
   <Section tone="sand">
     <div class="max-w-2xl">
@@ -135,20 +163,6 @@ const programmas = [
         </p>
         <a href="/contact/" class="btn-secondary mt-6">Adres en route</a>
       </div>
-    </div>
-  </Section>
-
-  <!-- Team -->
-  <Section tone="tint">
-    <div class="flex flex-wrap items-end justify-between gap-6">
-      <div class="max-w-2xl">
-        <p class="eyebrow mb-3">Ons team</p>
-        <h2 class="text-3xl font-bold sm:text-4xl">Ervaren therapeuten, met plezier en passie voor het vak</h2>
-      </div>
-      <a href="/team/" class="btn-secondary">Het hele team</a>
-    </div>
-    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {team.map((m) => <TeamCard member={m} compact />)}
     </div>
   </Section>
 

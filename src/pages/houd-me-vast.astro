@@ -7,6 +7,8 @@ import Section from "../components/Section.astro";
 import Faq from "../components/Faq.astro";
 import ContactForm from "../components/ContactForm.astro";
 import foto from "../assets/houd-me-vast.jpg";
+import YouTube from "../components/YouTube.astro";
+import videoPoster from "../assets/video-PA3rLgrEs_c.jpg";
 
 const trainers = (await getCollection("team")).filter((m) => ["cris-van-dusseldorp", "michelle-van-dusseldorp", "joost-de-wolf", "marielle-kattouw", "joke-francissen"].includes(m.id)).sort((a, b) => a.data.order - b.data.order);
 
@@ -55,7 +57,7 @@ const ld = {
         <p>Het is een 'lightversie' van EFT-relatietherapie: in korte tijd werken jullie aan de thema's die normaal in zeven sessies aan bod komen. Je hoeft je persoonlijke issues niet met de groep te delen. Je werkt samen met je partner aan oefeningen, onder begeleiding van een ervaren relatietherapeut.</p>
         <p>Samen leer je ruzies te stoppen, emoties op een gezonde manier te delen, en veiligheid en vertrouwen op te bouwen. Het weekend biedt direct resultaat.</p>
       </div>
-      <Image src={foto} alt="Twee mensen houden elkaars handen vast" width={1000} height={667} class="w-full rounded-3xl object-cover" />
+      <YouTube id="PA3rLgrEs_c" title="Het Houd me Vast relatieweekend" poster={videoPoster} class="self-center" />
     </div>
   </Section>
 

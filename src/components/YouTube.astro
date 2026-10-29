@@ -1,0 +1,39 @@
+---
+/**
+ * Privacyvriendelijke YouTube-embed: toont een lokale poster en laadt de
+ * YouTube-speler (youtube-nocookie.com) pas als de bezoeker op afspelen klikt.
+ */
+import { Image } from "astro:assets";
+
+interface Props {
+  id: string;
+  title: string;
+  poster: ImageMetadata;
+  class?: string;
+}
+const { id, title, poster, class: cls } = Astro.props;
+---
+
+<div class:list={["group relative aspect-video overflow-hidden rounded-3xl bg-ink", cls]} data-youtube={id} data-title={title}>
+  <Image src={poster} alt="" width={1280} height={720} class="h-full w-full object-cover opacity-90 transition group-hover:opacity-100" />
+  <button type="button" class="absolute inset-0 flex items-center justify-center" aria-label={`Video afspelen: ${title}`} data-play>
+    <span class="flex h-20 w-20 items-center justify-center rounded-full bg-brand text-white shadow-lg transition group-hover:scale-105 group-hover:bg-brand-dark">
+      <svg class="ml-1 h-9 w-9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72c0 .79.87 1.27 1.54.84l10.3-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14Z"></path></svg>
+    </span>
+  </button>
+  <p class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-5 pb-4 pt-10 text-sm text-white">{title} · speelt af via YouTube</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-youtube]").forEach((box) => {
+    box.querySelector("[data-play]")?.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${box.dataset.youtube}?autoplay=1&rel=0`;
+      iframe.title = box.dataset.title ?? "Video";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      iframe.className = "absolute inset-0 h-full w-full";
+      box.replaceChildren(iframe);
+    });
+  });
+</script>
