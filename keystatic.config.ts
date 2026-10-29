@@ -6,7 +6,7 @@ import { config, fields, collection, singleton } from "@keystatic/core";
  * - In productie werkt het via GitHub (commits in de repo) of Keystatic Cloud.
  *   Zie README.md onder "Content beheren".
  */
-const repo = { owner: "danielspronk", name: "redwoodspeopleservices" } as const;
+const repo = { owner: "EightMedia", name: "redwoodspeopleservices" } as const;
 // Let op: dit bestand draait ook in de browser, dus alleen import.meta.env en PUBLIC_-variabelen.
 const cloudProject = import.meta.env.PUBLIC_KEYSTATIC_CLOUD_PROJECT as string | undefined;
 const storage =
