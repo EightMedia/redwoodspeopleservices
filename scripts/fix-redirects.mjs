@@ -11,5 +11,7 @@ for (const route of config.routes ?? []) {
     n++;
   }
 }
+// Oude webshop-productpagina's (/product/<naam>/) naar Over ons
+config.routes = [{ src: "^/product(?:/.*)?$", headers: { Location: "/over-ons/" }, status: 301 }, ...(config.routes ?? [])];
 await writeFile(file, JSON.stringify(config, null, 2));
 console.log(`[fix-redirects] ${n} redirect-routes accepteren nu ook een slash aan het eind`);
