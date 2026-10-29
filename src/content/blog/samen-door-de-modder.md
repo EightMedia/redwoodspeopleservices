@@ -3,7 +3,6 @@ title: "Samen door de modder"
 description: "“Ik dacht dat ze me wilden slopen, maar ze waren de enigen die door mijn muur heen prikten zonder me te veroordelen."
 date: 2026-01-19
 cover: ../../assets/blog/Redwoods-LinkedIn-3.jpg
-oldSlug: "elementor-9304"
 ---
 
 ## "Ik dacht dat ze me wilden slopen, maar ze waren de enigen die door mijn muur heen prikten zonder me te veroordelen."

@@ -11,7 +11,6 @@ const blog = defineCollection({
       date: z.coerce.date(),
       cover: image().optional(),
       author: z.string().default("Redwoods People Services"),
-      oldSlug: z.string().optional(),
     }),
 });
 

@@ -2,7 +2,6 @@
 title: "Verhaal over de Vier Verbindingen"
 description: "Een cliënt worstelt met onrust en perfectionisme ondanks een goed leven. Therapie brengt haar inzicht, rust en zelf acceptatie. Een bijzonder moment in de zee bevestigt haar waarde en kracht."
 date: 2024-12-22
-oldSlug: "verhaal-over-de-vier-verbindingen"
 ---
 
 

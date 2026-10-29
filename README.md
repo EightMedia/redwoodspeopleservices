@@ -150,7 +150,7 @@ Keystatic kent drie opslagmodi, ingesteld in `keystatic.config.ts`:
 
 1. **Lokaal** (automatisch bij `npm run dev`): schrijft direct naar de bestanden op je machine. Voor ontwikkelaars.
 2. **GitHub** (standaard in productie): de redacteur logt in met een GitHub-account dat toegang heeft tot de repo. Keystatic maakt commits namens die persoon. Eenmalige setup: ga lokaal naar `/keystatic`, kies "Setup GitHub App" en volg de stappen. Dat levert vier variabelen op (`KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`) die je in Vercel zet.
-3. **Keystatic Cloud** (aanbevolen voor de klant): de redacteur logt in met e-mail, zonder GitHub-account. Maak een project aan op keystatic.cloud, koppel de repo en zet `KEYSTATIC_CLOUD_PROJECT=team/project` in Vercel. Gratis voor kleine teams.
+3. **Keystatic Cloud** (aanbevolen voor de klant): de redacteur logt in met e-mail, zonder GitHub-account. Maak een project aan op keystatic.cloud, koppel de repo en zet `PUBLIC_KEYSTATIC_CLOUD_PROJECT=team/project` in Vercel. Gratis voor kleine teams.
 
 ### Afbeeldingen
 

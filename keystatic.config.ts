@@ -7,9 +7,10 @@ import { config, fields, collection, singleton } from "@keystatic/core";
  *   Zie README.md onder "Content beheren".
  */
 const repo = { owner: "danielspronk", name: "redwoodspeopleservices" } as const;
-const cloudProject = process.env.KEYSTATIC_CLOUD_PROJECT;
+// Let op: dit bestand draait ook in de browser, dus alleen import.meta.env en PUBLIC_-variabelen.
+const cloudProject = import.meta.env.PUBLIC_KEYSTATIC_CLOUD_PROJECT as string | undefined;
 const storage =
-  process.env.NODE_ENV === "development"
+  import.meta.env.DEV
     ? ({ kind: "local" } as const)
     : cloudProject
       ? ({ kind: "cloud" } as const)

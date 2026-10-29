@@ -3,7 +3,6 @@ title: "E.L.K.A.A.R vasthouden"
 description: "Elkaar vasthouden in moeilijke tijden biedt inzicht in hoe relaties onder druk kunnen komen te staan door stressvolle situaties en hoe je samen sterker kunt worden."
 date: 2025-02-26
 cover: ../../assets/blog/Zelfliefde-1.jpg
-oldSlug: "e-l-k-a-a-r-vasthouden"
 ---
 
 ## Het Liefdeparcours

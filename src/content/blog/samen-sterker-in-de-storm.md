@@ -3,7 +3,6 @@ title: "Samen sterker in de storm"
 description: "Wanneer verlies, werkdruk of ziekte samenkomen, kan de liefde onder druk komen te staan."
 date: 2025-08-31
 cover: ../../assets/blog/Samen-sterker-in-de-storm-artikel-Redwoods-1.jpg
-oldSlug: "samen-sterker-in-de-storm"
 ---
 
 ## Soms voelt een relatie alsof je samen op een ladder staat, maar ieder een andere kant opkijkt. Hetzelfde uitzicht, dezelfde storm, maar toch ver weg van elkaar. 
