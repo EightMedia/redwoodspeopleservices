@@ -45,7 +45,7 @@ Zodra de aanbetaling binnen is, gaan er automatisch twee mails uit:
 - naar secretariaat@redwoodspeopleservices.nl met alle gegevens en het betaalkenmerk;
 - naar het stel, met de bevestiging, het betaalde bedrag, de uitleg over het intakegesprek via Zoom en de tip om alvast het boek Houd me Vast te lezen.
 
-De concepttekst van die mail aan het stel sturen we mee; geef aan wat jullie anders willen. Er wordt niets opgeslagen op de website; de gegevens staan bij Mollie bij de betaling en in jullie mailbox.
+De concepttekst van beide mails staat in de bijlage (mail-bevestiging-stel); geef aan wat jullie anders willen. Er wordt niets opgeslagen op de website; de gegevens staan bij Mollie bij de betaling en in jullie mailbox.
 
 ## 5. Voorwaarden
 
