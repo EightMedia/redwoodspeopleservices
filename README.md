@@ -13,12 +13,12 @@ Dit document legt uit wat er in het project zit, welke onderdelen er zijn, hoe z
 5. [Lokaal werken](#5-lokaal-werken)
 6. [Content beheren (Keystatic)](#6-content-beheren-keystatic)
 7. [Contactformulier](#7-contactformulier)
-8. [Aanmelden Houd me Vast met aanbetaling (Mollie)](#7b-aanmelden-houd-me-vast-met-aanbetaling-mollie)
-9. [Uitrollen op Vercel](#8-uitrollen-op-vercel)
-10. [Accounts en stand van zaken](#12-accounts-en-stand-van-zaken)
-11. [SEO en vindbaarheid](#9-seo-en-vindbaarheid)
-12. [Livegang vanaf WordPress](#10-livegang-vanaf-wordpress)
-13. [Onderhoud](#11-onderhoud)
+8. [Aanmelden Houd me Vast met aanbetaling (Mollie)](#8-aanmelden-houd-me-vast-met-aanbetaling-mollie)
+9. [Uitrollen op Vercel](#9-uitrollen-op-vercel)
+10. [SEO en vindbaarheid](#10-seo-en-vindbaarheid)
+11. [Livegang vanaf WordPress](#11-livegang-vanaf-wordpress)
+12. [Accounts en stand van zaken](#12-accounts-en-stand-van-zaken)
+13. [Onderhoud](#13-onderhoud)
 
 ---
 
@@ -192,7 +192,7 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 - `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` staan in Vercel (Settings → Environment Variables). Verzenden vanaf het eigen domein werkt pas als de DNS-records van Resend bij Strato staan.
 - Optioneel: maak een Turnstile-widget aan in het Cloudflare-dashboard en zet `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` in Vercel.
 
-## 7b. Aanmelden Houd me Vast met aanbetaling (Mollie)
+## 8. Aanmelden Houd me Vast met aanbetaling (Mollie)
 
 Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) vraagt beide namen, e-mail, telefoon, gewenst weekend, opmerkingen en akkoord met de voorwaarden. Er is geen database; de flow loopt volledig via Mollie en e-mail.
 
@@ -204,7 +204,7 @@ Zonder `MOLLIE_API_KEY` valt het formulier terug op een aanmelding per mail; de 
 
 Testen: gebruik de `test_`-sleutel van Mollie in een Vercel Preview-omgeving (de webhook moet publiek bereikbaar zijn, dus niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren.
 
-## 8. Uitrollen op Vercel
+## 9. Uitrollen op Vercel
 
 1. Importeer de GitHub-repo in Vercel (Add New → Project). Vercel herkent Astro; framework preset "Astro", build command `astro build`, output wordt door de adapter bepaald.
 2. Vul de omgevingsvariabelen uit `.env.example` in.
@@ -213,7 +213,7 @@ Testen: gebruik de `test_`-sleutel van Mollie in een Vercel Preview-omgeving (de
 
 **Plan.** Het gratis Hobby-plan van Vercel is volgens de voorwaarden alleen voor niet-commercieel gebruik. Voor een praktijksite is Pro (ca. 20 dollar per maand) de nette keuze. Alternatief met dezelfde code: Cloudflare Pages (gratis voor commercieel gebruik, adapter wisselen naar `@astrojs/cloudflare`).
 
-## 9. SEO en vindbaarheid
+## 10. SEO en vindbaarheid
 
 Wat er in zit:
 
@@ -226,9 +226,9 @@ Wat er in zit:
 
 Buiten de code, maar minstens zo belangrijk: Google Bedrijfsprofiel claimen (categorie Psychotherapeut), vermeldingen bij Zorgkaart Nederland en de registers van VIT, RBCZ en SCAG, en na livegang in Google Search Console de nieuwe sitemap indienen en de spam-URL's van de oude site laten verwijderen.
 
-## 10. Livegang vanaf WordPress
+## 11. Livegang vanaf WordPress
 
-1. DNS omzetten naar Vercel (zie hoofdstuk 8). Zet de TTL een dag van tevoren laag.
+1. DNS omzetten naar Vercel (zie het hoofdstuk Uitrollen op Vercel). Zet de TTL een dag van tevoren laag.
 2. De oude WordPress-installatie direct daarna offline halen of in elk geval niet meer bereikbaar laten via het domein. De gehackte bestanden mogen niet blijven staan.
 3. In Google Search Console: eigendom verifiëren voor het nieuwe domein, sitemap `https://www.redwoodspeopleservices.nl/sitemap-index.xml` indienen, en onder "Verwijderingen" de URL's onder `/nl/nieuwe-casinos/` laten verwijderen.
 4. Controleer de omgevingsvariabelen in Vercel (Resend, eventueel Turnstile en Keystatic) en stuur een testbericht via het contactformulier.
@@ -249,7 +249,7 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 
 Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, Mollie-account, Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
 
-## 11. Onderhoud
+## 13. Onderhoud
 
 - **Afhankelijkheden bijwerken**: `npm outdated` en `npm update`, daarna `npm run build` om te controleren. Doe dit een paar keer per jaar.
 - **Nieuwe pagina**: maak een `.astro`-bestand in `src/pages`, gebruik `Base` als layout en `PageHeader`/`Section` voor de structuur. Voeg de link toe aan `nav` in `src/data/site.ts`.
