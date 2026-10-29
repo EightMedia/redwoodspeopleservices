@@ -73,6 +73,13 @@
   .prose-site {
     @apply prose prose-lg max-w-none prose-headings:font-display prose-headings:text-ink prose-a:text-brand-dark prose-a:underline-offset-4 prose-strong:text-ink prose-p:max-w-[65ch] prose-li:max-w-[65ch] prose-headings:max-w-[30ch] prose-img:rounded-2xl prose-blockquote:border-brand prose-blockquote:text-ink;
   }
+  /* 16:9-iframe dat zijn sectie altijd volledig bedekt (achtergrondvideo) */
+  .video-cover {
+    width: 100vw;
+    height: 56.25vw;
+    min-width: 177.78%;
+    min-height: 100%;
+  }
   .field {
     @apply w-full rounded-xl border border-line bg-paper px-4 py-3 text-base text-ink placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30;
   }
