@@ -202,7 +202,9 @@ Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) 
 
 Zonder `MOLLIE_API_KEY` valt het formulier terug op een aanmelding per mail; de praktijk regelt de aanbetaling dan zelf. Zet daarom ook `PUBLIC_MOLLIE_ENABLED=true` zodra de sleutel er is, zodat het formulier de betaalstap aankondigt.
 
-Testen: gebruik de `test_`-sleutel van Mollie in een Vercel Preview-omgeving (de webhook moet publiek bereikbaar zijn, dus niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren.
+Testen: gebruik de `test_`-sleutel van Mollie op een publiek bereikbare Vercel-omgeving (de webhook werkt niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren. De webhook- en terugkeer-URL worden per betaling uit het aangevraagde domein opgebouwd, dus in het Mollie-dashboard hoeft geen webhook ingesteld te worden.
+
+Stand op 30 oktober 2026: de testsleutel staat in Vercel (Production, Preview en Development) en `PUBLIC_MOLLIE_ENABLED=true` staat aan. Een testbetaling van € 697,50 is doorlopen: checkout, status "betaald", terugkeer op de bedanktpagina en de webhook-aanroep door Mollie zijn gecontroleerd in de Vercel-logs. De bevestigingsmails gingen nog niet weg omdat Resend het domein nog niet geverifieerd heeft (wacht op DNS). Vóór livegang: `MOLLIE_API_KEY` vervangen door de `live_`-sleutel; Mollie meldt in de testcheckout dat het account klaar is voor iDEAL.
 
 ## 9. Uitrollen op Vercel
 
@@ -243,11 +245,11 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 | GitHub | organisatie EightMedia, repo `redwoodspeopleservices` | Gekoppeld aan Vercel; elke push naar `main` deployt |
 | Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op redwoodspeopleservices.vercel.app; domeinen toegevoegd, wachten op DNS |
 | Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel; domeinverificatie wacht op DNS-records bij Strato |
-| Mollie | nog aan te vragen door de praktijk | Code staat klaar; zie `docs/mail-opdrachtgever-mollie.md` voor wat we nodig hebben |
+| Mollie | account van Redwoods People Services B.V.; Daniel (Eight) is partner met volledige toegang | Testsleutel in Vercel, testbetaling geslaagd incl. webhook (30 okt 2026). Nog te doen: live-sleutel zetten bij livegang |
 | Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
 | DNS | Strato, beheerd door de domeinhouder | Te zetten: A `@` → 216.150.16.1, CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com`, plus de drie Resend-records. MX (Google Workspace) en SPF niet wijzigen |
 
-Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, Mollie-account, Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
+Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, akkoord op de bevestigingsmails (`docs/mail-bevestiging-stel.md`), Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
 
 ## 13. Onderhoud
 
