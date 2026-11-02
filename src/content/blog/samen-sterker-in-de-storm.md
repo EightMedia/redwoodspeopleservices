@@ -1,6 +1,6 @@
 ---
 title: "Samen sterker in de storm"
-description: "Wanneer verlies, werkdruk of ziekte samenkomen, kan de liefde onder druk komen te staan."
+description: "Wanneer verlies, werkdruk of ziekte samenkomen, komt de liefde onder druk te staan. Hoe stellen juist in zo'n storm dieper kunnen wortelen, met oefeningen uit EFT."
 date: 2025-08-31
 cover: ../../assets/blog/Samen-sterker-in-de-storm-artikel-Redwoods-1.jpg
 ---

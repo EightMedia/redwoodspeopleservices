@@ -229,6 +229,15 @@ Wat er in zit:
 
 Buiten de code, maar minstens zo belangrijk: Google Bedrijfsprofiel claimen (categorie Psychotherapeut), vermeldingen bij Zorgkaart Nederland en de registers van VIT, RBCZ en SCAG, en na livegang in Google Search Console de nieuwe sitemap indienen en de spam-URL's van de oude site laten verwijderen.
 
+### Plaatspagina's en de SEO-analyse
+
+In november 2026 is een SEO-analyse gedaan, inclusief een test hoe AI-assistenten een shortlist van praktijken maken: `docs/seo-analyse-2026-11.md`. Naar aanleiding daarvan:
+
+- Vier plaatspagina's met eigen tekst: `/relatietherapie-arnhem/`, `/relatietherapie-velp/`, `/psychotherapie-arnhem/` en `/therapie-rheden-rozendaal/`. Ze gebruiken de component `src/components/Locatie.astro` en staan in de footer onder Werkgebied en in de zijbalk van de dienstpagina's. Nieuwe plaats toevoegen: kopieer een van deze pagina's en schrijf de tekst opnieuw; geen kopie van een bestaande pagina met alleen een andere plaatsnaam, want dat ziet Google als doorway page.
+- Paginatitels worden automatisch ingekort: de volledige praktijknaam erachter als dat binnen 60 tekens past, anders "| Redwoods", anders alleen de titel (`src/layouts/Base.astro`).
+- WordPress-archieven (`/tag/…`, `/author/…`, `/category/…`, `/2025/08/`) en `/feed/` gaan naar `/blog/`, `/sitemap.xml` naar `/sitemap-index.xml`, `/vergoeding/` naar `/tarieven/` (`astro.config.mjs` en `scripts/fix-redirects.mjs`).
+- Alle foto's van mensen en artikelen hebben een alt-tekst; sfeerbeelden op de achtergrond bewust niet (decoratief).
+
 ## 11. Livegang vanaf WordPress
 
 1. DNS omzetten naar Vercel (zie het hoofdstuk Uitrollen op Vercel). Zet de TTL een dag van tevoren laag.

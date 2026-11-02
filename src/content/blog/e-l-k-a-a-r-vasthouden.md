@@ -1,6 +1,6 @@
 ---
 title: "E.L.K.A.A.R vasthouden"
-description: "Elkaar vasthouden in moeilijke tijden biedt inzicht in hoe relaties onder druk kunnen komen te staan door stressvolle situaties en hoe je samen sterker kunt worden."
+description: "Zes fasen die stellen onder druk doorlopen, van eenheid tot realiteit, en hoe je elkaar in elke fase kunt vasthouden. Met oefeningen uit de EFT-relatietherapie."
 date: 2025-02-26
 cover: ../../assets/blog/Zelfliefde-1.jpg
 ---

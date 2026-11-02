@@ -19,7 +19,10 @@ interface Props {
 }
 
 const { title, description, bareTitle = false, image, type = "website", noindex = false, jsonLd } = Astro.props;
-const fullTitle = bareTitle ? title : `${title} | ${site.name}`;
+// Google kapt titels af rond 60 tekens: volledige naam als het past, anders de korte naam, anders alleen de titel.
+const withFull = `${title} | ${site.name}`;
+const withShort = `${title} | ${site.shortName}`;
+const fullTitle = bareTitle ? title : withFull.length <= 60 ? withFull : withShort.length <= 60 ? withShort : title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = await getImage({ src: image ?? ogDefault, width: 1200, height: 630, format: "jpg" });
 const ogUrl = new URL(og.src, Astro.site);

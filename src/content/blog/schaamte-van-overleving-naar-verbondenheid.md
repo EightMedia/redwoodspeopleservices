@@ -1,6 +1,6 @@
 ---
 title: "Schaamte: van overleving naar verbondenheid"
-description: "Lange tijd was schaamte voor mij vooral toxisch. Ze heeft wortels in een langdurig pestverleden — jaren waarin afwijzing zich niet alleen herhaalde, maar zich langzaam vastzette als een innerlijk verhaal: “Ik hoor er…"
+description: "Schaamte kan je isoleren, maar er bestaat ook gezonde schaamte. Een persoonlijk verhaal over een pestverleden, overleving en de weg terug naar verbondenheid."
 date: 2026-01-19
 cover: ../../assets/blog/Zelfliefde-2.jpg
 ---

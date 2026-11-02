@@ -19,6 +19,11 @@ export default defineConfig({
   // Oude WordPress-URL's blijven werken
   redirects: {
     "/nieuwe-home/": "/",
+    // WordPress-archieven (/tag/, /author/, /category/, /2025/08/) staan in scripts/fix-redirects.mjs
+    "/feed/": "/blog/",
+    "/sitemap.xml": "/sitemap-index.xml",
+    "/vergoeding/": "/tarieven/",
+    "/vergoedingen/": "/tarieven/",
     "/webshop/": "/over-ons/",
     "/winkelmand/": "/",
     "/afrekenen/": "/",

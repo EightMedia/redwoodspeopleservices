@@ -1,6 +1,6 @@
 ---
 title: "Samen door de modder"
-description: "“Ik dacht dat ze me wilden slopen, maar ze waren de enigen die door mijn muur heen prikten zonder me te veroordelen."
+description: "Wat Kamp van Koningsbrugge leert over relaties: onder druk schiet je in overleving, maar juist daar kan verbinding ontstaan. Over patronen herkennen en doorbreken."
 date: 2026-01-19
 cover: ../../assets/blog/Redwoods-LinkedIn-3.jpg
 ---

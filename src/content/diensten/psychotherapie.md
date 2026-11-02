@@ -1,6 +1,6 @@
 ---
 title: Psychotherapie
-description: Integratieve psychotherapie in Rozendaal bij Arnhem. Weer regie over je leven, met oprechte aandacht en deskundige begeleiding. Ook als je niet gelovig bent, ben je welkom.
+description: Integratieve psychotherapie in Rozendaal bij Arnhem, zonder verwijzing. Weer regie over je leven, met oprechte aandacht en deskundige begeleiding.
 intro: Psychotherapie helpt je de teugels van je leven weer vast te houden. Je leert op een gezonde manier omgaan met emoties, situaties en relaties, zodat wat je nu tegenop ziet weer mogelijk wordt.
 order: 1
 faq:

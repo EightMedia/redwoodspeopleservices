@@ -25,7 +25,7 @@ const ld = {
 };
 ---
 
-<Base title={d.name} description={`${d.name}, ${d.role.toLowerCase()} bij Redwoods People Services in Rozendaal. ${d.intro}`} image={d.photo} jsonLd={ld}>
+<Base title={d.name} description={`${d.name}, ${d.role.toLowerCase()} bij Redwoods People Services in Rozendaal. ${d.intro.split(/(?<=[.!?])\s/)[0]}`.slice(0, 155)} image={d.photo} jsonLd={ld}>
   <Section class="pt-10 sm:pt-14">
     <a href="/team/" class="inline-flex items-center gap-1 text-brand-dark hover:underline"><span aria-hidden="true">←</span> Het hele team</a>
     <div class="mt-6 grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-16">
@@ -68,7 +68,7 @@ const ld = {
       {others.map((o) => (
         <li>
           <a href={`/team/${o.id}/`} class="flex items-center gap-4 rounded-2xl bg-paper p-3 transition hover:shadow">
-            <Image src={o.data.photo} alt="" width={112} height={112} class="h-14 w-14 rounded-full object-cover" />
+            <Image src={o.data.photo} alt={o.data.name} width={112} height={112} class="h-14 w-14 rounded-full object-cover" />
             <span><span class="block font-medium">{o.data.name}</span><span class="block text-sm text-muted">{o.data.role}</span></span>
           </a>
         </li>

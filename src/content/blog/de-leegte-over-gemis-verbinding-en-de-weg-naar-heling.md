@@ -1,6 +1,6 @@
 ---
 title: "De leegte bewoond: over hechting, liefde en de ruimte waarin we elkaar werkelijk ontmoeten"
-description: "“Wat we missen, hoeft ons niet voor altijd te bepalen. In de ruimte van het gemis kan opnieuw verbinding ontstaan.” De stilte die tussen ons komt te staan Er zijn momenten waarop woorden niet meer werken."
+description: "Over de leegte die in een relatie kan ontstaan, waar die vandaan komt en hoe je er samen opnieuw verbinding in vindt. Vanuit de hechtingstheorie en EFT."
 date: 2026-09-16
 cover: ../../assets/blog/Untitled-design-1.jpg
 ---

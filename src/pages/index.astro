@@ -39,9 +39,9 @@ const programmas = [
 ---
 
 <Base
-  title="Psychotherapie, relatietherapie en coaching in Rozendaal bij Arnhem"
+  title="Psychotherapie en relatietherapie in Rozendaal bij Arnhem"
   bareTitle
-  description="Redwoods People Services is een praktijk voor psychotherapie, EFT-relatietherapie, coaching en supervisie in Rozendaal, op tien minuten van Arnhem en Velp. Oprechte aandacht en deskundige begeleiding."
+  description="Praktijk voor psychotherapie, EFT-relatietherapie, coaching en supervisie in Rozendaal, op tien minuten van Arnhem en Velp. Sinds 2000, zonder verwijzing."
 >
   <!-- Hero -->
   <section class="relative overflow-hidden bg-paper">
@@ -206,7 +206,7 @@ const programmas = [
         <article class="flex flex-col">
           {p.data.cover && (
             <a href={`/blog/${p.id}/`} tabindex="-1" aria-hidden="true" class="block overflow-hidden rounded-3xl bg-sand">
-              <Image src={p.data.cover} alt="" width={640} height={400} class="aspect-[16/10] w-full object-cover" />
+              <Image src={p.data.cover} alt={p.data.title} width={640} height={400} class="aspect-[16/10] w-full object-cover" />
             </a>
           )}
           <p class="mt-5 text-sm text-muted">{fmt(p.data.date)}</p>

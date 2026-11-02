@@ -33,7 +33,7 @@ const ld = {
         <p class="mt-5 text-xl text-muted">{post.data.description}</p>
       </div>
       {post.data.cover && (
-        <Image src={post.data.cover} alt="" width={1400} height={800} loading="eager" class="mx-auto mt-10 aspect-[16/9] w-full max-w-5xl rounded-3xl object-cover" />
+        <Image src={post.data.cover} alt={post.data.title} width={1400} height={800} loading="eager" class="mx-auto mt-10 aspect-[16/9] w-full max-w-5xl rounded-3xl object-cover" />
       )}
       <div class="prose-site mx-auto mt-12 max-w-3xl">
         <Content />
