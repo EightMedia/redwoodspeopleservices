@@ -244,7 +244,7 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 | Dienst | Waar | Status |
 |---|---|---|
 | GitHub | organisatie EightMedia, repo `redwoodspeopleservices` | Gekoppeld aan Vercel; elke push naar `main` deployt |
-| Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op www.redwoodspeopleservices.nl sinds 2 november 2026. Het certificaat kwam niet vanzelf; uitgegeven met `vercel certs issue redwoodspeopleservices.nl www.redwoodspeopleservices.nl`. Nog te doen: kale domein doorsturen naar www (Settings → Domains → Redirect to www) |
+| Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op www.redwoodspeopleservices.nl sinds 2 november 2026. Het certificaat kwam niet vanzelf; uitgegeven met `vercel certs issue redwoodspeopleservices.nl www.redwoodspeopleservices.nl`. Kale domein stuurt met 308 door naar www |
 | Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel; domeinverificatie wacht nog op de Resend-records bij Strato (zie DNS). Formulieren en Mollie-mails werken pas daarna |
 | Mollie | account van Redwoods People Services B.V.; Daniel (Eight) is partner met volledige toegang | Testsleutel in Vercel, testbetaling geslaagd incl. webhook (30 okt 2026). Nog te doen: live-sleutel zetten bij livegang |
 | Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
