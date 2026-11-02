@@ -42,6 +42,7 @@ De oude site draaide op WordPress met Elementor en WooCommerce. Die combinatie g
 | **@astrojs/vercel** | Vercel-adapter voor Astro. | Zet de build om in het formaat dat Vercel verwacht en maakt van `/api/contact` een serverless functie. |
 | **@astrojs/sitemap** | Sitemap-integratie. | Genereert `sitemap-index.xml` bij elke build. |
 | **Resend** (`resend`) | E-mail-API. | Verstuurt de berichten van het contactformulier naar het secretariaat en een bevestiging naar de afzender. |
+| **Vercel Speed Insights** (`@vercel/speed-insights`) | Meet laadsnelheid (Core Web Vitals) bij echte bezoekers. | `<SpeedInsights />` in `src/layouts/Base.astro`; cijfers staan in Vercel onder het tabblad Speed Insights. Geen cookies, geen persoonsgegevens. |
 | **Keystatic** (`@keystatic/core`, `@keystatic/astro`) | Git-gebaseerd CMS. | Beheerscherm op `/keystatic` voor blog, team, diensten, tarieven en programmadata. Slaat alles op als bestanden in de repo. |
 | **React** (`react`, `react-dom`, `@astrojs/react`) | UI-bibliotheek. | Alleen nodig voor het Keystatic-beheerscherm. De publieke site gebruikt geen React. |
 | **Cloudflare Turnstile** (optioneel, geen pakket) | Spamcheck zonder CAPTCHA-puzzels. | Beschermt het contactformulier zodra de sleutels zijn ingevuld. Zonder sleutels werkt het formulier met alleen een honeypot. |
