@@ -87,7 +87,12 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
         form.querySelectorAll<HTMLElement>(".field, .label, .grid, .btn-primary").forEach((el) => (el.style.display = "none"));
         success.classList.remove("hidden");
       } catch (err) {
-        status.textContent = (err as Error).message + " Mail ons gerust rechtstreeks op secretariaat@redwoodspeopleservices.nl.";
+        status.textContent = (err as Error).message + " Mail ons gerust rechtstreeks op ";
+        const mail = document.createElement("a");
+        mail.href = "mailto:secretariaat@redwoodspeopleservices.nl";
+        mail.className = "underline underline-offset-4";
+        mail.textContent = "secretariaat@redwoodspeopleservices.nl";
+        status.append(mail, ".");
         button.disabled = false;
       }
     });

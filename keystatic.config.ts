@@ -79,7 +79,7 @@ export default config({
         intro: fields.text({ label: "Intro", description: "Twee zinnen bovenaan de pagina.", multiline: true }),
         order: fields.integer({ label: "Volgorde", defaultValue: 99 }),
         faq: fields.array(
-          fields.object({ q: fields.text({ label: "Vraag" }), a: fields.text({ label: "Antwoord", multiline: true }) }),
+          fields.object({ q: fields.text({ label: "Vraag" }), a: fields.text({ label: "Antwoord", multiline: true, description: "Een link maak je zo: [tarievenpagina](/tarieven/). Een e-mailadres: [adres](mailto:adres)." }) }),
           { label: "Veelgestelde vragen", itemLabel: (p) => p.fields.q.value },
         ),
         content: markdown("Tekst", "src/assets/content"),

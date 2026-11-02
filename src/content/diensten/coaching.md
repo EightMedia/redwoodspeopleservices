@@ -9,7 +9,7 @@ faq:
   - q: Waar vinden de gesprekken plaats?
     a: In onze praktijk in Rozendaal, maar ook op de werkvloer, thuis, in het klooster of in combinatie met sport. Bij wandelcoaching reserveren we twee tot vier uur en zijn we samen buiten in de natuur.
   - q: Wat kost coaching?
-    a: Coaching bieden we op maat aan. Het tarief hangt af van jouw rol binnen het bedrijf, zoals medewerker of (mede)eigenaar. Neem contact op voor een voorstel.
+    a: Coaching bieden we op maat aan. Het tarief hangt af van jouw rol binnen het bedrijf, zoals medewerker of (mede)eigenaar. [Neem contact op](/contact/) voor een voorstel.
   - q: Wordt coaching vergoed?
     a: Coaching wordt doorgaans niet vergoed door zorgverzekeraars, maar vaak wel betaald door je werkgever.
 ---

@@ -4,13 +4,23 @@ interface Props {
   title?: string;
 }
 const { items, title = "Veelgestelde vragen" } = Astro.props;
+
+/** Antwoorden mogen links bevatten als [tekst](/pad/) of [tekst](https://…) en e-mailadressen als [adres](mailto:adres). */
+const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const linkRe = /\[([^\]]+)\]\(((?:https?:\/\/|mailto:|\/)[^)\s]+)\)/g;
+const toHtml = (s: string) =>
+  escape(s).replace(linkRe, (_m, text, href) => {
+    const ext = href.startsWith("http");
+    return `<a href="${href}" class="font-medium text-brand-dark underline underline-offset-4"${ext ? ' target="_blank" rel="noopener"' : ""}>${text}</a>`;
+  });
+const toText = (s: string) => s.replace(linkRe, "$1");
 const ld = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: items.map((i) => ({
     "@type": "Question",
     name: i.q,
-    acceptedAnswer: { "@type": "Answer", text: i.a },
+    acceptedAnswer: { "@type": "Answer", text: toText(i.a) },
   })),
 };
 ---
@@ -24,7 +34,7 @@ const ld = {
           <span>{item.q}</span>
           <svg class="h-5 w-5 shrink-0 transition-transform group-open:rotate-45" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z"></path></svg>
         </summary>
-        <p class="measure mt-3 text-muted">{item.a}</p>
+        <p class="measure mt-3 text-muted" set:html={toHtml(item.a)} />
       </details>
     ))}
   </div>

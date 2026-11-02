@@ -140,7 +140,7 @@ Keystatic is bereikbaar op **`/keystatic`**. Het toont formulieren voor:
 |---|---|---|
 | Blog | Artikelen schrijven, bewerken en verwijderen, met omslagfoto en afbeeldingen in de tekst | `src/content/blog/<slug>.md` en `src/assets/blog/` |
 | Team | Teamleden toevoegen, foto, functie, intro, specialisaties, registraties, profieltekst, volgorde | `src/content/team/<slug>.md` en `src/assets/team/` |
-| Diensten | Teksten en veelgestelde vragen per dienst | `src/content/diensten/<slug>.md` |
+| Diensten | Teksten en veelgestelde vragen per dienst. In een FAQ-antwoord maak je een link met `[tekst](/tarieven/)` of `[adres](mailto:adres)` | `src/content/diensten/<slug>.md` |
 | Tarieven | De tarieventabel en de studententarieven | `src/data/tarieven.json` |
 | Houd me Vast | Weekenddata (met "vol"-vinkje), prijs en aanbetaling | `src/data/houd-me-vast.json` |
 | Rouw en Verlies | Startdatum, omvang, prijs | `src/data/rouw-en-verlies.json` |
