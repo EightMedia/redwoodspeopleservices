@@ -39,6 +39,12 @@ const ld = {
             </ul>
           </div>
         )}
+        {d.wachttijd && (
+          <div class="mt-6 rounded-2xl bg-brand-soft p-5">
+            <p class="font-display font-bold text-brand-deep">Wachttijd</p>
+            <p class="mt-1 text-sm text-brand-deep">{d.wachttijd}</p>
+          </div>
+        )}
         {d.registrations.length > 0 && (
           <div class="mt-6 rounded-2xl border border-line p-5">
             <p class="font-display font-bold">Registraties</p>

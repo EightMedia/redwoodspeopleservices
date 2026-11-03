@@ -7,7 +7,7 @@ faq:
   - q: Wat is EFT-relatietherapie?
     a: Emotionally Focused Therapy is een wetenschappelijk onderbouwde vorm van relatietherapie die zich richt op de emotionele band tussen partners. Je leert jullie negatieve interactiepatroon herkennen en doorbreken, en de veilige verbinding herstellen.
   - q: Hoe lang duurt een sessie en wat kost het?
-    a: Een sessie relatietherapie duurt 90 minuten en kost 215 euro inclusief btw. Je ontvangt maandelijks een factuur. Kijk op de [tarievenpagina](/tarieven/) voor de actuele tarieven.
+    a: Een sessie relatietherapie duurt 90 minuten en kost 215 euro inclusief btw. Je ontvangt twee keer per maand een factuur. Kijk op de [tarievenpagina](/tarieven/) voor de actuele tarieven.
   - q: Wordt relatietherapie vergoed?
     a: Relatietherapie wordt doorgaans niet vergoed door zorgverzekeraars. Soms vergoedt een aanvullend pakket een deel; controleer dit bij je verzekeraar.
   - q: Is er ook een korter programma?

@@ -139,9 +139,9 @@ Keystatic is bereikbaar op **`/keystatic`**. Het toont formulieren voor:
 | Sectie | Wat je kunt doen | Waar het terechtkomt |
 |---|---|---|
 | Blog | Artikelen schrijven, bewerken en verwijderen, met omslagfoto en afbeeldingen in de tekst | `src/content/blog/<slug>.md` en `src/assets/blog/` |
-| Team | Teamleden toevoegen, foto, functie, intro, specialisaties, registraties, profieltekst, volgorde | `src/content/team/<slug>.md` en `src/assets/team/` |
+| Team | Teamleden toevoegen, foto, functie, intro, specialisaties, registraties, wachttijd (optioneel, verschijnt op de teampagina en het profiel), profieltekst, volgorde | `src/content/team/<slug>.md` en `src/assets/team/` |
 | Diensten | Teksten en veelgestelde vragen per dienst. In een FAQ-antwoord maak je een link met `[tekst](/tarieven/)` of `[adres](mailto:adres)` | `src/content/diensten/<slug>.md` |
-| Tarieven | De tarieventabel en de studententarieven | `src/data/tarieven.json` |
+| Tarieven | De tarieventabel (de studententarieven van Groundwork Academy zijn op verzoek van de praktijk verwijderd, 3 nov 2026) | `src/data/tarieven.json` |
 | Houd me Vast | Weekenddata (met "vol"-vinkje), prijs en aanbetaling | `src/data/houd-me-vast.json` |
 | Rouw en Verlies | Startdatum, omvang, prijs | `src/data/rouw-en-verlies.json` |
 
@@ -195,7 +195,7 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 
 ## 8. Aanmelden Houd me Vast met aanbetaling (Mollie)
 
-Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) vraagt beide namen, e-mail, telefoon, gewenst weekend, opmerkingen en akkoord met de voorwaarden. Er is geen database; de flow loopt volledig via Mollie en e-mail.
+Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) vraagt per partner naam, adres, postcode, woonplaats, e-mail en telefoon (partner 2 woont standaard op hetzelfde adres; vinkje uit toont eigen adresvelden), plus gewenst weekend en akkoord met de voorwaarden. De velden zijn afgestemd met de praktijk op 3 november 2026; de validatie en de mailteksten staan in `src/lib/inschrijving.ts`. Er is geen database; de flow loopt volledig via Mollie en e-mail.
 
 1. `POST /api/inschrijven` valideert en maakt met `MOLLIE_API_KEY` een betaling aan voor het bedrag in `src/data/houd-me-vast.json` (`aanbetalingBedrag`, beheerbaar in Keystatic). De formuliergegevens gaan mee als metadata van de betaling.
 2. De bezoeker betaalt op de Mollie-checkout (iDEAL, creditcard) en komt terug op `/houd-me-vast/bedankt/?id=tr_…`, die de status toont.

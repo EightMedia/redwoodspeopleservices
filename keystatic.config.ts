@@ -65,6 +65,7 @@ export default config({
         order: fields.integer({ label: "Volgorde", defaultValue: 99 }),
         specialties: fields.array(fields.text({ label: "Specialisatie" }), { label: "Specialisaties", itemLabel: (p) => p.value }),
         registrations: fields.array(fields.text({ label: "Registratie" }), { label: "Registraties", description: "Bijvoorbeeld: VIT: lid", itemLabel: (p) => p.value }),
+        wachttijd: fields.text({ label: "Wachttijd", description: "Bijvoorbeeld: Ongeveer twee weken, of: Op dit moment geen plek voor nieuwe cliënten. Leeg laten om niets te tonen." }),
         content: markdown("Profieltekst", "src/assets/team"),
       },
     }),
@@ -101,15 +102,6 @@ export default config({
             info: fields.text({ label: "Toelichting", multiline: true }),
           }),
           { label: "Tarieven", itemLabel: (p) => `${p.fields.naam.value} – ${p.fields.prijs.value}` },
-        ),
-        studenten: fields.array(
-          fields.object({
-            naam: fields.text({ label: "Dienst" }),
-            prijs: fields.text({ label: "Prijs" }),
-            btw: fields.text({ label: "Btw" }),
-            info: fields.text({ label: "Toelichting", multiline: true }),
-          }),
-          { label: "Tarieven studenten Groundwork Academy", itemLabel: (p) => `${p.fields.naam.value} – ${p.fields.prijs.value}` },
         ),
       },
     }),

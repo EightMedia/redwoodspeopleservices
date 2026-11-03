@@ -9,7 +9,7 @@ faq:
   - q: Hoe verloopt de intake?
     a: De intakefase bestaat uit twee gesprekken. Op basis daarvan stellen we een behandelplan op, dat we in het derde gesprek met je bespreken en waarvoor we je goedkeuring vragen.
   - q: Wordt therapie vergoed?
-    a: Veel van onze therapieën worden (deels) vergoed vanuit het aanvullende pakket van je zorgverzekering en vallen niet onder het eigen risico. Onze therapeuten zijn aangesloten bij VIT, RBCZ en SCAG. Controleer vooraf de voorwaarden bij je verzekeraar.
+    a: Veel van onze therapieën worden (deels) vergoed vanuit het aanvullende pakket van je zorgverzekering en vallen niet onder het eigen risico. Onze therapeuten zijn aangesloten bij VIT en RBCZ. Controleer vooraf de voorwaarden bij je verzekeraar.
   - q: Moet ik christelijk zijn om bij Redwoods terecht te kunnen?
     a: Nee. Iedereen is welkom, ongeacht geloof of levensovertuiging. Jij staat centraal. Als geloof een hulpbron voor je is, kunnen we dat inzetten; als het een stressbron is, helpen we je er beter mee om te gaan.
 ---

@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getPayment, mollieEnabled, euro } from "../../../lib/mollie";
 import { sendMail, MAIL_TO } from "../../../lib/mail";
+import { inschrijvingTekst, ontvangers, type Inschrijving } from "../../../lib/inschrijving";
 
 export const prerender = false;
 
@@ -28,27 +29,22 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response("Betaling niet gevonden", { status: 404 });
   }
 
-  if (payment.status === "paid" && payment.metadata?.type === "houd-me-vast") {
-    const m = payment.metadata;
+  if (payment.status === "paid" && payment.metadata?.type === "houd-me-vast" && payment.metadata.p1 && payment.metadata.p2) {
+    const m = payment.metadata as unknown as Inschrijving;
     const bedrag = euro(payment.amount.value);
     const text = [
       "Nieuwe aanmelding Houd me Vast relatieweekend – aanbetaling ontvangen",
       "",
-      `Weekend: ${m.weekend}`,
-      `Partner 1: ${m.partner1}`,
-      `Partner 2: ${m.partner2}`,
-      `E-mail: ${m.email}`,
-      `Telefoon: ${m.telefoon}`,
-      `Opmerkingen/dieetwensen: ${m.opmerkingen || "-"}`,
+      ...inschrijvingTekst(m),
       "",
       `Aanbetaling: ${bedrag} betaald via Mollie (${payment.id}) op ${payment.paidAt ?? "-"}`,
       "Resterend bedrag factureren na het intakegesprek.",
     ].join("\n");
-    await sendMail({ to: MAIL_TO(), subject: `[Website] Aanbetaling ontvangen Houd me Vast – ${m.partner1} en ${m.partner2}`, text, replyTo: m.email });
+    await sendMail({ to: MAIL_TO(), subject: `[Website] Aanbetaling ontvangen Houd me Vast – ${m.p1.naam} en ${m.p2.naam}`, text, replyTo: m.p1.email });
     await sendMail({
-      to: m.email,
+      to: ontvangers(m),
       subject: "Bevestiging aanmelding Houd me Vast relatieweekend",
-      text: `Beste ${m.partner1} en ${m.partner2},\n\nJullie aanmelding voor het Houd me Vast relatieweekend (${m.weekend}) is ontvangen en de aanbetaling van ${bedrag} is betaald. Betaalkenmerk: ${payment.id}.\n\nWat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden zijn van toepassing.\n\nTip: lees alvast samen het boek Houd me Vast van Sue Johnson.\n\nHartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\nsecretariaat@redwoodspeopleservices.nl · +31 6 24913779`,
+      text: `Beste ${m.p1.naam} en ${m.p2.naam},\n\nJullie aanmelding voor het Houd me Vast relatieweekend (${m.weekend}) is ontvangen en de aanbetaling van ${bedrag} is betaald. Betaalkenmerk: ${payment.id}.\n\nWat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden zijn van toepassing.\n\nTip: lees alvast samen het boek Houd me Vast van Sue Johnson.\n\nHartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\nsecretariaat@redwoodspeopleservices.nl · +31 6 24913779`,
     });
   }
   // Altijd 200, anders blijft Mollie het opnieuw proberen

@@ -1,11 +1,10 @@
 import type { APIRoute } from "astro";
 import { sendMail, MAIL_TO } from "../../lib/mail";
 import { createPayment, mollieEnabled, euro } from "../../lib/mollie";
+import { leesInschrijving, inschrijvingTekst, ontvangers } from "../../lib/inschrijving";
 import hmv from "../../data/houd-me-vast.json";
 
 export const prerender = false;
-
-const clean = (v: FormDataEntryValue | null, max: number) => (typeof v === "string" ? v : "").trim().slice(0, max);
 
 /**
  * Inschrijving Houd me Vast relatieweekend.
@@ -25,22 +24,16 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
   } catch {
     return fail("Ongeldig formulier.");
   }
-  if (clean(form.get("website"), 10)) return wantsJson ? new Response(JSON.stringify({ ok: true }), { headers: { "content-type": "application/json" } }) : redirect("/houd-me-vast/bedankt/", 303);
+  if (typeof form.get("website") === "string" && (form.get("website") as string).trim()) {
+    return wantsJson ? new Response(JSON.stringify({ ok: true }), { headers: { "content-type": "application/json" } }) : redirect("/houd-me-vast/bedankt/", 303);
+  }
 
-  const d = {
-    partner1: clean(form.get("partner1"), 100),
-    partner2: clean(form.get("partner2"), 100),
-    email: clean(form.get("email"), 200),
-    telefoon: clean(form.get("telefoon"), 40),
-    weekend: clean(form.get("weekend"), 60),
-    opmerkingen: clean(form.get("opmerkingen"), 400),
-  };
+  const gelezen = leesInschrijving(form);
+  if ("fout" in gelezen) return fail(gelezen.fout);
+  const d = gelezen.data;
   const akkoord = form.get("voorwaarden") === "ja";
   const weekendOk = hmv.data.some((w) => w.datum === d.weekend && !w.vol) || d.weekend === "Wachtlijst / eerstvolgende beschikbare weekend";
 
-  if (!d.partner1 || !d.partner2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email) || !d.telefoon) {
-    return fail("Vul beide namen, een geldig e-mailadres en een telefoonnummer in.");
-  }
   if (!weekendOk) return fail("Kies een beschikbaar weekend.");
   if (!akkoord) return fail("Ga akkoord met de algemene en annuleringsvoorwaarden.");
 
@@ -70,22 +63,17 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
   const text = [
     "Nieuwe aanmelding Houd me Vast relatieweekend (nog zonder aanbetaling)",
     "",
-    `Weekend: ${d.weekend}`,
-    `Partner 1: ${d.partner1}`,
-    `Partner 2: ${d.partner2}`,
-    `E-mail: ${d.email}`,
-    `Telefoon: ${d.telefoon}`,
-    `Opmerkingen/dieetwensen: ${d.opmerkingen || "-"}`,
-    `Akkoord met voorwaarden: ja`,
+    ...inschrijvingTekst(d),
+    "Akkoord met voorwaarden: ja",
     "",
     `Aanbetaling van ${euro(amount)} nog te factureren.`,
   ].join("\n");
-  const ok = await sendMail({ to: MAIL_TO(), subject: `[Website] Aanmelding Houd me Vast – ${d.partner1} en ${d.partner2}`, text, replyTo: d.email });
+  const ok = await sendMail({ to: MAIL_TO(), subject: `[Website] Aanmelding Houd me Vast – ${d.p1.naam} en ${d.p2.naam}`, text, replyTo: d.p1.email });
   if (!ok) return fail("Versturen is niet gelukt. Mail ons gerust rechtstreeks.", 502);
   await sendMail({
-    to: d.email,
+    to: ontvangers(d),
     subject: "Je aanmelding voor het Houd me Vast relatieweekend",
-    text: `Beste ${d.partner1} en ${d.partner2},\n\nBedankt voor jullie aanmelding voor het Houd me Vast relatieweekend (${d.weekend}). We nemen contact met jullie op om de aanbetaling van ${euro(amount)} en het intakegesprek via Zoom in te plannen.\n\nHartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\n+31 6 24913779`,
+    text: `Beste ${d.p1.naam} en ${d.p2.naam},\n\nBedankt voor jullie aanmelding voor het Houd me Vast relatieweekend (${d.weekend}). We nemen contact met jullie op om de aanbetaling van ${euro(amount)} en het intakegesprek via Zoom in te plannen.\n\nHartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\n+31 6 24913779`,
   });
   return wantsJson
     ? new Response(JSON.stringify({ ok: true, redirect: "/houd-me-vast/bedankt/" }), { headers: { "content-type": "application/json" } })

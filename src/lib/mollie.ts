@@ -21,7 +21,7 @@ export interface MolliePayment {
   status: "open" | "canceled" | "pending" | "authorized" | "expired" | "failed" | "paid";
   amount: { currency: string; value: string };
   description: string;
-  metadata: Record<string, string> | null;
+  metadata: Record<string, unknown> | null;
   paidAt?: string;
   _links: { checkout?: { href: string } };
 }
@@ -31,7 +31,7 @@ export async function createPayment(input: {
   description: string;
   redirectUrl: string;
   webhookUrl: string;
-  metadata: Record<string, string>;
+  metadata: Record<string, unknown>;
 }) {
   const payment = await call<MolliePayment>("/payments", {
     method: "POST",

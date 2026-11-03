@@ -1,6 +1,7 @@
 ---
 /**
- * Aanmeldformulier Houd me Vast: beide namen, e-mail, telefoon, weekend, opmerkingen, voorwaarden.
+ * Aanmeldformulier Houd me Vast: per partner naam, adres, e-mail en telefoon, plus weekend en akkoord met de voorwaarden.
+ * Partner 2 woont standaard op hetzelfde adres; het vinkje uit zetten toont eigen adresvelden.
  * Post naar /api/inschrijven; met Mollie volgt de checkout voor de aanbetaling.
  */
 import hmv from "../data/houd-me-vast.json";
@@ -9,48 +10,96 @@ const weekends = hmv.data;
 const fout = Astro.url.searchParams.get("fout");
 ---
 
-<form method="post" action="/api/inschrijven" class="space-y-5" data-inschrijf-form novalidate>
+<form method="post" action="/api/inschrijven" class="space-y-8" data-inschrijf-form novalidate>
   <div class="hidden" aria-hidden="true">
     <label>Laat dit veld leeg <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
   </div>
   {fout && <p class="rounded-xl bg-brand-soft p-4 text-brand-deep">{fout}</p>}
 
-  <div class="grid gap-5 sm:grid-cols-2">
+  <fieldset class="space-y-5">
+    <legend class="text-xl font-bold">Partner 1</legend>
     <div>
-      <label for="partner1" class="label">Naam partner 1</label>
-      <input id="partner1" name="partner1" type="text" class="field" required autocomplete="name" />
+      <label for="naam1" class="label">Naam</label>
+      <input id="naam1" name="naam1" type="text" class="field" required autocomplete="section-p1 name" />
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label for="email1" class="label">E-mailadres</label>
+        <input id="email1" name="email1" type="email" class="field" required autocomplete="section-p1 email" />
+      </div>
+      <div>
+        <label for="telefoon1" class="label">Telefoonnummer</label>
+        <input id="telefoon1" name="telefoon1" type="tel" class="field" required autocomplete="section-p1 tel" />
+      </div>
     </div>
     <div>
-      <label for="partner2" class="label">Naam partner 2</label>
-      <input id="partner2" name="partner2" type="text" class="field" required />
+      <label for="adres1" class="label">Straat en huisnummer</label>
+      <input id="adres1" name="adres1" type="text" class="field" required autocomplete="section-p1 street-address" />
     </div>
-  </div>
-  <div class="grid gap-5 sm:grid-cols-2">
+    <div class="grid gap-5 sm:grid-cols-[10rem_1fr]">
+      <div>
+        <label for="postcode1" class="label">Postcode</label>
+        <input id="postcode1" name="postcode1" type="text" class="field" required autocomplete="section-p1 postal-code" />
+      </div>
+      <div>
+        <label for="plaats1" class="label">Woonplaats</label>
+        <input id="plaats1" name="plaats1" type="text" class="field" required autocomplete="section-p1 address-level2" />
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="space-y-5">
+    <legend class="text-xl font-bold">Partner 2</legend>
     <div>
-      <label for="email" class="label">E-mailadres</label>
-      <input id="email" name="email" type="email" class="field" required autocomplete="email" />
+      <label for="naam2" class="label">Naam</label>
+      <input id="naam2" name="naam2" type="text" class="field" required autocomplete="section-p2 name" />
     </div>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label for="email2" class="label">E-mailadres</label>
+        <input id="email2" name="email2" type="email" class="field" required autocomplete="section-p2 email" />
+      </div>
+      <div>
+        <label for="telefoon2" class="label">Telefoonnummer</label>
+        <input id="telefoon2" name="telefoon2" type="tel" class="field" required autocomplete="section-p2 tel" />
+      </div>
+    </div>
+    <label class="flex items-start gap-3 text-sm">
+      <input type="checkbox" name="zelfdeAdres" value="ja" checked class="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand" data-zelfde-adres />
+      <span>Woont op hetzelfde adres als partner 1</span>
+    </label>
+    <div class="space-y-5" data-adres2>
+      <div>
+        <label for="adres2" class="label">Straat en huisnummer</label>
+        <input id="adres2" name="adres2" type="text" class="field" autocomplete="section-p2 street-address" />
+      </div>
+      <div class="grid gap-5 sm:grid-cols-[10rem_1fr]">
+        <div>
+          <label for="postcode2" class="label">Postcode</label>
+          <input id="postcode2" name="postcode2" type="text" class="field" autocomplete="section-p2 postal-code" />
+        </div>
+        <div>
+          <label for="plaats2" class="label">Woonplaats</label>
+          <input id="plaats2" name="plaats2" type="text" class="field" autocomplete="section-p2 address-level2" />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="space-y-5">
     <div>
-      <label for="telefoon" class="label">Telefoonnummer</label>
-      <input id="telefoon" name="telefoon" type="tel" class="field" required autocomplete="tel" />
+      <label for="weekend" class="label">Gewenst weekend</label>
+      <select id="weekend" name="weekend" class="field" required>
+        <option value="">Kies een weekend</option>
+        {weekends.map((w) => <option value={w.datum} disabled={w.vol}>{w.datum}{w.vol ? " (vol)" : ""}</option>)}
+        <option value="Wachtlijst / eerstvolgende beschikbare weekend">Wachtlijst / eerstvolgende beschikbare weekend</option>
+      </select>
     </div>
+    <label class="flex items-start gap-3 text-sm">
+      <input type="checkbox" name="voorwaarden" value="ja" required class="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand" />
+      <span>We gaan akkoord met de <a href="/algemene-voorwaarden/" class="underline underline-offset-4">algemene en annuleringsvoorwaarden</a> en het <a href="/privacybeleid/" class="underline underline-offset-4">privacybeleid</a>.</span>
+    </label>
   </div>
-  <div>
-    <label for="weekend" class="label">Gewenst weekend</label>
-    <select id="weekend" name="weekend" class="field" required>
-      <option value="">Kies een weekend</option>
-      {weekends.map((w) => <option value={w.datum} disabled={w.vol}>{w.datum}{w.vol ? " (vol)" : ""}</option>)}
-      <option value="Wachtlijst / eerstvolgende beschikbare weekend">Wachtlijst / eerstvolgende beschikbare weekend</option>
-    </select>
-  </div>
-  <div>
-    <label for="opmerkingen" class="label">Dieetwensen of opmerkingen <span class="font-normal text-muted">(optioneel)</span></label>
-    <textarea id="opmerkingen" name="opmerkingen" rows="3" class="field"></textarea>
-  </div>
-  <label class="flex items-start gap-3 text-sm">
-    <input type="checkbox" name="voorwaarden" value="ja" required class="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand" />
-    <span>We gaan akkoord met de <a href="/algemene-voorwaarden/" class="underline underline-offset-4">algemene en annuleringsvoorwaarden</a> en het <a href="/privacybeleid/" class="underline underline-offset-4">privacybeleid</a>.</span>
-  </label>
 
   <div class="rounded-2xl bg-sand p-4 text-sm text-muted">
     {mollie
@@ -69,6 +118,17 @@ const fout = Astro.url.searchParams.get("fout");
   if (form) {
     const status = form.querySelector<HTMLElement>("[data-status]")!;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+    // Adresvelden van partner 2 alleen tonen als het adres afwijkt
+    const zelfde = form.querySelector<HTMLInputElement>("[data-zelfde-adres]")!;
+    const adres2 = form.querySelector<HTMLElement>("[data-adres2]")!;
+    const toggle = () => {
+      adres2.hidden = zelfde.checked;
+      adres2.querySelectorAll("input").forEach((i) => (i.required = !zelfde.checked));
+    };
+    zelfde.addEventListener("change", toggle);
+    toggle();
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;

@@ -25,6 +25,7 @@ const team = defineCollection({
       order: z.number().default(99),
       registrations: z.array(z.string()).default([]),
       specialties: z.array(z.string()).default([]),
+      wachttijd: z.string().optional(),
     }),
 });
 

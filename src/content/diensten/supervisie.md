@@ -11,7 +11,7 @@ faq:
   - q: Wie kan supervisie aanvragen?
     a: Iedereen kan het initiatief nemen, de supervisant zelf, maar ook een organisatie, bedrijf, instantie, kerk of opleiding. Opdrachtgever en supervisor sluiten een inhoudelijke en financiële overeenkomst.
   - q: Wat kost supervisie?
-    a: Individuele supervisie kost 145 euro per sessie van 60 minuten, inclusief btw. Studenten van Groundwork Academy betalen een aangepast tarief. Zie de [tarievenpagina](/tarieven/).
+    a: Individuele supervisie kost 175 euro per sessie van 60 minuten, inclusief btw. Zie de [tarievenpagina](/tarieven/).
 ---
 
 ## Zelfreflectie
