@@ -254,10 +254,10 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 |---|---|---|
 | GitHub | organisatie EightMedia, repo `redwoodspeopleservices` | Gekoppeld aan Vercel; elke push naar `main` deployt |
 | Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op www.redwoodspeopleservices.nl sinds 2 november 2026. Het certificaat kwam niet vanzelf; uitgegeven met `vercel certs issue redwoodspeopleservices.nl www.redwoodspeopleservices.nl`. Kale domein stuurt met 308 door naar www |
-| Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel; domeinverificatie wacht nog op de Resend-records bij Strato (zie DNS). Formulieren en Mollie-mails werken pas daarna |
+| Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel. Stand 5 nov 2026: DKIM en CNAME `send` staan goed bij Strato, maar CNAME `rsend` wijst door een tikfout naar `rsendrsend-euw1.forge.rmta.net` in plaats van `rsend-euw1.forge.rmta.net`. Verificatie is gestart (status pending) en rondt af zodra dat record is verbeterd; anders opnieuw starten met `POST /domains/{id}/verify`. Formulieren en Mollie-mails werken pas daarna |
 | Mollie | account van Redwoods People Services B.V.; Daniel (Eight) is partner met volledige toegang | Testsleutel in Vercel, testbetaling geslaagd incl. webhook (30 okt 2026). Nog te doen: live-sleutel zetten bij livegang |
 | Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
-| DNS | Strato, beheerd door de domeinhouder | A `@` → 216.150.16.1 en CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com` staan (2 nov 2026). De Resend-records (DKIM `resend._domainkey`, MX en TXT op `send`) ontbreken nog; zonder die gaan er geen mails uit. MX (Google Workspace) en SPF niet wijzigen |
+| DNS | Strato, beheerd door de domeinhouder | A `@` → 216.150.16.1 en CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com` staan (2 nov 2026). De Resend-records zijn CNAME's (nieuwe Resend-opzet): `send` → `send.forge.rmta.net` staat goed, `rsend` → `rsend-euw1.forge.rmta.net` staat met een tikfout (zie Resend). Google Search Console TXT op `@` staat (5 nov 2026) |
 
 Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, akkoord op de bevestigingsmails (`docs/mail-bevestiging-stel.md`), Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
 
