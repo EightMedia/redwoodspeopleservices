@@ -1,26 +1,76 @@
 ---
+/**
+ * Privacyverklaring, tekst aangeleverd door de praktijk (concept 4 november 2026).
+ * De bijbehorende interne checklist hoort niet op de website.
+ */
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Section from "../components/Section.astro";
 import { site } from "../data/site";
 ---
 
-<Base title="Privacybeleid" description="Hoe Redwoods People Services omgaat met je persoonsgegevens.">
-  <PageHeader eyebrow="Informatie" title="Privacybeleid" />
+<Base title="Privacyverklaring" description="Hoe Redwoods People Services omgaat met je persoonsgegevens: welke gegevens we gebruiken, waarom, hoe lang we ze bewaren en welke rechten je hebt.">
+  <PageHeader eyebrow="Informatie" title="Privacyverklaring" intro="Redwoods People Services B.V. gaat zorgvuldig om met jouw persoonsgegevens. In deze privacyverklaring lees je welke gegevens wij gebruiken, waarom wij dat doen, hoe lang wij ze bewaren en welke rechten je hebt." />
   <Section>
     <div class="prose-site max-w-3xl">
-      <p>Redwoods People Services, gevestigd aan de {site.address.street}, {site.address.postalCode} {site.address.city} (KvK {site.kvk}), gaat zorgvuldig om met je persoonsgegevens. Op deze pagina lees je welke gegevens we verwerken en waarom.</p>
-      <h2>Contactformulier</h2>
-      <p>Vul je het contactformulier in, dan verwerken we je naam, e-mailadres, telefoonnummer en je bericht om contact met je op te nemen. Je bericht wordt per e-mail aan ons secretariaat bezorgd via de maildienst Resend en wordt niet in een database op de website opgeslagen. Als je vraag is beantwoord en er geen traject volgt, bewaren we je gegevens niet langer.</p>
-      <h2>Aanmelding en aanbetaling Houd me Vast</h2>
-      <p>Meld je je aan voor het Houd me Vast relatieweekend, dan verwerken we van beide partners naam, adres, e-mailadres en telefoonnummer, plus het gekozen weekend. De aanbetaling verloopt via betaaldienst Mollie; wij zien geen rekening- of kaartgegevens. Mollie bewaart de betaling met deze gegevens volgens haar eigen privacyverklaring. Na betaling ontvangen het secretariaat en jullie een bevestiging per e-mail.</p>
-      <h2>Cliëntdossier</h2>
-      <p>Word je cliënt, dan houden we een dossier bij zoals de Wet op de geneeskundige behandelingsovereenkomst (WGBO) en de richtlijnen van onze beroepsverenigingen voorschrijven. Dit dossier is alleen toegankelijk voor je behandelaar. Je hebt recht op inzage, correctie en, binnen de wettelijke kaders, verwijdering.</p>
-      <h2>Website en cookies</h2>
-      <p>Deze website plaatst geen trackingcookies en gebruikt geen advertentienetwerken. Voor de spamcontrole van het contactformulier kan Cloudflare Turnstile een functionele cookie plaatsen.</p>
-      <h2>Je rechten</h2>
-      <p>Je kunt ons altijd vragen welke gegevens we van je hebben, deze laten corrigeren of verwijderen. Mail daarvoor naar <a href={`mailto:${site.email}`}>{site.email}</a>. Heb je een klacht over hoe we met je gegevens omgaan, dan kun je terecht bij de Autoriteit Persoonsgegevens.</p>
-      <p class="text-sm text-muted">Deze tekst is een beknopte weergave en wordt bij publicatie van de nieuwe website nagelopen door de praktijk.</p>
+      <h2>1. Wie is verantwoordelijk?</h2>
+      <p>Redwoods People Services B.V. is verantwoordelijk voor de verwerking van persoonsgegevens zoals beschreven in deze verklaring.</p>
+      <p>{site.address.street}, {site.address.postalCode} {site.address.city}<br />KvK-nummer: {site.kvk}<br />E-mail: <a href={`mailto:${site.email}`}>{site.email}</a><br />Website: www.redwoodspeopleservices.nl<br />Telefoon: <a href={`tel:${site.phoneHref}`}>{site.phone}</a></p>
+      <p>Voor vragen over privacy of het uitoefenen van je privacyrechten kun je contact opnemen via <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+      <h2>2. Welke gegevens verwerken wij?</h2>
+      <p>Welke gegevens wij verwerken, hangt af van het contact dat je met ons hebt en de dienst die je afneemt. Het kan gaan om:</p>
+      <ul>
+        <li>naam, adres, telefoonnummer en e-mailadres;</li>
+        <li>geboortedatum en gegevens die nodig zijn voor onze administratie en facturatie;</li>
+        <li>gegevens over je aanmelding, afspraken, betalingen en deelname aan activiteiten;</li>
+        <li>gegevens die je zelf met ons deelt via een formulier, e-mail of gesprek;</li>
+        <li>bij therapie: gegevens over je gezondheid, hulpvraag, behandeling en voortgang. Dit zijn bijzondere persoonsgegevens.</li>
+      </ul>
+
+      <h2>3. Waarvoor en op welke grond verwerken wij gegevens?</h2>
+      <p>Wij verwerken persoonsgegevens alleen als daarvoor een wettelijke grondslag bestaat. Dat doen wij onder meer voor de volgende doelen:</p>
+      <ul>
+        <li><strong>Contact en informatieaanvragen:</strong> om je vraag te beantwoorden en contact met je op te nemen. Grondslag: jouw verzoek en/of ons gerechtvaardigd belang.</li>
+        <li><strong>Therapie en cliëntdossiers:</strong> om goede hulpverlening te kunnen bieden, afspraken vast te leggen en te voldoen aan de wettelijke dossierplicht. Grondslag: uitvoering van de behandelovereenkomst en de toepasselijke wettelijke verplichtingen; voor gezondheidsgegevens gelden daarnaast de wettelijke uitzonderingen voor verwerking van bijzondere persoonsgegevens.</li>
+        <li><strong>Houd me Vast-weekenden:</strong> om aanmeldingen van beide partners te verwerken, deelname te organiseren, praktische informatie te sturen en betalingen af te handelen. Grondslag: uitvoering van de overeenkomst en wettelijke administratieverplichtingen.</li>
+        <li><strong>Facturatie en administratie:</strong> om betalingen te verwerken en te voldoen aan fiscale verplichtingen. Grondslag: overeenkomst en wettelijke verplichting.</li>
+        <li><strong>Nieuwsbrief of andere niet-noodzakelijke marketing:</strong> alleen wanneer daarvoor een geldige grondslag bestaat, bijvoorbeeld jouw toestemming. Je kunt je altijd afmelden.</li>
+      </ul>
+
+      <h2>4. Contactformulier</h2>
+      <p>Als je het contactformulier invult, verwerken wij de gegevens die je invult, zoals je naam, e-mailadres, telefoonnummer en bericht, om je vraag te beantwoorden. Het bericht wordt via onze maildienst Resend doorgestuurd naar het secretariaat. Volgens de huidige inrichting wordt het bericht niet opgeslagen in een database van de website. De e-mail kan wel in onze mailomgeving en back-ups aanwezig blijven. Als er geen vervolgcontact of traject ontstaat, verwijderen wij de gegevens zodra ze niet meer nodig zijn, volgens onze interne bewaartermijnen.</p>
+
+      <h2>5. Aanmelding en betaling Houd me Vast</h2>
+      <p>Bij aanmelding voor een Houd me Vast-weekend verwerken wij van beide partners de gegevens die nodig zijn voor de inschrijving en organisatie, zoals naam, adres, e-mailadres, telefoonnummer en het gekozen weekend. De betaling van de aanbetaling verloopt via Mollie. Mollie verwerkt betaalgegevens volgens haar eigen privacyverklaring. Redwoods ontvangt informatie die nodig is om de betaling en aanmelding te administreren; wij ontvangen geen volledige kaart- of bankgegevens via de website.</p>
+
+      <h2>6. Cliëntdossier en geheimhouding</h2>
+      <p>Wanneer je bij ons in behandeling komt, houden wij een cliëntdossier bij. Daarin staan gegevens die nodig zijn voor goede hulpverlening, zoals aantekeningen over je hulpvraag, gezondheid, behandeling en voortgang. De dossierplicht volgt, waar de WGBO van toepassing is, uit de wet. Je hoeft voor deze wettelijke dossierplicht geen aparte toestemming te geven.</p>
+      <p>Alleen je behandelaar en andere medewerkers die voor hun werkzaamheden toegang nodig hebben, kunnen de relevante gegevens inzien. Zij zijn gebonden aan geheimhouding. Gegevens worden alleen met andere zorgverleners gedeeld wanneer dat is toegestaan en, waar vereist, met jouw toestemming. Voor waarneming en administratieve ondersteuning gebruiken wij alleen de gegevens die daarvoor noodzakelijk zijn. Gegevens voor intercollegiale toetsing worden geanonimiseerd zodat ze niet tot jou herleidbaar zijn.</p>
+      <p>Je kunt vragen om inzage in je dossier en om een kopie. Correctie of vernietiging is mogelijk binnen de wettelijke kaders. Voor medische dossiers geldt in beginsel een bewaartermijn van 20 jaar vanaf de laatste wijziging in het dossier.</p>
+
+      <h2>7. Met wie delen wij gegevens?</h2>
+      <p>Wij delen persoonsgegevens niet zomaar met anderen. Voor onze dienstverlening kunnen wij gebruikmaken van zorgvuldig geselecteerde dienstverleners, bijvoorbeeld voor e-mailverkeer, websitebeveiliging, betalingen, cliëntadministratie en dossierbeheer. Zij verwerken gegevens alleen voor zover dat nodig is voor hun dienstverlening en op basis van passende afspraken. Waar wettelijk vereist sluiten wij een verwerkersovereenkomst.</p>
+      <p>Wij verstrekken gegevens aan anderen als dat wettelijk verplicht is of als dat noodzakelijk is voor de uitvoering van de overeenkomst of behandeling en daarvoor een geldige grondslag bestaat. Doorgifte buiten de Europese Economische Ruimte vindt alleen plaats als aan de wettelijke voorwaarden daarvoor is voldaan.</p>
+
+      <h2>8. Bewaartermijnen</h2>
+      <p>Wij bewaren persoonsgegevens niet langer dan noodzakelijk is voor het doel waarvoor ze zijn verzameld, tenzij een wettelijke bewaartermijn geldt. Voor cliëntdossiers geldt, waar de WGBO van toepassing is, in beginsel 20 jaar vanaf de laatste wijziging. Financiële administratie bewaren wij volgens de wettelijke fiscale bewaartermijn. Gegevens van contactaanvragen en aanmeldingen bewaren wij niet langer dan nodig voor de afhandeling, organisatie en eventuele wettelijke verplichtingen.</p>
+
+      <h2>9. Website en cookies</h2>
+      <p>De website gebruikt functionele technieken die nodig zijn om de website goed en veilig te laten werken. Voor de spambeveiliging van het contactformulier kan Cloudflare Turnstile worden ingezet. De precieze werking en eventuele cookies of vergelijkbare technieken hangen af van de technische configuratie. Als wij analytische of trackingcookies gebruiken die toestemming vereisen, vragen wij daarvoor vooraf toestemming via een cookiemelding. Je kunt je cookievoorkeuren daar aanpassen.</p>
+
+      <h2>10. Beeldbellen en audio- of video-opnamen</h2>
+      <p>Als beeldbellen onderdeel is van de begeleiding, informeren wij je vooraf over de gebruikte dienst en de wijze waarop gegevens worden verwerkt. Audio- of video-opnamen voor opleiding, supervisie of intercollegiale doeleinden maken wij alleen na voorafgaande, afzonderlijke en vrijwillige toestemming. We leggen vast waarvoor de opname wordt gebruikt, wie deze kan bekijken en wanneer de opname wordt verwijderd. Je kunt weigeren zonder dat dit gevolgen heeft voor de mogelijkheid om begeleiding te ontvangen.</p>
+
+      <h2>11. Jouw privacyrechten</h2>
+      <p>Je hebt, binnen de wettelijke voorwaarden, recht op inzage, rectificatie, verwijdering, beperking van verwerking, bezwaar en gegevensoverdraagbaarheid. Als wij gegevens verwerken op basis van toestemming, kun je die toestemming op ieder moment intrekken. Dat heeft geen terugwerkende kracht op verwerkingen die daarvoor rechtmatig hebben plaatsgevonden.</p>
+      <p>Stuur je verzoek naar <a href={`mailto:${site.email}`}>{site.email}</a>. Om zeker te weten dat het verzoek van jou afkomstig is, kunnen wij je vragen je identiteit op een passende en veilige manier te bevestigen. Stuur niet uit eigen beweging een volledige kopie van je identiteitsbewijs mee. Wij reageren in beginsel binnen één maand. In bepaalde gevallen mag deze termijn worden verlengd; dan laten wij je dat weten.</p>
+      <p>Je kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens via <a href="https://www.autoriteitpersoonsgegevens.nl" rel="noopener" target="_blank">www.autoriteitpersoonsgegevens.nl</a>.</p>
+
+      <h2>12. Beveiliging</h2>
+      <p>Wij nemen passende technische en organisatorische maatregelen om persoonsgegevens te beschermen tegen verlies, misbruik en onbevoegde toegang. Alleen personen die gegevens voor hun werk nodig hebben, krijgen toegang. Denk je dat gegevens niet goed beveiligd zijn of dat er sprake is van misbruik? Neem dan contact op via <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+      <p class="text-sm text-muted">Laatst bijgewerkt: 4 november 2026</p>
     </div>
   </Section>
 </Base>
