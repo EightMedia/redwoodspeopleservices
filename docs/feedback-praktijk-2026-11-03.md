@@ -44,3 +44,11 @@ Cris van Dusseldorp reageerde op de site en op het SEO-advies. Dit document legt
 **Punt 8, registertherapeut.** Begrepen, vervalt.
 
 **Engelse versie.** Drie opties, van klein naar groot: (1) één Engelse pagina /en/ met de essentie (wie, wat, online mogelijk, tarieven, contact), ongeveer een dag werk; (2) de hoofdpagina's vertaald onder /en/, met taalwissel in het menu, meerdere dagen en elke tekstwijziging daarna in twee talen bijhouden; (3) niets bouwen en vertrouwen op de vertaalfunctie van de browser. Advies: optie 1.
+
+## Aanvulling 5 november 2026
+
+**Mail Edwin (no-show-beleid).** Doorgevoerd: no-show-beleid staat onder de tarievenlijst op /tarieven/ (bewerkbaar in Keystatic onder Tarieven → No-show-beleid) en vervangt de 24-uursregel in de algemene voorwaarden. Tekst herschreven in de je-stijl van de site: afzeggen binnen drie werkdagen = no-showtarief van de dienst; coaching op maat = volledige sessie; bij ziekte alleen bij afzeggen binnen 24 uur.
+
+**Nog van Edwin.** Voorwaarden voor retraites en Houd me Vast-weekenden. Zodra die er zijn kunnen ze als pdf automatisch meegestuurd worden met de bevestigingsmail van de aanmelding (Resend ondersteunt bijlagen), of als link naar een pagina op de site. Pdf als bijlage heeft de voorkeur van Edwin.
+
+**Mail Cris (Engels).** Keuze: optie 1, één Engelse pagina /en/. Cris levert een opzet aan, Michelle checkt het Engels. Houd me Vast wordt niet in het Engels aangeboden. Het contactformulier op de Engelse pagina krijgt een taalveld, zodat de automatische ontvangstbevestiging in het Engels gaat; de melding aan het secretariaat blijft hetzelfde en de praktijk neemt zelf contact op.

@@ -6,7 +6,8 @@ import Faq from "../components/Faq.astro";
 import Cta from "../components/Cta.astro";
 
 import data from "../data/tarieven.json";
-const { tarieven, geldigVanaf } = data;
+const { tarieven, geldigVanaf, noShow } = data;
+const noShowAlineas = (noShow?.tekst ?? "").split("\n").map((r) => r.trim()).filter(Boolean);
 const faq = [
   { q: "Wordt therapie vergoed door mijn zorgverzekeraar?", a: "Veel van onze therapieën worden (deels) vergoed vanuit het aanvullende pakket van je zorgverzekering en vallen niet onder het verplichte eigen risico. Vraag je verzekeraar naar de voorwaarden en percentages voor (psychosociale) therapie, ook wel integratieve psychotherapie genoemd. Op de website van [Zorgwijzer](https://www.zorgwijzer.nl/vergoeding/psychosociale-therapie) vind je een overzicht per verzekeraar." },
   { q: "Worden coaching en supervisie vergoed?", a: "Coaching en supervisie worden doorgaans niet vergoed door zorgverzekeraars, maar vaak wel betaald door je werkgever." },
@@ -31,6 +32,13 @@ const faq = [
           </li>
         ))}
       </ul>
+      {noShowAlineas.length > 0 && (
+        <div class="mt-10 rounded-2xl bg-brand-soft p-6 sm:p-8">
+          <h2 class="font-display text-xl font-bold">{noShow.titel}</h2>
+          {noShowAlineas.map((a) => <p class="mt-3 text-muted">{a}</p>)}
+          <p class="mt-3 text-sm text-muted">Zie ook de <a href="/algemene-voorwaarden/" class="font-medium text-brand-dark underline underline-offset-4">algemene voorwaarden</a>.</p>
+        </div>
+      )}
     </div>
   </Section>
   <Section tone="sand">

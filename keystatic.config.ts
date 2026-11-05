@@ -103,6 +103,13 @@ export default config({
           }),
           { label: "Tarieven", itemLabel: (p) => `${p.fields.naam.value} – ${p.fields.prijs.value}` },
         ),
+        noShow: fields.object(
+          {
+            titel: fields.text({ label: "Kop", defaultValue: "No-show-beleid" }),
+            tekst: fields.text({ label: "Tekst", multiline: true, description: "Elke regel wordt een aparte alinea." }),
+          },
+          { label: "No-show-beleid", description: "Staat onder de tarievenlijst. Dezelfde tekst staat ook in de algemene voorwaarden." },
+        ),
       },
     }),
     houdMeVast: singleton({
