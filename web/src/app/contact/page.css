@@ -1,0 +1,105 @@
+/* Contact page (Astro `contact/index.astro`). Breakpoints: sm 640px, lg 1024px. */
+
+.rw-contact-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+.rw-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.rw-contact-h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.rw-contact-text {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.125rem;
+}
+
+.rw-contact-link {
+  color: var(--rw-color-brand-dark);
+  text-decoration: none;
+}
+
+.rw-contact-link:hover {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+}
+
+.rw-contact-address {
+  margin: 0.75rem 0 0;
+  font-style: normal;
+  font-size: 1.125rem;
+}
+
+.rw-contact-route {
+  margin-top: 1rem;
+}
+
+.rw-contact-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  object-fit: cover;
+}
+
+.rw-contact-card {
+  padding: 1.5rem;
+  border: 1px solid var(--rw-color-line);
+  border-radius: 1.5rem;
+}
+
+.rw-contact-card__text {
+  margin: 0.5rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-contact-error {
+  margin: 1rem 0 0;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-deep);
+}
+
+.rw-contact-card__form {
+  margin-top: 1.5rem;
+}
+
+.rw-contact-route-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .rw-contact-card {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rw-contact-grid {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+  }
+
+  .rw-contact-route-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

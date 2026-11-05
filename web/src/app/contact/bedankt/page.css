@@ -1,0 +1,23 @@
+/* Contact confirmation (Astro `contact/bedankt.astro`). */
+
+.rw-thanks {
+  max-width: 42rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.rw-thanks__title {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.rw-thanks__text {
+  margin: 1.25rem 0 0;
+  font-size: 1.25rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-thanks__button {
+  margin-top: 2rem;
+}

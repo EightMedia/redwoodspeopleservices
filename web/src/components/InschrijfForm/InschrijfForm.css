@@ -1,0 +1,149 @@
+/* Houd me Vast sign-up form (Astro `InschrijfForm.astro`, Tailwind `space-y-8` and `.field`/`.label`). */
+
+.rw-inschrijf > * + * {
+  margin-top: 2rem;
+}
+
+.rw-inschrijf__honeypot {
+  display: none;
+}
+
+.rw-inschrijf__fout {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-deep);
+}
+
+.rw-inschrijf__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.rw-inschrijf__fieldset > * + *,
+.rw-inschrijf__adres2 > * + *,
+.rw-inschrijf__group > * + * {
+  margin-top: 1.25rem;
+}
+
+.rw-inschrijf__legend {
+  padding: 0;
+  margin-bottom: 1.25rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+.rw-inschrijf__row {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .rw-inschrijf__row--halves {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rw-inschrijf__row--postcode {
+    grid-template-columns: 10rem minmax(0, 1fr);
+  }
+}
+
+.rw-inschrijf__label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--rw-color-ink);
+}
+
+.rw-inschrijf__field {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rw-color-line);
+  border-radius: 0.75rem;
+  background-color: var(--rw-color-paper);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--rw-color-ink);
+}
+
+.rw-inschrijf__field::placeholder {
+  color: rgba(92, 92, 92, 0.7);
+}
+
+.rw-inschrijf__field:focus {
+  border-color: var(--rw-color-brand);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(231, 92, 80, 0.3);
+}
+
+.rw-inschrijf__check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.rw-inschrijf__checkbox {
+  flex-shrink: 0;
+  margin: 0.25rem 0 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--rw-color-line);
+  accent-color: var(--rw-color-brand);
+}
+
+.rw-inschrijf__adres2[hidden] {
+  display: none;
+}
+
+.rw-inschrijf__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rw-inschrijf__note {
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--rw-color-sand);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-inschrijf__note p {
+  margin: 0;
+}
+
+.rw-inschrijf__strong {
+  color: var(--rw-color-ink);
+}
+
+.rw-inschrijf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rw-inschrijf__actions .rw-btn--primary:disabled {
+  cursor: default;
+}
+
+.rw-inschrijf__status {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--rw-color-muted);
+}

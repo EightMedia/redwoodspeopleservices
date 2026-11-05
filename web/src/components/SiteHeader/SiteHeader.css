@@ -1,0 +1,241 @@
+/* Site header (Astro Header.astro, Tailwind → plain CSS). Breakpoints: sm 640px, lg 1024px. */
+
+.rw-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(232, 226, 220, 0.7);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  .rw-header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+.rw-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: 5rem;
+}
+
+.rw-header__logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.rw-header__logo-img {
+  height: 2.75rem;
+  width: auto;
+}
+
+/* Desktop navigation. */
+.rw-header__nav {
+  display: none;
+}
+
+.rw-header__list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rw-header__item {
+  position: relative;
+}
+
+.rw-header__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--rw-color-ink);
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.rw-header__link:hover {
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-header__link[data-active] {
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-header__chevron {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.6;
+}
+
+.rw-header__dropdown {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  padding-top: 0.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 150ms ease,
+    visibility 150ms ease;
+}
+
+.rw-header__item:hover .rw-header__dropdown,
+.rw-header__item:focus-within .rw-header__dropdown {
+  visibility: visible;
+  opacity: 1;
+}
+
+.rw-header__dropdown-list {
+  min-width: 16rem;
+  margin: 0;
+  padding: 0.5rem;
+  list-style: none;
+  border: 1px solid var(--rw-color-line);
+  border-radius: 1rem;
+  background-color: var(--rw-color-paper);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.rw-header__dropdown-link {
+  display: block;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 16px;
+  color: var(--rw-color-ink);
+  text-decoration: none;
+}
+
+.rw-header__dropdown-link:hover {
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-dark);
+}
+
+/* Right side: Contact button and mobile toggle. */
+.rw-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rw-header__contact {
+  display: none;
+}
+
+.rw-header__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--rw-color-line);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--rw-color-ink);
+  cursor: pointer;
+}
+
+.rw-header__toggle-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile menu. */
+.rw-header__mobile {
+  border-top: 1px solid var(--rw-color-line);
+  background-color: var(--rw-color-paper);
+}
+
+.rw-header__mobile[hidden] {
+  display: none;
+}
+
+.rw-header__mobile-nav {
+  padding-block: 1rem;
+}
+
+.rw-header__mobile-list,
+.rw-header__mobile-sublist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rw-header__mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rw-header__mobile-link {
+  display: block;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--rw-color-ink);
+  text-decoration: none;
+}
+
+.rw-header__mobile-link:hover {
+  background-color: var(--rw-color-brand-soft);
+}
+
+.rw-header__mobile-sublist {
+  margin: 0 0 0.5rem 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--rw-color-line);
+}
+
+.rw-header__mobile-sublink {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  color: var(--rw-color-muted);
+  text-decoration: none;
+}
+
+.rw-header__mobile-sublink:hover {
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-header__mobile-cta {
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .rw-header__contact {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rw-header__nav {
+    display: block;
+  }
+
+  .rw-header__toggle,
+  .rw-header__mobile {
+    display: none;
+  }
+}

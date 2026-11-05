@@ -1,0 +1,83 @@
+/* Astro `Cta.astro`: section with a rounded brand card. Breakpoints: sm 640px, lg 1024px. */
+
+.rw-cta {
+  padding-block: 4rem;
+}
+
+.rw-cta__card {
+  padding: 3rem 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--rw-color-brand);
+  color: #ffffff;
+}
+
+.rw-cta__grid {
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+}
+
+.rw-cta__title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.rw-cta__text {
+  margin: 1rem 0 0;
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.rw-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* White button on the brand background (`btn bg-white text-brand-dark hover:bg-brand-tint`). */
+.rw-btn--on-brand {
+  background-color: #ffffff;
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-btn--on-brand:hover {
+  background-color: var(--rw-color-brand-tint);
+  color: var(--rw-color-brand-dark);
+}
+
+/* Outlined white button (`btn border border-white/70 text-white hover:bg-white/10`). */
+.rw-btn--outline-white {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+}
+
+.rw-btn--outline-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .rw-cta {
+    padding-block: 6rem;
+  }
+
+  .rw-cta__card {
+    padding: 4rem 3rem;
+  }
+
+  .rw-cta__title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rw-cta__grid {
+    grid-template-columns: 1fr auto;
+  }
+
+  .rw-cta__actions {
+    flex-direction: column;
+  }
+}

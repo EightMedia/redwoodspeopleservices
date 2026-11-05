@@ -1,0 +1,98 @@
+import type { Metadata } from 'next';
+
+import { Locatie } from '@/components/Locatie/Locatie';
+import { pageMetadata } from '@/lib/metadata';
+
+const path = '/psychotherapie-arnhem/';
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Psychotherapie Arnhem zonder verwijzing | Redwoods',
+  description:
+    'Psychotherapie voor Arnhem zonder verwijzing. Praktijk in Rozendaal, tien minuten van Arnhem-Noord. Deels vergoed uit de aanvullende verzekering, geen eigen risico.',
+  path,
+  bareTitle: true,
+});
+
+export default function PsychotherapieArnhemPage() {
+  return (
+    <Locatie
+      path={path}
+      eyebrow="Psychotherapie in de regio Arnhem"
+      title="Psychotherapie Arnhem"
+      intro="Zoek je een therapeut in Arnhem bij wie je snel terechtkunt, zonder verwijzing en zonder lange wachtlijst? Redwoods biedt integratieve psychotherapie in Rozendaal, op tien minuten van Arnhem-Noord. Gesprekken van een uur tot anderhalf uur, met een therapeut die jou als geheel ziet."
+      blokken={[
+        {
+          kop: 'Psychosociale therapie: zonder verwijzing',
+          alineas: [
+            'Onze therapeuten zijn integratief psychotherapeut en psychosociaal therapeut, aangesloten bij beroepsverenigingen als VIT en RBCZ. Je hebt geen verwijzing van de huisarts nodig, er is geen diagnose vereist en er komt niets in je medisch dossier. Veel aanvullende zorgverzekeringen vergoeden een deel van de kosten onder de noemer psychosociale therapie, buiten het eigen risico om.',
+            'Dat maakt deze vorm van therapie geschikt als je vastloopt zonder dat er sprake is van een stoornis: bij somberheid, angst, burn-outklachten, rouw, een laag zelfbeeld, terugkerende relatieproblemen of een gevoel van leegte waar je niet uitkomt.',
+          ],
+        },
+        {
+          kop: 'Hoe we werken',
+          alineas: [
+            'Integratief betekent dat we niet vanuit één methode werken, maar kijken naar wat jij nodig hebt: denken, voelen, lichaam en de relaties waarin je leeft. Een traject begint met twee intakegesprekken. Daarna stellen we een behandelplan op dat we in het derde gesprek met je bespreken. Een traject bestaat meestal uit tien tot twintig gesprekken, om de twee à drie weken.',
+            'Lees meer over onze aanpak op de pagina <a href="/diensten/psychotherapie/">Psychotherapie</a>, of bekijk de <a href="/team/">therapeuten</a> en hun specialisaties, van hechting en trauma tot rouw en zingeving.',
+          ],
+        },
+        {
+          kop: 'Een rustige plek aan de rand van Arnhem',
+          alineas: [
+            'De praktijk staat in een oud pand aan de Rosendaalselaan in Rozendaal, tegen de bossen van de Veluwezoom. Vanaf de Velperweg in Arnhem ben je er in tien minuten; met bus 8 vanaf Arnhem Centraal in een kwartier. Parkeren kan bij het pand.',
+          ],
+        },
+        {
+          kop: 'Kosten en vergoeding',
+          alineas: [
+            'Een sessie van 60 minuten kost € 115,- bij een ervaren therapeut en € 135,- bij een senior therapeut, btw-vrij, met prestatiecode 24500 op de factuur. Daarmee kun je de factuur indienen bij je aanvullende verzekering. Hoeveel je terugkrijgt, verschilt per verzekeraar; op de <a href="/tarieven/">tarievenpagina</a> leggen we uit hoe je dat nakijkt.',
+          ],
+        },
+      ]}
+      route={{
+        kop: 'Vanuit Arnhem naar de praktijk',
+        items: [
+          '<strong>Auto:</strong> via de Velperweg of de Apeldoornseweg richting Rozendaal, of vanaf de A12 afrit 27 (Arnhem-Noord/Velp). Parkeren bij het pand.',
+          '<strong>Bus:</strong> lijn 8 vanaf Arnhem Centraal, 15 minuten, halte Ringallee. Bij de rotonde linksaf, twee minuten lopen.',
+          '<strong>Fiets:</strong> vanaf het centrum ongeveer 20 minuten via de Velperweg en de Rosendaalselaan.',
+        ],
+      }}
+      faq={[
+        {
+          q: 'Heb ik een verwijzing van de huisarts nodig?',
+          a: 'Nee. Voor psychosociale therapie bij Redwoods kun je je rechtstreeks aanmelden. Er is geen diagnose nodig en er wordt niets in je medisch dossier vastgelegd.',
+        },
+        {
+          q: 'Wordt therapie vergoed?',
+          a: 'Veel aanvullende verzekeringen vergoeden een deel van psychosociale therapie, buiten het eigen risico om. Onze therapeuten zijn aangesloten bij VIT en RBCZ en de factuur heeft prestatiecode 24500. Kijk op de [tarievenpagina](/tarieven/) hoe je dit controleert bij je verzekeraar.',
+        },
+        {
+          q: 'Is er een wachtlijst?',
+          a: 'Omdat we met meerdere therapeuten werken, kunnen we meestal binnen afzienbare tijd een kennismaking plannen. Onze praktijkcoördinator Edwin neemt binnen enkele werkdagen contact op. [Neem contact op](/contact/) voor de actuele mogelijkheden.',
+        },
+        {
+          q: 'Wat is het verschil met een psycholoog via de huisarts?',
+          a: 'Via de huisarts werk je met een verwijzing en een diagnose, vergoed uit de basisverzekering met eigen risico, vaak met een wachttijd. Bij ons kom je zonder verwijzing, werk je aan wat jij belangrijk vindt en betaal je per sessie, deels vergoed uit de aanvullende verzekering. Bij ernstige psychiatrische problematiek verwijzen we door.',
+        },
+        {
+          q: 'Moet ik gelovig zijn?',
+          a: 'Nee. Iedereen is welkom, ongeacht geloof of levensovertuiging. Als geloof voor jou een hulpbron is, kunnen we dat inzetten; zo niet, dan komt het niet ter sprake.',
+        },
+      ]}
+      teamIds={['cris-van-dusseldorp', 'michelle-van-dusseldorp', 'marielle-kattouw', 'joost-de-wolf', 'jochem-klein-nagelvoort', 'joke-francissen']}
+      teamKop="Onze therapeuten"
+      dienst={{ label: 'Psychotherapie: onze aanpak', href: '/diensten/psychotherapie/' }}
+      verwant={[
+        { label: 'Therapie in Rheden en Rozendaal', href: '/therapie-rheden-rozendaal/' },
+        { label: 'Relatietherapie in Arnhem', href: '/relatietherapie-arnhem/' },
+        { label: 'Rouwgroep Rouw en Verlies', href: '/rouw-en-verlies/' },
+      ]}
+      formulierOnderwerp="Vraag over psychotherapie (Arnhem)"
+      service={{
+        name: 'Integratieve psychotherapie',
+        description:
+          'Psychosociale en integratieve psychotherapie zonder verwijzing voor cliënten uit Arnhem en omgeving, bij Redwoods People Services in Rozendaal.',
+        plaatsen: ['Arnhem', 'Rozendaal', 'Velp', 'Oosterbeek'],
+      }}
+    />
+  );
+}

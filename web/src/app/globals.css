@@ -1,0 +1,404 @@
+/*
+ * Project-wide CSS (unlayered, beats `@layer kikker.*`). Ports the `@layer base` and
+ * `@layer components` rules from the Astro site's `global.css`, with the `rw-` prefix.
+ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--rw-color-paper);
+  color: var(--rw-color-ink);
+  font-family: var(--kr-font-family-body);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#main {
+  flex: 1 1 auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--kr-font-family-heading);
+  color: var(--kr-color-heading, var(--rw-color-ink));
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rw-color-brand);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--rw-color-brand-soft);
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Skip link: visually hidden until focused. */
+.rw-skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.rw-skip-link:focus {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 50;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border-radius: 0.5rem;
+  background: var(--rw-color-paper);
+  color: var(--rw-color-ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Astro `.container-site`. */
+.rw-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .rw-container {
+    padding-inline: 2rem;
+  }
+}
+
+/* Astro `.measure`. */
+.rw-measure {
+  max-width: 65ch;
+}
+
+/* Buttons: Astro `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-ghost`. */
+.rw-btn,
+.rw-btn--primary,
+.rw-btn--secondary,
+.rw-btn--ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font: inherit;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.rw-btn--primary {
+  background-color: var(--rw-color-brand);
+  color: #ffffff;
+}
+
+.rw-btn--primary:hover {
+  background-color: var(--rw-color-brand-dark);
+  color: #ffffff;
+}
+
+.rw-btn--secondary {
+  border-color: var(--rw-color-brand);
+  color: var(--rw-color-brand-dark);
+  background-color: transparent;
+}
+
+.rw-btn--secondary:hover {
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-btn--ghost {
+  color: var(--rw-color-brand-dark);
+  background-color: transparent;
+}
+
+.rw-btn--ghost:hover {
+  background-color: var(--rw-color-brand-soft);
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-btn--block {
+  width: 100%;
+}
+
+/* Kikker buttons follow the same pill look, so CtaSection and co. match. */
+.kr-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.kr-button[data-variant='primary']:hover {
+  --kr-button-bg: var(--rw-color-brand-dark);
+}
+
+[data-surface='loud'] .kr-button[data-variant='primary']:hover,
+[data-surface='inverse'] .kr-button[data-variant='primary']:hover {
+  --kr-button-bg: var(--rw-color-brand-tint);
+}
+
+.kr-button[data-variant='secondary'] {
+  --kr-button-text: var(--rw-color-brand-dark);
+}
+
+.kr-button[data-variant='secondary']:hover,
+.kr-button[data-variant='ghost']:hover {
+  --kr-button-bg: var(--rw-color-brand-soft);
+}
+
+[data-surface='loud'] .kr-button[data-variant='secondary'],
+[data-surface='inverse'] .kr-button[data-variant='secondary'] {
+  --kr-button-text: var(--rw-color-paper);
+}
+
+[data-surface='loud'] .kr-button[data-variant='secondary']:hover,
+[data-surface='inverse'] .kr-button[data-variant='secondary']:hover {
+  --kr-button-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Astro `.eyebrow`. */
+.rw-eyebrow {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--rw-color-brand-dark);
+}
+
+[data-surface='loud'] .rw-eyebrow,
+[data-surface='inverse'] .rw-eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Astro `.prose-site`: readable rich text (Tailwind typography `prose prose-lg` subset). */
+.rw-prose {
+  font-size: 1.125rem;
+  line-height: 1.78;
+  color: var(--rw-color-ink);
+}
+
+.rw-prose > :first-child {
+  margin-top: 0;
+}
+
+.rw-prose > :last-child {
+  margin-bottom: 0;
+}
+
+.rw-prose p,
+.rw-prose ul,
+.rw-prose ol {
+  max-width: 65ch;
+  margin-top: 1.33em;
+  margin-bottom: 1.33em;
+}
+
+.rw-prose li {
+  max-width: 65ch;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  padding-inline-start: 0.4em;
+}
+
+.rw-prose ul {
+  list-style-type: disc;
+  padding-inline-start: 1.55em;
+}
+
+.rw-prose ol {
+  list-style-type: decimal;
+  padding-inline-start: 1.55em;
+}
+
+.rw-prose h1,
+.rw-prose h2,
+.rw-prose h3,
+.rw-prose h4 {
+  max-width: 30ch;
+  font-family: var(--kr-font-family-heading);
+  color: var(--rw-color-ink);
+  font-weight: 700;
+}
+
+.rw-prose h2 {
+  margin-top: 1.55em;
+  margin-bottom: 0.9em;
+  font-size: 1.667em;
+  line-height: 1.33;
+}
+
+.rw-prose h3 {
+  margin-top: 1.67em;
+  margin-bottom: 0.67em;
+  font-size: 1.333em;
+  line-height: 1.5;
+}
+
+.rw-prose h4 {
+  margin-top: 1.78em;
+  margin-bottom: 0.44em;
+  font-size: 1.111em;
+  line-height: 1.5;
+}
+
+.rw-prose a {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 500;
+}
+
+.rw-prose a:hover {
+  color: var(--rw-color-brand-deep);
+}
+
+.rw-prose strong {
+  color: var(--rw-color-ink);
+  font-weight: 700;
+}
+
+.rw-prose img,
+.rw-prose video {
+  margin-top: 1.78em;
+  margin-bottom: 1.78em;
+  border-radius: 1rem;
+}
+
+.rw-prose figure {
+  margin: 1.78em 0;
+}
+
+.rw-prose figure img {
+  margin: 0;
+}
+
+.rw-prose figcaption {
+  margin-top: 1em;
+  font-size: 0.89em;
+  color: var(--rw-color-muted);
+}
+
+.rw-prose blockquote {
+  margin: 1.67em 0;
+  padding-inline-start: 1em;
+  border-inline-start: 0.25rem solid var(--rw-color-brand);
+  color: var(--rw-color-ink);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.rw-prose hr {
+  margin: 3.11em 0;
+  border: 0;
+  border-top: 1px solid var(--rw-color-line);
+}
+
+.rw-prose code {
+  font-size: 0.89em;
+  font-weight: 600;
+}
+
+.rw-prose table {
+  width: 100%;
+  margin: 2em 0;
+  border-collapse: collapse;
+  font-size: 0.89em;
+  line-height: 1.5;
+}
+
+.rw-prose th,
+.rw-prose td {
+  padding: 0.75em 0.67em;
+  border-bottom: 1px solid var(--rw-color-line);
+  text-align: start;
+  vertical-align: top;
+}
+
+/* Kikker `BlockContent` inside a prose wrapper: let the prose rules win on spacing. */
+.rw-prose .kr-block-content > :not(section) + :not(section) {
+  margin-block-start: 0;
+}
+
+/* Body of a Sanity page below the header (catch-all route). */
+.rw-page-body {
+  padding-block: 4rem;
+}
+
+@media (min-width: 640px) {
+  .rw-page-body {
+    padding-block: 6rem;
+  }
+}
+
+/* 404 page. */
+.rw-not-found {
+  max-width: 42rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.rw-not-found__title {
+  margin: 0.75rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.rw-not-found__text {
+  margin: 1.25rem 0 0;
+  font-size: 1.25rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}

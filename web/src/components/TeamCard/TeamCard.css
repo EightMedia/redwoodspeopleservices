@@ -1,0 +1,76 @@
+/* Astro `TeamCard.astro`. */
+
+.rw-team-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.rw-team-card__media {
+  display: block;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: var(--rw-color-sand);
+}
+
+.rw-team-card__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 9;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.rw-team-card:hover .rw-team-card__photo {
+  transform: scale(1.03);
+}
+
+.rw-team-card__name {
+  margin: 1.25rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.rw-team-card__name-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rw-team-card__name-link:hover {
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-team-card__role {
+  margin: 0.25rem 0 0;
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-team-card__intro {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-team-card__wachttijd {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: var(--rw-color-brand-deep);
+}
+
+.rw-team-card__wachttijd-label {
+  font-weight: 500;
+}
+
+.rw-team-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  font-weight: 500;
+  color: var(--rw-color-brand-dark);
+  text-decoration: none;
+}
+
+.rw-team-card__more:hover {
+  color: var(--rw-color-brand-deep);
+  text-decoration: underline;
+}

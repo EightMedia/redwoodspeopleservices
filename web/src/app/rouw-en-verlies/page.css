@@ -1,0 +1,153 @@
+/* Rouw en Verlies programme page (Astro `rouw-en-verlies.astro`). */
+
+.rw-rouw__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.rw-rouw__grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .rw-rouw__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+  }
+}
+
+.rw-rouw__aside > * + * {
+  margin-top: 1.5rem;
+}
+
+.rw-rouw__card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+}
+
+.rw-rouw__card--tint {
+  background-color: var(--rw-color-brand-tint);
+}
+
+.rw-rouw__card--line {
+  border: 1px solid var(--rw-color-line);
+}
+
+.rw-rouw__card-title {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+.rw-rouw__dl {
+  margin: 1rem 0 0;
+}
+
+.rw-rouw__dl > * + * {
+  margin-top: 0.75rem;
+}
+
+.rw-rouw__dt {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-rouw__dd {
+  margin: 0;
+}
+
+.rw-rouw__steps {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+
+.rw-rouw__steps > * + * {
+  margin-top: 0.5rem;
+}
+
+/* `text-3xl font-bold sm:text-4xl`; `--fixed` stays `text-3xl`. */
+.rw-rouw__h2 {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .rw-rouw__h2:not(.rw-rouw__h2--fixed) {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+.rw-rouw__muted {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-rouw__muted--4 {
+  margin-top: 1rem;
+}
+
+.rw-rouw__team {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .rw-rouw__team {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rw-rouw__member {
+  display: block;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background-color: var(--rw-color-paper);
+  color: inherit;
+  text-decoration: none;
+}
+
+.rw-rouw__member:hover {
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.rw-rouw__member-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.rw-rouw__member-name {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 500;
+}
+
+.rw-rouw__member-role {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-rouw__link {
+  font-weight: 500;
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

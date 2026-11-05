@@ -1,0 +1,156 @@
+/* Place page template (Astro `Locatie.astro`). */
+
+.rw-locatie__layout {
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .rw-locatie__layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+/* Blocks are wrappers only; the prose rules handle the spacing between headings and paragraphs. */
+.rw-locatie__block {
+  display: contents;
+}
+
+.rw-locatie__aside > * + * {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .rw-locatie__aside {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+  }
+}
+
+.rw-locatie__card {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+}
+
+.rw-locatie__card--tint {
+  background-color: var(--rw-color-brand-tint);
+}
+
+.rw-locatie__card--line {
+  border: 1px solid var(--rw-color-line);
+}
+
+.rw-locatie__card-title {
+  margin: 0;
+  font-family: var(--kr-font-family-heading);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+.rw-locatie__card-title--xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.rw-locatie__card-text {
+  margin: 0.5rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-locatie__card-btn {
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+
+.rw-locatie__card-btn--ghost {
+  margin-top: 0.5rem;
+}
+
+.rw-locatie__address {
+  margin: 0.75rem 0 0;
+  font-style: normal;
+  line-height: 1.625;
+  color: var(--rw-color-muted);
+}
+
+.rw-locatie__links {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.rw-locatie__links > * + * {
+  margin-top: 0.5rem;
+}
+
+.rw-locatie__link {
+  color: var(--rw-color-brand-dark);
+  text-decoration: none;
+}
+
+.rw-locatie__link:hover {
+  text-decoration: underline;
+}
+
+.rw-locatie__link--medium {
+  font-weight: 500;
+}
+
+/* `text-3xl font-bold sm:text-4xl`. */
+.rw-locatie__h2 {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .rw-locatie__h2 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+.rw-locatie__team {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .rw-locatie__team {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .rw-locatie__team {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.rw-locatie__team-more {
+  margin: 2rem 0 0;
+}
+
+.rw-locatie__faq {
+  max-width: 48rem;
+}
+
+.rw-locatie__contact {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .rw-locatie__contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rw-locatie__contact-text {
+  margin: 1rem 0 0;
+  color: var(--rw-color-muted);
+}

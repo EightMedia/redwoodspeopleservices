@@ -1,0 +1,35 @@
+/* Confirmation page after the Houd me Vast sign-up (Astro `houd-me-vast/bedankt.astro`). */
+
+.rw-bedankt {
+  max-width: 42rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.rw-bedankt__title {
+  margin: 0.75rem 0 0;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
+.rw-bedankt__text {
+  margin: 1.25rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-bedankt__link {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rw-bedankt__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}

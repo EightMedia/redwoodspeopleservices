@@ -1,0 +1,6 @@
+/* Sanity image: a responsive <img> that keeps its intrinsic aspect ratio. */
+.rw-sanity-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

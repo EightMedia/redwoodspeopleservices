@@ -1,0 +1,84 @@
+/* Services overview (Astro `diensten/index.astro`). Breakpoint: md 768px. */
+
+.rw-diensten-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.rw-diensten-card {
+  display: block;
+  padding: 2rem;
+  border: 1px solid var(--rw-color-line);
+  border-radius: 1.5rem;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.rw-diensten-card:hover {
+  transform: translateY(-0.125rem);
+  border-color: rgba(231, 92, 80, 0.4);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  color: inherit;
+}
+
+.rw-diensten-card__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.rw-diensten-card:hover .rw-diensten-card__title {
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-diensten-card__intro {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-diensten-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 1.25rem;
+  font-weight: 500;
+  color: var(--rw-color-brand-dark);
+}
+
+.rw-diensten-groups {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--rw-color-sand);
+}
+
+.rw-diensten-groups__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.rw-diensten-groups__text {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-diensten-link {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rw-diensten-link:hover {
+  color: var(--rw-color-brand-deep);
+}
+
+@media (min-width: 768px) {
+  .rw-diensten-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

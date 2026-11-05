@@ -1,0 +1,105 @@
+/* Astro `YouTube.astro` (click-to-play embed) and the home page background video. */
+
+.rw-youtube {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 1.5rem;
+  background-color: var(--rw-color-ink);
+}
+
+.rw-youtube__poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: opacity 150ms ease;
+}
+
+.rw-youtube:hover .rw-youtube__poster {
+  opacity: 1;
+}
+
+.rw-youtube__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.rw-youtube__play-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  background-color: var(--rw-color-brand);
+  color: #ffffff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease;
+}
+
+.rw-youtube:hover .rw-youtube__play-circle {
+  transform: scale(1.05);
+  background-color: var(--rw-color-brand-dark);
+}
+
+.rw-youtube__play-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-left: 0.25rem;
+}
+
+.rw-youtube__caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 2.5rem 1.25rem 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  font-size: 0.875rem;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.rw-youtube__player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Background video: a 16:9 iframe that always covers its section (Astro `.video-cover`). */
+.rw-video-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.rw-video-bg__frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw;
+  min-width: 177.78%;
+  min-height: 100%;
+  border: 0;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1000ms ease;
+}
+
+.rw-video-bg__frame[data-visible] {
+  opacity: 1;
+}

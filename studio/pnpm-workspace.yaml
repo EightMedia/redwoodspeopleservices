@@ -1,0 +1,5 @@
+# Single-package pnpm config for the Studio (no workspace packages).
+# `pnpm link ../../kikker-core/packages/...` adds `overrides` with local paths here;
+# restore this file before committing: git checkout -- pnpm-workspace.yaml
+# Skip pnpm's install-before-run until the Kikker packages are published.
+verifyDepsBeforeRun: false

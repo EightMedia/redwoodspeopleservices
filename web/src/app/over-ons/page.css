@@ -1,0 +1,119 @@
+/* About page (Astro `over-ons.astro`). Breakpoints: sm 640px, lg 1024px. */
+
+.rw-about-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.rw-about-grid--center {
+  align-items: center;
+}
+
+.rw-about-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  object-fit: cover;
+}
+
+.rw-about-story {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.rw-about-portraits {
+  display: flex;
+  gap: 1rem;
+}
+
+.rw-about-portrait {
+  width: 50%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.5rem;
+  object-fit: cover;
+}
+
+.rw-about-h2 {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.rw-about-h2--small {
+  font-size: 1.5rem;
+}
+
+.rw-about-text {
+  margin: 1.25rem 0 0;
+  font-size: 1.125rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-about-button {
+  margin-top: 1.5rem;
+}
+
+.rw-about-quality {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-about-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.rw-about-logo {
+  width: auto;
+  height: 3.5rem;
+  border-radius: 0.25rem;
+}
+
+.rw-about-networks {
+  margin: 1.5rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-about-link {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rw-about-link:hover {
+  color: var(--rw-color-brand-deep);
+}
+
+@media (min-width: 640px) {
+  .rw-about-h2 {
+    font-size: 2.25rem;
+  }
+
+  .rw-about-h2--small {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rw-about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+  }
+
+  .rw-about-story {
+    grid-template-columns: 320px 1fr;
+    gap: 4rem;
+  }
+
+  .rw-about-portraits {
+    flex-direction: column;
+  }
+
+  .rw-about-portrait {
+    width: 100%;
+  }
+}

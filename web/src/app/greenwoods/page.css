@@ -1,0 +1,135 @@
+/* Greenwoods page (Astro `greenwoods.astro`). */
+
+.rw-gw-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--rw-color-forest);
+  color: #ffffff;
+}
+
+.rw-gw-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.rw-gw-hero__inner {
+  padding-block: 5rem;
+}
+
+@media (min-width: 640px) {
+  .rw-gw-hero__inner {
+    padding-block: 7rem;
+  }
+}
+
+.rw-gw-hero__logo {
+  width: auto;
+  height: 5rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+}
+
+.rw-gw-hero__eyebrow {
+  margin-top: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rw-gw-hero__title {
+  max-width: 18ch;
+  margin: 0.75rem 0 0;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .rw-gw-hero__title {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+.rw-gw-hero__intro {
+  margin: 1.5rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.rw-gw__narrow {
+  max-width: 48rem;
+}
+
+/* `text-3xl font-bold sm:text-4xl`. */
+.rw-gw__h2 {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .rw-gw__h2 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+.rw-gw__cards {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .rw-gw__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.rw-gw__card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--rw-color-paper);
+}
+
+.rw-gw__card-title {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+.rw-gw__card-text {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-gw__grid {
+  display: grid;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .rw-gw__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+  }
+}
+
+.rw-gw__photo {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  object-fit: cover;
+}

@@ -1,0 +1,50 @@
+.rw-page-header {
+  padding-block: 4rem;
+  background-color: var(--rw-color-brand-tint);
+}
+
+.rw-page-header[data-tone='brand'] {
+  background-color: var(--rw-color-brand);
+  color: #ffffff;
+}
+
+.rw-page-header__eyebrow {
+  margin-bottom: 0.75rem;
+}
+
+.rw-page-header[data-tone='brand'] .rw-page-header__eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rw-page-header__title {
+  max-width: 20ch;
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.rw-page-header[data-tone='brand'] .rw-page-header__title {
+  color: #ffffff;
+}
+
+.rw-page-header__intro {
+  margin: 1.25rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.625;
+  color: var(--rw-color-muted);
+}
+
+.rw-page-header[data-tone='brand'] .rw-page-header__intro {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+@media (min-width: 640px) {
+  .rw-page-header {
+    padding-block: 5rem;
+  }
+
+  .rw-page-header__title {
+    font-size: 3rem;
+  }
+}

@@ -1,0 +1,4 @@
+# Kopieer naar .npmrc (git-ignored) zodra de Kikker-pakketten op GitHub Packages staan.
+# GITHUB_TOKEN: personal access token met `read:packages`.
+@eightmedia:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}

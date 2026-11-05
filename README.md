@@ -1,269 +1,118 @@
-# Redwoods People Services – website
+# Redwoods People Services – website (Kikker-versie)
 
-Statische website voor [Redwoods People Services](https://www.redwoodspeopleservices.nl), praktijk voor psychotherapie, relatietherapie, coaching en supervisie in Rozendaal. Gebouwd met Astro, gehost op Vercel, content beheerbaar via Keystatic.
+Website van [Redwoods People Services](https://www.redwoodspeopleservices.nl), praktijk voor psychotherapie, relatietherapie, coaching en supervisie in Rozendaal. Deze branch (`feature/kikker`) is de herbouw van de Astro-site op Eight's Kikker-stack: Sanity als CMS, Next.js 16 als front-end en de `@eightmedia/kikker-*`-pakketten als fundament. De site op `main` (Astro, Keystatic) is wat nu live staat.
 
-Dit document legt uit wat er in het project zit, welke onderdelen er zijn, hoe ze samenwerken en hoe je de site beheert en uitrolt.
+Het ontwerpdocument van de herbouw, met alle afspraken, het contentmodel en de open punten voor Kikker, staat in [`docs/kikker-herbouw.md`](docs/kikker-herbouw.md). Lees dat eerst.
 
 ## Inhoud
 
-1. [Waarom deze opzet](#1-waarom-deze-opzet)
-2. [Frameworks en libraries](#2-frameworks-en-libraries)
-3. [Hoe alles samenwerkt](#3-hoe-alles-samenwerkt)
-4. [Mappenstructuur](#4-mappenstructuur)
-5. [Lokaal werken](#5-lokaal-werken)
-6. [Content beheren (Keystatic)](#6-content-beheren-keystatic)
-7. [Contactformulier](#7-contactformulier)
-8. [Aanmelden Houd me Vast met aanbetaling (Mollie)](#8-aanmelden-houd-me-vast-met-aanbetaling-mollie)
-9. [Uitrollen op Vercel](#9-uitrollen-op-vercel)
-10. [SEO en vindbaarheid](#10-seo-en-vindbaarheid)
-11. [Livegang vanaf WordPress](#11-livegang-vanaf-wordpress)
-12. [Accounts en stand van zaken](#12-accounts-en-stand-van-zaken)
-13. [Onderhoud](#13-onderhoud)
+1. [Opzet](#1-opzet)
+2. [Mappen](#2-mappen)
+3. [Lokaal werken](#3-lokaal-werken)
+4. [Content: Sanity Studio en migratie](#4-content-sanity-studio-en-migratie)
+5. [Formulieren, mail en Mollie](#5-formulieren-mail-en-mollie)
+6. [Uitrollen op Vercel](#6-uitrollen-op-vercel)
+7. [SEO](#7-seo)
+8. [Accounts en stand van zaken](#8-accounts-en-stand-van-zaken)
+9. [Wat nog moet gebeuren voor deze branch live kan](#9-wat-nog-moet-gebeuren-voor-deze-branch-live-kan)
 
----
+## 1. Opzet
 
-## 1. Waarom deze opzet
+| Onderdeel | Wat het doet |
+|---|---|
+| **Next.js 16** (`web/`) | Alle pagina's, App Router, `trailingSlash: true`, dezelfde URL's als de Astro-site. Gecodeerde pagina's (home, over ons, contact, programma's, plaatspagina's) halen hun data uit Sanity; privacyverklaring en algemene voorwaarden zijn Sanity-pagina's via de catch-all route. |
+| **Sanity Studio 6** (`studio/`) | Beheerscherm voor blog, team, diensten, tarieven, programmadata, de twee juridische pagina's en de site-instellingen (menu, footer, SEO, redirects). |
+| **@eightmedia/kikker-tokens, -react, -groq, -next, -sanity** | Designtokens en thema, basiscomponenten, GROQ-fragmenten, Next-helpers (Sanity-client, live preview, revalidate, security headers) en schema-helpers. |
+| **Resend** en **Mollie** | Mail vanuit de formulieren en de aanbetaling van Houd me Vast, functioneel gelijk aan de Astro-versie. |
 
-De oude site draaide op WordPress met Elementor en WooCommerce. Die combinatie gaf te kleine tekst, te lange regels, veel dubbele content en bleek gehackt (verborgen casino-spam en een gekaapte sitemap). De nieuwe site is bewust eenvoudig:
+Het ontwerp is één op één overgenomen: Roboto en Roboto Slab via `next/font`, de merkkleuren als overschrijving van de Kikker-tokens (`web/src/app/theme.css`), eigen componenten in plain CSS met prefix `rw-`. Geen Tailwind.
 
-- **Statisch.** Elke pagina is een kant-en-klaar HTML-bestand. Er draait geen WordPress, geen database en geen PHP. Dat is snel, veilig en vrijwel niet te hacken.
-- **Content als bestanden.** Blogposts, teamleden en diensten zijn Markdown-bestanden in de repository. Keystatic biedt daar een beheerscherm op.
-- **Eén stukje server.** Alleen het contactformulier heeft een serverfunctie nodig (om te mailen). Vercel draait die automatisch.
-- **Leesbaarheid ingebakken.** Broodtekst is 18px, regels zijn maximaal 65 tekens breed, koppen hebben een vaste hiërarchie. Dit zit in de stylesheet, niet in losse pagina-instellingen, zodat het niet kan "wegslijten".
-
-## 2. Frameworks en libraries
-
-| Onderdeel | Wat het is | Wat het hier doet |
-|---|---|---|
-| **Astro** (`astro`) | Framework voor contentgerichte websites. Bouwt pagina's bij voorbaat tot HTML, stuurt standaard géén JavaScript naar de browser. | De basis van alles: routing (`src/pages`), layouts, componenten, content-collecties, afbeeldingsoptimalisatie en de build. |
-| **Tailwind CSS v4** (`tailwindcss`, `@tailwindcss/vite`) | CSS-framework met utility-classes. | Alle opmaak. De huisstijl (kleuren, fonts) staat als tokens in `src/styles/global.css`. |
-| **@tailwindcss/typography** | Tailwind-plugin voor nette opmaak van vrije tekst. | Opmaak van Markdown-content (blogartikelen, profielen, dienstteksten) via de klasse `prose-site`. |
-| **Fontsource** (`@fontsource/roboto`, `@fontsource/roboto-slab`) | Lettertypes als npm-pakket. | Roboto (broodtekst) en Roboto Slab (koppen) worden lokaal geserveerd, zonder verzoek naar Google Fonts (AVG). |
-| **@astrojs/vercel** | Vercel-adapter voor Astro. | Zet de build om in het formaat dat Vercel verwacht en maakt van `/api/contact` een serverless functie. |
-| **@astrojs/sitemap** | Sitemap-integratie. | Genereert `sitemap-index.xml` bij elke build. |
-| **Resend** (`resend`) | E-mail-API. | Verstuurt de berichten van het contactformulier naar het secretariaat en een bevestiging naar de afzender. |
-| **Vercel Speed Insights** (`@vercel/speed-insights`) | Meet laadsnelheid (Core Web Vitals) bij echte bezoekers. | `<SpeedInsights />` in `src/layouts/Base.astro`; cijfers staan in Vercel onder het tabblad Speed Insights. Geen cookies, geen persoonsgegevens. |
-| **Keystatic** (`@keystatic/core`, `@keystatic/astro`) | Git-gebaseerd CMS. | Beheerscherm op `/keystatic` voor blog, team, diensten, tarieven en programmadata. Slaat alles op als bestanden in de repo. |
-| **React** (`react`, `react-dom`, `@astrojs/react`) | UI-bibliotheek. | Alleen nodig voor het Keystatic-beheerscherm. De publieke site gebruikt geen React. |
-| **Cloudflare Turnstile** (optioneel, geen pakket) | Spamcheck zonder CAPTCHA-puzzels. | Beschermt het contactformulier zodra de sleutels zijn ingevuld. Zonder sleutels werkt het formulier met alleen een honeypot. |
-
-## 3. Hoe alles samenwerkt
-
-```
-                         ┌──────────────────────────────┐
-   Redacteur ──login───▶ │  /keystatic  (beheerscherm)   │
-                         └──────────────┬───────────────┘
-                                        │ commit (Markdown + afbeeldingen)
-                                        ▼
-                         ┌──────────────────────────────┐
-                         │  GitHub-repo                  │
-                         │  src/content/*  src/data/*    │
-                         └──────────────┬───────────────┘
-                                        │ webhook: nieuwe commit
-                                        ▼
-                         ┌──────────────────────────────┐
-                         │  Vercel build: `astro build`  │
-                         │  Markdown → HTML, afbeeldingen│
-                         │  → WebP, sitemap, redirects   │
-                         └──────┬───────────────┬───────┘
-                                │               │
-                     statische bestanden   serverless functie
-                                │               │
-                                ▼               ▼
-   Bezoeker ◀──── HTML/CSS/WebP (CDN)     /api/contact ──▶ Resend ──▶ e-mail
-                                                │
-                                                └──▶ Turnstile (spamcheck)
-```
-
-**Bouwtijd (build).** `astro build` leest de Markdown-bestanden uit `src/content`, controleert ze tegen het schema in `src/content.config.ts`, rendert elke pagina in `src/pages` naar HTML, maakt van elke afbeelding in `src/assets` geoptimaliseerde WebP-varianten en schrijft sitemap en redirects weg. Het resultaat staat in `dist/` en `.vercel/output/`.
-
-**Bezoektijd (runtime).** Een bezoeker krijgt kant-en-klare bestanden van het Vercel-CDN. Het enige JavaScript op de publieke site is het mobiele menu en de verzendlogica van het contactformulier (samen een paar kilobyte).
-
-**Formulier.** De browser POST naar `/api/contact`. Die route heeft `prerender = false` en draait daardoor als serverless functie op Vercel. De functie valideert de invoer, controleert de Turnstile-token (als geconfigureerd), roept de Resend-API aan en antwoordt met JSON. Er wordt niets opgeslagen.
-
-**Content.** Keystatic schrijft naar dezelfde bestanden die Astro leest. Lokaal (`npm run dev`) direct op schijf; in productie via een commit in GitHub. Elke commit op `main` triggert een nieuwe Vercel-build, na één à twee minuten staat de wijziging live.
-
-## 4. Mappenstructuur
+## 2. Mappen
 
 ```
 .
-├── astro.config.mjs        Astro-config: site-URL, adapter, integraties, redirects
-├── keystatic.config.ts     Keystatic: welke velden het beheerscherm toont
-├── src/
-│   ├── content.config.ts   Schema's van de content-collecties (blog, team, diensten)
-│   ├── content/
-│   │   ├── blog/           Blogposts (Markdown + frontmatter)
-│   │   ├── team/           Teamleden
-│   │   └── diensten/       Diensten (psychotherapie, relatietherapie, coaching, supervisie)
-│   ├── data/
-│   │   ├── site.ts         Naam, adres, telefoon, socials, navigatie
-│   │   ├── tarieven.json   Tarieventabel (beheerbaar in Keystatic)
-│   │   ├── houd-me-vast.json           Data en prijs relatieweekend
-│   │   └── rouw-en-verlies.json  Data en prijs rouwgroep
-│   ├── assets/             Afbeeldingen (worden bij de build geoptimaliseerd)
-│   ├── components/         Header, Footer, ContactForm, Faq, TeamCard, Section, Cta, PageHeader
-│   ├── layouts/Base.astro  HTML-skelet, <head>, SEO-tags, JSON-LD, header en footer
-│   ├── pages/              Elke file is een URL
-│   │   ├── index.astro               /
-│   │   ├── diensten/[id].astro       /diensten/psychotherapie/ enz.
-│   │   ├── team/[id].astro           /team/cris-van-dusseldorp/ enz.
-│   │   ├── blog/[id].astro           /blog/<slug>/
-│   │   ├── houd-me-vast.astro, rouw-en-verlies.astro, greenwoods.astro
-│   │   ├── over-ons.astro, tarieven.astro, contact/index.astro
-│   │   ├── privacybeleid.astro, algemene-voorwaarden.astro, 404.astro
-│   │   └── api/contact.ts            Serverless endpoint voor het formulier
-│   └── styles/global.css   Tailwind-import, huisstijltokens, basisstijlen
-├── public/                 Bestanden die 1-op-1 worden gekopieerd (favicon, robots.txt)
-└── .env.example            Welke omgevingsvariabelen nodig zijn
+├── web/                    Next.js-app
+│   ├── src/app/            Routes (één map per URL), layout, theme.css, globals.css
+│   ├── src/components/     SiteHeader, SiteFooter, PageHeader, Section, Faq, Cta, TeamCard,
+│   │                       Locatie, ContactForm, InschrijfForm, YouTube, Prose, SanityImage
+│   ├── src/sanity/         client, live, fetch (met lokale groq-js-stand), image, queries/
+│   ├── src/lib/            metadata, jsonld, mail, mollie, inschrijving
+│   ├── src/data/           site.ts (praktijkgegevens, menu), routes.ts, redirects.ts
+│   └── src/assets/         Afbeeldingen voor gecodeerde pagina's
+├── studio/                 Sanity Studio
+│   ├── schemaTypes/        Documenttypen, velden, instellingen, structure
+│   └── scripts/            migrate-from-astro.ts
+├── docs/                   kikker-herbouw.md en de eerdere projectnotities
+└── archief/                Oude WordPress-site (ongewijzigd)
 ```
 
-## 5. Lokaal werken
+## 3. Lokaal werken
 
-Vereist Node 22.12 of hoger (zie `.nvmrc`).
+Node 24 (`.nvmrc`), pnpm via corepack. De Kikker-pakketten staan nog niet op GitHub Packages; tot die tijd link je ze uit een lokale checkout van `kikker-core` naast deze map (`~/Sites/kikker-core` en `~/Sites/redwoods-kikker`), zoals beschreven in `kikker-core/docs/local-linking.md`:
 
 ```bash
-npm install        # eenmalig
-npm run dev        # dev-server op http://localhost:4321, met /keystatic in lokale modus
-npm run build      # productie-build naar dist/ en .vercel/output/
-npm run preview    # bekijk de build lokaal
+cd ~/Sites/kikker-core && pnpm install && pnpm build
+cd ~/Sites/redwoods-kikker/web
+pnpm install
+pnpm link ../../kikker-core/packages/tokens ../../kikker-core/packages/react ../../kikker-core/packages/groq ../../kikker-core/packages/next
+pnpm dev            # http://localhost:3000
 ```
 
-Kopieer `.env.example` naar `.env` en vul de Resend-sleutel in als je het formulier lokaal wilt testen.
-
-> De map staat in Dropbox. `node_modules` is gemarkeerd als "Dropbox ignored", zodat Dropbox die duizenden bestanden niet synchroniseert. Na een verse `git clone` elders is dat niet nodig.
-
-## 6. Content beheren (Keystatic)
-
-Keystatic is bereikbaar op **`/keystatic`**. Het toont formulieren voor:
-
-| Sectie | Wat je kunt doen | Waar het terechtkomt |
-|---|---|---|
-| Blog | Artikelen schrijven, bewerken en verwijderen, met omslagfoto en afbeeldingen in de tekst | `src/content/blog/<slug>.md` en `src/assets/blog/` |
-| Team | Teamleden toevoegen, foto, functie, intro, specialisaties, registraties, wachttijd (optioneel, verschijnt op de teampagina en het profiel), profieltekst, volgorde | `src/content/team/<slug>.md` en `src/assets/team/` |
-| Diensten | Teksten en veelgestelde vragen per dienst. In een FAQ-antwoord maak je een link met `[tekst](/tarieven/)` of `[adres](mailto:adres)` | `src/content/diensten/<slug>.md` |
-| Tarieven | De tarieventabel (de studententarieven van Groundwork Academy zijn op verzoek van de praktijk verwijderd, 3 nov 2026) | `src/data/tarieven.json` |
-| Houd me Vast | Weekenddata (met "vol"-vinkje), prijs en aanbetaling | `src/data/houd-me-vast.json` |
-| Rouw en Verlies | Startdatum, omvang, prijs | `src/data/rouw-en-verlies.json` |
-
-De homepage, Over ons, Greenwoods en Contact staan bewust in code. Daar verandert zelden iets, en zo blijft de structuur (en de leesbaarheid) intact.
-
-### Toegang geven aan de klant
-
-Keystatic kent drie opslagmodi, ingesteld in `keystatic.config.ts`:
-
-1. **Lokaal** (automatisch bij `npm run dev`): schrijft direct naar de bestanden op je machine. Voor ontwikkelaars.
-2. **GitHub** (standaard in productie): de redacteur logt in met een GitHub-account dat toegang heeft tot de repo. Keystatic maakt commits namens die persoon. Eenmalige setup: ga lokaal naar `/keystatic`, kies "Setup GitHub App" en volg de stappen. Dat levert vier variabelen op (`KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`) die je in Vercel zet.
-3. **Keystatic Cloud** (aanbevolen voor de klant): de redacteur logt in met e-mail, zonder GitHub-account. Maak een project aan op keystatic.cloud, koppel de repo en zet `PUBLIC_KEYSTATIC_CLOUD_PROJECT=team/project` in Vercel. Gratis voor kleine teams.
-
-### Afbeeldingen
-
-Een afbeeldingsveld slaat het bestand op in de repo (`src/assets/blog/` of `src/assets/team/`). Astro maakt daar bij de build verkleinde WebP-varianten van. Richtlijn voor redacteuren: foto's kleiner dan 2 MB en minimaal 1200 pixels breed uploaden. Keystatic verkleint zelf niet.
-
-### Handmatig (zonder Keystatic)
-
-Een blogpost is een gewoon Markdown-bestand met frontmatter. Je kunt er ook een aanmaken in GitHub of je editor:
-
-```markdown
----
-title: "Titel van het artikel"
-description: "Twee zinnen samenvatting voor overzichten en Google."
-date: 2026-11-01
-cover: ../../assets/blog/mijn-foto.jpg
-author: "Cris van Dusseldorp"
----
-
-Tekst in Markdown. Koppen met `##`, nadruk met `**vet**`.
+```bash
+cd ~/Sites/redwoods-kikker/studio
+pnpm install
+pnpm link ../../kikker-core/packages/sanity ../../kikker-core/packages/groq
+pnpm dev            # http://localhost:3333
 ```
 
-## 7. Contactformulier
+`web/.env.local` heeft `KIKKER_LINK_ROOT=/Users/<jij>/Sites` nodig zolang je linkt (zie `web/.env.example`). Lockfiles en `pnpm-workspace.yaml` met link-paden worden niet gecommit (`.gitignore`); zodra de pakketten gepubliceerd zijn, verdwijnt het linken en komen de lockfiles terug.
 
-Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de contactpagina en, met een ander onderwerp, op de dienstpagina's, Houd me Vast en Rouw en Verlies.
+**Zonder Sanity-project.** Zolang `NEXT_PUBLIC_SANITY_PROJECT_ID` op `placeholder` staat, leest de site alle content uit de dry-run-uitvoer van het migratiescript (`studio/migration-output/`, zie hieronder) en evalueert GROQ lokaal met `groq-js`. Zo is elke pagina lokaal te bekijken.
 
-**Flow**
+## 4. Content: Sanity Studio en migratie
 
-1. De browser stuurt de velden naar `/api/contact` (progressive enhancement: zonder JavaScript werkt een gewone POST met redirect naar `/contact/bedankt/`).
-2. De serverless functie (`src/pages/api/contact.ts`) controleert een verborgen honeypot-veld, valideert naam, e-mail en vraag, en controleert de Turnstile-token als `TURNSTILE_SECRET_KEY` is ingesteld.
-3. Via Resend gaat één mail naar `MAIL_TO` (het secretariaat) met het e-mailadres van de afzender als reply-to, en één bevestiging naar de afzender.
-4. De functie antwoordt met JSON; de pagina toont een bevestiging. Er wordt niets in een database opgeslagen. Resend bewaart verzonden mails tijdelijk in zijn eigen logboek.
+Documenttypen (details in `docs/kikker-herbouw.md` en `studio/README.md`): `page`, `listPage` (blog-overzicht), `news` (blogartikel), `teamMember`, `dienst`, singletons `tarieven`, `houdMeVast`, `rouwEnVerlies`, en de Kikker-instellingen (header, footer, site, SEO, redirects, analytics). Vaste id's zoals `teamMember.cris-van-dusseldorp` en `news.<slug>`.
 
-**Instellen**
+Migratie vanuit de Astro-content:
 
-- Het Resend-account bestaat; de inloggegevens staan in Proton Pass (Eight). Gratis tot 3.000 mails per maand.
-- Verifieer het domein `redwoodspeopleservices.nl` (DNS-records die Resend toont), zodat je kunt verzenden vanaf `noreply@redwoodspeopleservices.nl`.
-- `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` staan in Vercel (Settings → Environment Variables). Verzenden vanaf het eigen domein werkt pas als de DNS-records van Resend bij Strato staan.
-- Optioneel: maak een Turnstile-widget aan in het Cloudflare-dashboard en zet `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` in Vercel.
+```bash
+cd studio
+pnpm migrate -- "/pad/naar/astro-checkout" --dry-run   # schrijft studio/migration-output/
+pnpm migrate -- "/pad/naar/astro-checkout"             # uploadt naar Sanity (SANITY_API_WRITE_TOKEN)
+```
 
-## 8. Aanmelden Houd me Vast met aanbetaling (Mollie)
+Het script is herhaalbaar (vaste id's, `createOrReplace`) en zet markdown om naar Portable Text met dezelfde typografie als Astro.
 
-Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) vraagt per partner naam, adres, postcode, woonplaats, e-mail en telefoon (partner 2 woont standaard op hetzelfde adres; vinkje uit toont eigen adresvelden), plus gewenst weekend en akkoord met de voorwaarden. De velden zijn afgestemd met de praktijk op 3 november 2026; de validatie en de mailteksten staan in `src/lib/inschrijving.ts`. Er is geen database; de flow loopt volledig via Mollie en e-mail.
+## 5. Formulieren, mail en Mollie
 
-1. `POST /api/inschrijven` valideert en maakt met `MOLLIE_API_KEY` een betaling aan voor het bedrag in `src/data/houd-me-vast.json` (`aanbetalingBedrag`, beheerbaar in Keystatic). De formuliergegevens gaan mee als metadata van de betaling.
-2. De bezoeker betaalt op de Mollie-checkout (iDEAL, creditcard) en komt terug op `/houd-me-vast/bedankt/?id=tr_…`, die de status toont.
-3. Mollie roept `POST /api/mollie/webhook` aan. De site haalt de betaling op bij Mollie (echtheidscontrole) en mailt bij status `paid` het secretariaat én het stel. Het restant factureert de praktijk na de intake.
+Gelijk aan de Astro-site: `POST /api/contact` (honeypot, validatie, optioneel Turnstile, mail naar het secretariaat plus ontvangstbevestiging), `POST /api/inschrijven` (Houd me Vast, maakt een Mollie-betaling voor `houdMeVast.aanbetalingBedrag` of valt terug op mail), `POST /api/mollie/webhook` (haalt de betaling op bij Mollie en mailt bij `paid` het secretariaat en het stel). Omgevingsvariabelen staan in `web/.env.example`; `PUBLIC_MOLLIE_ENABLED` heet nu `NEXT_PUBLIC_MOLLIE_ENABLED`.
 
-Zonder `MOLLIE_API_KEY` valt het formulier terug op een aanmelding per mail; de praktijk regelt de aanbetaling dan zelf. Zet daarom ook `PUBLIC_MOLLIE_ENABLED=true` zodra de sleutel er is, zodat het formulier de betaalstap aankondigt.
+## 6. Uitrollen op Vercel
 
-Testen: gebruik de `test_`-sleutel van Mollie op een publiek bereikbare Vercel-omgeving (de webhook werkt niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren. De webhook- en terugkeer-URL worden per betaling uit het aangevraagde domein opgebouwd, dus in het Mollie-dashboard hoeft geen webhook ingesteld te worden.
+Nog niet gedaan voor deze branch. Nodig: root directory `web`, framework Next.js, de omgevingsvariabelen uit `web/.env.example`, en toegang tot GitHub Packages (`.npmrc` met `GITHUB_TOKEN` met `read:packages`) zodra de Kikker-pakketten gepubliceerd zijn. De Studio kan op Sanity's eigen hosting (`pnpm deploy` in `studio/`) of als tweede Vercel-project.
 
-Stand op 30 oktober 2026: de testsleutel staat in Vercel (Production, Preview en Development) en `PUBLIC_MOLLIE_ENABLED=true` staat aan. Een testbetaling van € 697,50 is doorlopen: checkout, status "betaald", terugkeer op de bedanktpagina en de webhook-aanroep door Mollie zijn gecontroleerd in de Vercel-logs. De bevestigingsmails gingen nog niet weg omdat Resend het domein nog niet geverifieerd heeft (wacht op DNS). Vóór livegang: `MOLLIE_API_KEY` vervangen door de `live_`-sleutel; Mollie meldt in de testcheckout dat het account klaar is voor iDEAL.
+## 7. SEO
 
-## 9. Uitrollen op Vercel
+Titels, beschrijvingen, canonicals, Open Graph, JSON-LD (LocalBusiness/MedicalBusiness, Service, Person, BlogPosting, Event, FAQPage), sitemap, robots en alle redirects van de oude WordPress-URL's zijn overgenomen (`web/src/lib/metadata.ts`, `jsonld.ts`, `app/sitemap.ts`, `robots.ts`, `data/redirects.ts`). De SEO-analyse en de plaatspagina's staan beschreven in `docs/seo-analyse-2026-11.md`.
 
-1. Importeer de GitHub-repo in Vercel (Add New → Project). Vercel herkent Astro; framework preset "Astro", build command `astro build`, output wordt door de adapter bepaald.
-2. Vul de omgevingsvariabelen uit `.env.example` in.
-3. Deploy. Elke push naar `main` deployt automatisch; elke pull request krijgt een preview-URL.
-4. Koppel het domein: Settings → Domains → `redwoodspeopleservices.nl` en `www.redwoodspeopleservices.nl`. Vercel toont de DNS-records (A-record naar `76.76.21.21` en CNAME voor `www`). Zet `www` als primair domein, zodat de canonical-URL's kloppen.
-
-**Plan.** Het gratis Hobby-plan van Vercel is volgens de voorwaarden alleen voor niet-commercieel gebruik. Voor een praktijksite is Pro (ca. 20 dollar per maand) de nette keuze. Alternatief met dezelfde code: Cloudflare Pages (gratis voor commercieel gebruik, adapter wisselen naar `@astrojs/cloudflare`).
-
-## 10. SEO en vindbaarheid
-
-Wat er in zit:
-
-- Unieke `<title>` en meta description per pagina, met plaatsnamen (Rozendaal, Arnhem, Velp) in titels van diensten en de homepage.
-- Open Graph-tags en een OG-afbeelding per pagina.
-- **JSON-LD** op elke pagina: `LocalBusiness`/`MedicalBusiness` met adres, geo, openingstijden en werkgebied. Daarbovenop `Service` op dienstpagina's, `Person` op teamprofielen, `BlogPosting` op artikelen, `Event` voor het relatieweekend en `FAQPage` bij elke lijst veelgestelde vragen. AI-assistenten en Google lezen dit direct.
-- Automatische sitemap (`/sitemap-index.xml`), `robots.txt` die AI-crawlers toelaat en `/api/` uitsluit.
-- Eén H1 per pagina, logische koppenhiërarchie, alt-teksten op afbeeldingen.
-- Redirects van alle oude WordPress-URL's (zie `astro.config.mjs`), zodat bestaande posities behouden blijven.
-
-Buiten de code, maar minstens zo belangrijk: Google Bedrijfsprofiel claimen (categorie Psychotherapeut), vermeldingen bij Zorgkaart Nederland en de registers van VIT, RBCZ en SCAG, en na livegang in Google Search Console de nieuwe sitemap indienen en de spam-URL's van de oude site laten verwijderen.
-
-### Plaatspagina's en de SEO-analyse
-
-In november 2026 is een SEO-analyse gedaan, inclusief een test hoe AI-assistenten een shortlist van praktijken maken: `docs/seo-analyse-2026-11.md`. Naar aanleiding daarvan:
-
-- Vier plaatspagina's met eigen tekst: `/relatietherapie-arnhem/`, `/relatietherapie-velp/`, `/psychotherapie-arnhem/` en `/therapie-rheden-rozendaal/`. Ze gebruiken de component `src/components/Locatie.astro` en staan in de footer onder Werkgebied en in de zijbalk van de dienstpagina's. Nieuwe plaats toevoegen: kopieer een van deze pagina's en schrijf de tekst opnieuw; geen kopie van een bestaande pagina met alleen een andere plaatsnaam, want dat ziet Google als doorway page.
-- Paginatitels worden automatisch ingekort: de volledige praktijknaam erachter als dat binnen 60 tekens past, anders "| Redwoods", anders alleen de titel (`src/layouts/Base.astro`).
-- WordPress-archieven (`/tag/…`, `/author/…`, `/category/…`, `/2025/08/`) en `/feed/` gaan naar `/blog/`, `/sitemap.xml` naar `/sitemap-index.xml`, `/vergoeding/` naar `/tarieven/` (`astro.config.mjs` en `scripts/fix-redirects.mjs`).
-- Alle foto's van mensen en artikelen hebben een alt-tekst; sfeerbeelden op de achtergrond bewust niet (decoratief).
-
-## 11. Livegang vanaf WordPress
-
-1. DNS omzetten naar Vercel (zie het hoofdstuk Uitrollen op Vercel). Zet de TTL een dag van tevoren laag.
-2. De oude WordPress-installatie direct daarna offline halen of in elk geval niet meer bereikbaar laten via het domein. De gehackte bestanden mogen niet blijven staan.
-3. In Google Search Console: eigendom verifiëren voor het nieuwe domein, sitemap `https://www.redwoodspeopleservices.nl/sitemap-index.xml` indienen, en onder "Verwijderingen" de URL's onder `/nl/nieuwe-casinos/` laten verwijderen.
-4. Controleer de omgevingsvariabelen in Vercel (Resend, eventueel Turnstile en Keystatic) en stuur een testbericht via het contactformulier.
-5. Vraag de praktijk de teksten voor privacybeleid en algemene voorwaarden na te lopen; de huidige teksten zijn een beknopt startpunt.
-
-## 12. Accounts en stand van zaken
+## 8. Accounts en stand van zaken
 
 Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 
-| Dienst | Waar | Status |
-|---|---|---|
-| GitHub | organisatie EightMedia, repo `redwoodspeopleservices` | Gekoppeld aan Vercel; elke push naar `main` deployt |
-| Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op www.redwoodspeopleservices.nl sinds 2 november 2026. Het certificaat kwam niet vanzelf; uitgegeven met `vercel certs issue redwoodspeopleservices.nl www.redwoodspeopleservices.nl`. Kale domein stuurt met 308 door naar www |
-| Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel. Stand 5 nov 2026: DKIM en CNAME `send` staan goed bij Strato, maar CNAME `rsend` wijst door een tikfout naar `rsendrsend-euw1.forge.rmta.net` in plaats van `rsend-euw1.forge.rmta.net`. Verificatie is gestart (status pending) en rondt af zodra dat record is verbeterd; anders opnieuw starten met `POST /domains/{id}/verify`. Formulieren en Mollie-mails werken pas daarna |
-| Mollie | account van Redwoods People Services B.V.; Daniel (Eight) is partner met volledige toegang | Testsleutel in Vercel, testbetaling geslaagd incl. webhook (30 okt 2026). Nog te doen: live-sleutel zetten bij livegang |
-| Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
-| DNS | Strato, beheerd door de domeinhouder | A `@` → 216.150.16.1 en CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com` staan (2 nov 2026). De Resend-records zijn CNAME's (nieuwe Resend-opzet): `send` → `send.forge.rmta.net` staat goed, `rsend` → `rsend-euw1.forge.rmta.net` staat met een tikfout (zie Resend). Google Search Console TXT op `@` staat (5 nov 2026) |
+| Dienst | Status |
+|---|---|
+| GitHub | organisatie EightMedia, repo `redwoodspeopleservices`; `main` deployt naar Vercel, deze branch niet |
+| Vercel | project `redwoodspeopleservices` draait de Astro-site van `main`; voor deze branch is nog geen project ingericht |
+| Sanity | nog geen project voor Redwoods in de organisatie Eight Media BV |
+| Resend | account bestaat, `RESEND_API_KEY` in Vercel; DNS bij Strato: DKIM en CNAME `send` goed, CNAME `rsend` met tikfout (5 nov 2026), verificatie pending |
+| Mollie | account van Redwoods People Services B.V.; testsleutel in Vercel, testbetaling geslaagd; live-sleutel bij livegang |
+| DNS | Strato; A `@` en CNAME `www` naar Vercel, Google Search Console TXT staat |
 
-Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, akkoord op de bevestigingsmails (`docs/mail-bevestiging-stel.md`), Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
+## 9. Wat nog moet gebeuren voor deze branch live kan
 
-## 13. Onderhoud
-
-- **Afhankelijkheden bijwerken**: `npm outdated` en `npm update`, daarna `npm run build` om te controleren. Doe dit een paar keer per jaar.
-- **Nieuwe pagina**: maak een `.astro`-bestand in `src/pages`, gebruik `Base` als layout en `PageHeader`/`Section` voor de structuur. Voeg de link toe aan `nav` in `src/data/site.ts`.
-- **Huisstijl aanpassen**: kleuren en fonts staan in `@theme` in `src/styles/global.css`.
-- **Adres of telefoonnummer wijzigen**: `src/data/site.ts`, dat voedt footer, contactpagina en JSON-LD tegelijk.
+1. Kikker-pakketten publiceren op GitHub Packages (release-flow in `kikker-core`), daarna hier `pnpm install` zonder link en de lockfiles committen.
+2. Sanity-project aanmaken, CORS voor localhost en het domein, read-token en write-token; project-id in `web/.env.local`, `studio/.env.local` en Vercel.
+3. Migratie uitvoeren (`pnpm migrate` zonder `--dry-run`), Studio deployen, de praktijk toegang geven.
+4. Vercel-project voor `web/` met alle omgevingsvariabelen; Mollie-webhook werkt per betaling op het aangevraagde domein, dus geen instelling in het Mollie-dashboard.
+5. Alle routes vergelijken met de live site (tekst, metadata, JSON-LD, formulieren) en een Mollie-testbetaling en een testmail doorlopen op de preview-URL.
+6. DNS omzetten en `main` vervangen door deze branch.

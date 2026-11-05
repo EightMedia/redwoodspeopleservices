@@ -1,0 +1,171 @@
+/*
+ * Redwoods theme: overrides the Kikker token variables (theme-default.css, surfaces.css).
+ * Unlayered, so every declaration here beats `@layer kikker.*`.
+ * Brand colours and fonts come from the Astro site's `global.css`.
+ */
+
+:root {
+  /* Named brand colours (project tokens, `--rw-` prefix). */
+  --rw-color-brand: #e75c50;
+  --rw-color-brand-dark: #b7392e;
+  --rw-color-brand-deep: #8f2a22;
+  --rw-color-brand-soft: #fbe9e6;
+  --rw-color-brand-tint: #fdf4f2;
+  --rw-color-forest: #3f5d4b;
+  --rw-color-forest-soft: #e6ede8;
+  --rw-color-ink: #2b2b2b;
+  --rw-color-muted: #5c5c5c;
+  --rw-color-line: #e8e2dc;
+  --rw-color-sand: #f7f3ee;
+  --rw-color-paper: #ffffff;
+
+  /* Kikker base colours. */
+  --kr-color-white: var(--rw-color-paper);
+  --kr-color-black: var(--rw-color-ink);
+
+  /* Primary ramp = brand. normal / darker-1 / darker-2 / lighter-4 / lighter-5 are the
+     Astro brand colours; the other steps are interpolated. */
+  --kr-color-primary-normal: var(--rw-color-brand);
+  --kr-color-primary-lighter-1: #ec7d72;
+  --kr-color-primary-lighter-2: #f19d95;
+  --kr-color-primary-lighter-3: #f6bdb7;
+  --kr-color-primary-lighter-4: var(--rw-color-brand-soft);
+  --kr-color-primary-lighter-5: var(--rw-color-brand-tint);
+  --kr-color-primary-darker-1: var(--rw-color-brand-dark);
+  --kr-color-primary-darker-2: var(--rw-color-brand-deep);
+  --kr-color-primary-darker-3: #6e1f1a;
+  --kr-color-primary-darker-4: #4b1511;
+  --kr-color-primary-darker-5: #2a0b09;
+
+  /* Secondary ramp = forest. */
+  --kr-color-secondary-normal: var(--rw-color-forest);
+  --kr-color-secondary-lighter-1: #5a7766;
+  --kr-color-secondary-lighter-2: #789283;
+  --kr-color-secondary-lighter-3: #9fb3a8;
+  --kr-color-secondary-lighter-4: var(--rw-color-forest-soft);
+  --kr-color-secondary-lighter-5: #f1f5f2;
+  --kr-color-secondary-darker-1: #334c3d;
+  --kr-color-secondary-darker-2: #283c30;
+  --kr-color-secondary-darker-3: #1e2d24;
+  --kr-color-secondary-darker-4: #141f18;
+  --kr-color-secondary-darker-5: #0a100c;
+
+  /* Support ramp = neutrals: ink, muted, line, sand. */
+  --kr-color-support-normal: #8a8a8a;
+  --kr-color-support-lighter-1: #a3a3a3;
+  --kr-color-support-lighter-2: #bdbdbd;
+  --kr-color-support-lighter-3: #d6d6d6;
+  --kr-color-support-lighter-4: var(--rw-color-line);
+  --kr-color-support-lighter-5: var(--rw-color-sand);
+  --kr-color-support-darker-1: #707070;
+  --kr-color-support-darker-2: var(--rw-color-muted);
+  --kr-color-support-darker-3: #444444;
+  --kr-color-support-darker-4: var(--rw-color-ink);
+  --kr-color-support-darker-5: #1a1a1a;
+
+  /* Typography (next/font exposes --rw-font-sans / --rw-font-display on <html>). */
+  --kr-font-family-body: var(--rw-font-sans), 'Roboto', system-ui, sans-serif;
+  --kr-font-family-heading: var(--rw-font-display), 'Roboto Slab', Georgia, serif;
+  --kr-line-height-body: 1.6;
+  --kr-line-height-heading: 1.15;
+
+  /* Layout: Astro `.container-site` = max-w-6xl with px-5 / sm:px-8; sections py-16 / sm:py-24. */
+  --kr-container-max: 72rem;
+  --kr-container-gutter: 1.25rem;
+  --kr-section-padding: 4rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --kr-container-gutter: 2rem;
+    --kr-section-padding: 6rem;
+  }
+}
+
+/* Surfaces: default = paper, subtle = sand, loud = brand (white text),
+   loud-alt = brand-soft (ink text), inverse = forest (white text). */
+[data-surface='default'] {
+  --kr-color-bg: var(--rw-color-paper);
+  --kr-color-bg-subtle: var(--rw-color-sand);
+  --kr-color-bg-raised: var(--rw-color-paper);
+  --kr-color-text: var(--rw-color-ink);
+  --kr-color-text-subtle: var(--rw-color-muted);
+  --kr-color-text-strong: var(--rw-color-ink);
+  --kr-color-heading: var(--rw-color-ink);
+  --kr-color-link: var(--rw-color-brand-dark);
+  --kr-color-link-hover: var(--rw-color-brand-deep);
+  --kr-color-border: var(--rw-color-line);
+  --kr-color-border-subtle: var(--rw-color-line);
+  --kr-color-accent: var(--rw-color-brand);
+  --kr-color-on-accent: var(--rw-color-paper);
+  --kr-color-focus: var(--rw-color-brand);
+}
+
+[data-surface='subtle'] {
+  --kr-color-bg: var(--rw-color-sand);
+  --kr-color-bg-subtle: var(--rw-color-line);
+  --kr-color-bg-raised: var(--rw-color-paper);
+  --kr-color-text: var(--rw-color-ink);
+  --kr-color-text-subtle: var(--rw-color-muted);
+  --kr-color-text-strong: var(--rw-color-ink);
+  --kr-color-heading: var(--rw-color-ink);
+  --kr-color-link: var(--rw-color-brand-dark);
+  --kr-color-link-hover: var(--rw-color-brand-deep);
+  --kr-color-border: var(--rw-color-line);
+  --kr-color-border-subtle: var(--rw-color-line);
+  --kr-color-accent: var(--rw-color-brand);
+  --kr-color-on-accent: var(--rw-color-paper);
+  --kr-color-focus: var(--rw-color-brand);
+}
+
+[data-surface='loud'] {
+  --kr-color-bg: var(--rw-color-brand);
+  --kr-color-bg-subtle: var(--rw-color-brand-dark);
+  --kr-color-bg-raised: var(--rw-color-brand-dark);
+  --kr-color-text: var(--rw-color-paper);
+  --kr-color-text-subtle: rgba(255, 255, 255, 0.85);
+  --kr-color-text-strong: var(--rw-color-paper);
+  --kr-color-heading: var(--rw-color-paper);
+  --kr-color-link: var(--rw-color-paper);
+  --kr-color-link-hover: var(--rw-color-brand-tint);
+  --kr-color-border: rgba(255, 255, 255, 0.7);
+  --kr-color-border-subtle: rgba(255, 255, 255, 0.2);
+  --kr-color-accent: var(--rw-color-paper);
+  --kr-color-on-accent: var(--rw-color-brand-dark);
+  --kr-color-focus: var(--rw-color-paper);
+}
+
+/* Astro `tone="tint"`: a light tint, despite Kikker's `data-scheme="dark"` on loud-alt. */
+[data-surface='loud-alt'] {
+  --kr-color-bg: var(--rw-color-brand-soft);
+  --kr-color-bg-subtle: var(--rw-color-brand-tint);
+  --kr-color-bg-raised: var(--rw-color-paper);
+  --kr-color-text: var(--rw-color-ink);
+  --kr-color-text-subtle: var(--rw-color-muted);
+  --kr-color-text-strong: var(--rw-color-ink);
+  --kr-color-heading: var(--rw-color-ink);
+  --kr-color-link: var(--rw-color-brand-dark);
+  --kr-color-link-hover: var(--rw-color-brand-deep);
+  --kr-color-border: var(--rw-color-line);
+  --kr-color-border-subtle: var(--rw-color-line);
+  --kr-color-accent: var(--rw-color-brand);
+  --kr-color-on-accent: var(--rw-color-paper);
+  --kr-color-focus: var(--rw-color-brand);
+}
+
+[data-surface='inverse'] {
+  --kr-color-bg: var(--rw-color-forest);
+  --kr-color-bg-subtle: #334c3d;
+  --kr-color-bg-raised: #334c3d;
+  --kr-color-text: var(--rw-color-paper);
+  --kr-color-text-subtle: rgba(255, 255, 255, 0.85);
+  --kr-color-text-strong: var(--rw-color-paper);
+  --kr-color-heading: var(--rw-color-paper);
+  --kr-color-link: var(--rw-color-paper);
+  --kr-color-link-hover: var(--rw-color-forest-soft);
+  --kr-color-border: rgba(255, 255, 255, 0.7);
+  --kr-color-border-subtle: rgba(255, 255, 255, 0.2);
+  --kr-color-accent: var(--rw-color-paper);
+  --kr-color-on-accent: var(--rw-color-forest);
+  --kr-color-focus: var(--rw-color-paper);
+}

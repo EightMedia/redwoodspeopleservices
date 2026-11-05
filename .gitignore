@@ -1,10 +1,18 @@
 node_modules/
-dist/
-.astro/
+.next/
+out/
 .vercel/
+.env*.local
 .env
-.env.*
-!.env.example
+*.tsbuildinfo
+.npmrc
 .DS_Store
-.vercel
-.env*
+
+# Studio build and migration dry-run output
+studio/dist/
+studio/migration-output/
+
+# No lockfiles until the @eightmedia/kikker-* packages are published: a lockfile can only be
+# generated against the locally linked kikker-core (see web/README.md and studio/README.md).
+pnpm-lock.yaml
+web/pnpm-workspace.yaml

@@ -1,0 +1,67 @@
+/* Blog article (Astro `blog/[id].astro`). Breakpoint: sm 640px. */
+
+.rw-post {
+  padding-block: 3rem;
+}
+
+.rw-post__head {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.rw-post__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--rw-color-brand-dark);
+  text-decoration: none;
+}
+
+.rw-post__back:hover {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+}
+
+.rw-post__meta {
+  margin: 1.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-post__title {
+  margin: 0.75rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.rw-post__description {
+  margin: 1.25rem 0 0;
+  font-size: 1.25rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-post__cover {
+  display: block;
+  width: 100%;
+  max-width: 64rem;
+  height: auto;
+  margin: 2.5rem auto 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 1.5rem;
+  object-fit: cover;
+}
+
+.rw-post__body {
+  max-width: 48rem;
+  margin: 3rem auto 0;
+}
+
+@media (min-width: 640px) {
+  .rw-post {
+    padding-block: 4rem;
+  }
+
+  .rw-post__title {
+    font-size: 3rem;
+  }
+}

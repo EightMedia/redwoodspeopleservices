@@ -1,0 +1,108 @@
+/* Rates page (Astro `tarieven.astro`). Breakpoint: sm 640px. */
+
+.rw-tarieven {
+  max-width: 48rem;
+}
+
+.rw-tarieven__lead {
+  margin: 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-tarieven__list {
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rw-color-line);
+  border-bottom: 1px solid var(--rw-color-line);
+}
+
+.rw-tarieven__item {
+  display: grid;
+  gap: 0.5rem;
+  padding-block: 1.25rem;
+}
+
+.rw-tarieven__item + .rw-tarieven__item {
+  border-top: 1px solid var(--rw-color-line);
+}
+
+.rw-tarieven__name {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.rw-tarieven__info {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-tarieven__price {
+  margin: 0;
+  text-align: left;
+}
+
+.rw-tarieven__amount {
+  font-family: var(--kr-font-family-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.rw-tarieven__btw {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-tarieven__noshow {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background-color: var(--rw-color-brand-soft);
+}
+
+.rw-tarieven__noshow-title {
+  margin: 0;
+  font-family: var(--kr-font-family-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.rw-tarieven__noshow-text {
+  margin: 0.75rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-tarieven__noshow-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: var(--rw-color-muted);
+}
+
+.rw-tarieven__link {
+  font-weight: 500;
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rw-tarieven__link:hover {
+  color: var(--rw-color-brand-deep);
+}
+
+@media (min-width: 640px) {
+  .rw-tarieven__item {
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+  }
+
+  .rw-tarieven__price {
+    text-align: right;
+  }
+
+  .rw-tarieven__noshow {
+    padding: 2rem;
+  }
+}

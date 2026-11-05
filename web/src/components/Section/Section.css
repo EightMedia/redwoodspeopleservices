@@ -1,0 +1,16 @@
+/* Astro `Section.astro`: `py-16 sm:py-24` + `.container-site`; colours from the surface. */
+
+.rw-section {
+  padding-block: 4rem;
+}
+
+@media (min-width: 640px) {
+  .rw-section {
+    padding-block: 6rem;
+  }
+}
+
+/* Astro `tone="tint"` is a light tint: text stays ink on loud-alt. */
+.rw-section[data-surface='loud-alt'] {
+  color: var(--rw-color-ink);
+}

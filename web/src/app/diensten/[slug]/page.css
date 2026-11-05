@@ -1,0 +1,110 @@
+/* Service detail (Astro `diensten/[id].astro`). Breakpoints: sm 640px, lg 1024px. */
+
+.rw-dienst-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+.rw-dienst-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rw-dienst-box {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+}
+
+.rw-dienst-box--tint {
+  background-color: var(--rw-color-brand-tint);
+}
+
+.rw-dienst-box--outline {
+  border: 1px solid var(--rw-color-line);
+}
+
+.rw-dienst-box__title {
+  margin: 0;
+  font-family: var(--kr-font-family-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.rw-dienst-box__title--large {
+  font-size: 1.25rem;
+}
+
+.rw-dienst-box__text {
+  margin: 0.5rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+.rw-dienst-box__button {
+  margin-top: 1rem;
+}
+
+.rw-dienst-box__button--ghost {
+  margin-top: 0.5rem;
+}
+
+.rw-dienst-box__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rw-dienst-box__link {
+  color: var(--rw-color-brand-dark);
+  text-decoration: none;
+}
+
+.rw-dienst-box__link:hover {
+  color: var(--rw-color-brand-dark);
+  text-decoration: underline;
+}
+
+.rw-dienst-faq {
+  max-width: 48rem;
+}
+
+.rw-dienst-ask {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.rw-dienst-ask__title {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.rw-dienst-ask__text {
+  margin: 1rem 0 0;
+  color: var(--rw-color-muted);
+}
+
+@media (min-width: 640px) {
+  .rw-dienst-ask__title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rw-dienst-grid {
+    grid-template-columns: 1fr 320px;
+  }
+
+  .rw-dienst-aside {
+    position: sticky;
+    top: 7rem;
+    align-self: start;
+  }
+
+  .rw-dienst-ask {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

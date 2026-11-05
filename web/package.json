@@ -1,0 +1,40 @@
+{
+  "name": "redwoods-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Redwoods People Services website on the Kikker stack (Next.js 16 + Sanity)",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@12.16.1",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@eightmedia/kikker-groq": "^1.0.0",
+    "@eightmedia/kikker-next": "^1.0.0",
+    "@eightmedia/kikker-react": "^0.2.0",
+    "@eightmedia/kikker-tokens": "^0.1.0",
+    "@portabletext/react": "^8.0.1",
+    "@sanity/image-url": "^2.1.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "groq-js": "^2.0.1",
+    "next": "^16.3.3",
+    "next-sanity": "^13.3.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "resend": "^6.37.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@portabletext/types": "^4.0.2",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.3.3",
+    "typescript": "^5.9.3"
+  }
+}
