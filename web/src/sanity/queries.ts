@@ -11,10 +11,14 @@ export type PageData = {
   body?: PortableTextBlock[];
 };
 
+// Kikker's `fetchPage` runs the body projection with only `$id`, while `seoQuery` filters the
+// settings documents on `$siteName`. Inline the site name so the projection is self-contained.
+const seo = seoQuery({ siteName }).replaceAll('$siteName', JSON.stringify(siteName));
+
 const page = `{
   title,
   "path": ${documentPathQuery()},
-  "seo": ${seoQuery({ siteName })},
+  "seo": ${seo},
   body
 }`;
 

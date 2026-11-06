@@ -346,11 +346,21 @@ maximaal 45 minuten); daarna `pnpm build` in `web/`.
   die bestaat (Studio crasht anders). News-template hardcodet `listPage_news_<site>`; hier
   `listPage.blog`. `linkQuery` geeft `target: "_blank"` voor `type: "url"`, ook voor paden.
 
+- **fetchPage en `$siteName`**: `fetchPage` voert de body-projectie uit met alleen `$id`,
+  terwijl `seoQuery` de settings-documenten op `$siteName` filtert; de Sanity-API weigert de
+  query dan ("param $siteName referenced, but not provided"; groq-js was coulant). In
+  `web/src/sanity/queries.ts` wordt de sitenaam letterlijk in de projectie gezet.
+- **fetchSanity in generateStaticParams**: Kikker's `fetchSanity` roept `draftMode()` aan,
+  wat buiten een request (generateStaticParams, build) een fout geeft. `web/src/sanity/fetch.ts`
+  valt dan terug op `client.fetch` met perspective `published`.
+
 ## Nog te regelen buiten de code
 
-- Sanity-project aanmaken in organisatie Eight Media BV (project-id invullen in
-  `web/.env.local` en `studio/.env.local`); CORS voor http://localhost:3000 en :3333;
-  write-token voor de migratie; read-token voor drafts.
+- Sanity-project: aangemaakt op 6 november 2026 in organisatie Eight Media BV, project-id
+  `6zrberf0`, dataset `production`, CORS voor localhost:3000, localhost:3333 en
+  www.redwoodspeopleservices.nl. Read- en write-token staan in de lokale `.env.local`-bestanden
+  (niet in git) en horen in Proton Pass en Vercel. De migratie is uitgevoerd: 29 documenten,
+  20 afbeeldingen. Studio nog niet gedeployed, praktijk nog geen toegang.
 - Kikker-pakketten publiceren op GitHub Packages voordat de branch op Vercel kan bouwen;
   `GITHUB_TOKEN` met `read:packages` als env-variabele in Vercel; root directory `web`.
 - Vercel-env-variabelen overzetten (Mollie, Resend, MAIL_*), Mollie-webhook-URL ongewijzigd.

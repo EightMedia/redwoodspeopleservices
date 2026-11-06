@@ -2,9 +2,10 @@ import 'server-only';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { evaluate, parse } from 'groq-js';
+import { draftMode } from 'next/headers';
 
 import { hasSanityProject } from './client';
-import { fetchSanity } from './live';
+import { client, fetchSanity } from './live';
 
 export type SanityFetchOptions = {
   query: string;
@@ -28,9 +29,22 @@ export async function sanityFetch<T>({ query, params = {}, tags }: SanityFetchOp
     // adds its own sync tags to every fetch and `/api/revalidate` revalidates by path, so
     // revalidation works without them; custom tags are kept in the signature for later.
     void tags;
-    return fetchSanity<T>(query, params);
+    if (await inRequestScope()) return fetchSanity<T>(query, params);
+    // `generateStaticParams` and other build-time callers have no request: published content
+    // straight from the client (Kikker's `fetchSanity` would call `draftMode()` and throw).
+    return client.fetch<T>(query, params, { perspective: 'published' });
   }
   return localFetch<T>(query, params);
+}
+
+/** `draftMode()` throws outside a request (e.g. in `generateStaticParams`). */
+async function inRequestScope(): Promise<boolean> {
+  try {
+    await draftMode();
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /* ---------------------------------------------------------------------------------------- */
