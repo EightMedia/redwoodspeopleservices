@@ -189,8 +189,8 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 **Instellen**
 
 - Het Resend-account bestaat; de inloggegevens staan in Proton Pass (Eight). Gratis tot 3.000 mails per maand.
-- Verifieer het domein `redwoodspeopleservices.nl` (DNS-records die Resend toont), zodat je kunt verzenden vanaf `noreply@redwoodspeopleservices.nl`.
-- `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` staan in Vercel (Settings → Environment Variables). Verzenden vanaf het eigen domein werkt pas als de DNS-records van Resend bij Strato staan.
+- Het domein `redwoodspeopleservices.nl` is sinds 7 november 2026 geverifieerd bij Resend (DKIM, SPF `send` en `rsend`); de site verzendt vanaf `noreply@redwoodspeopleservices.nl`.
+- `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` staan in Vercel (Settings → Environment Variables).
 - Optioneel: maak een Turnstile-widget aan in het Cloudflare-dashboard en zet `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` in Vercel.
 
 ## 8. Aanmelden Houd me Vast met aanbetaling (Mollie)
@@ -205,7 +205,7 @@ Zonder `MOLLIE_API_KEY` valt het formulier terug op een aanmelding per mail; de 
 
 Testen: gebruik de `test_`-sleutel van Mollie op een publiek bereikbare Vercel-omgeving (de webhook werkt niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren. De webhook- en terugkeer-URL worden per betaling uit het aangevraagde domein opgebouwd, dus in het Mollie-dashboard hoeft geen webhook ingesteld te worden.
 
-Stand op 30 oktober 2026: de testsleutel staat in Vercel (Production, Preview en Development) en `PUBLIC_MOLLIE_ENABLED=true` staat aan. Een testbetaling van € 697,50 is doorlopen: checkout, status "betaald", terugkeer op de bedanktpagina en de webhook-aanroep door Mollie zijn gecontroleerd in de Vercel-logs. De bevestigingsmails gingen nog niet weg omdat Resend het domein nog niet geverifieerd heeft (wacht op DNS). Vóór livegang: `MOLLIE_API_KEY` vervangen door de `live_`-sleutel; Mollie meldt in de testcheckout dat het account klaar is voor iDEAL.
+Stand op 30 oktober 2026: de testsleutel staat in Vercel (Production, Preview en Development) en `PUBLIC_MOLLIE_ENABLED=true` staat aan. Een testbetaling van € 697,50 is doorlopen: checkout, status "betaald", terugkeer op de bedanktpagina en de webhook-aanroep door Mollie zijn gecontroleerd in de Vercel-logs. Op 7 november 2026, na de domeinverificatie bij Resend, is de test herhaald op de live site: de mail naar het secretariaat en de bevestiging aan beide partners zijn afgeleverd vanaf `noreply@redwoodspeopleservices.nl`. Vóór livegang: `MOLLIE_API_KEY` vervangen door de `live_`-sleutel; Mollie meldt in de testcheckout dat het account klaar is voor iDEAL.
 
 ## 9. Uitrollen op Vercel
 
@@ -254,10 +254,10 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 |---|---|---|
 | GitHub | organisatie EightMedia, repo `redwoodspeopleservices` | Gekoppeld aan Vercel; elke push naar `main` deployt |
 | Vercel | team Eight Media (Pro), project `redwoodspeopleservices` | Live op www.redwoodspeopleservices.nl sinds 2 november 2026. Het certificaat kwam niet vanzelf; uitgegeven met `vercel certs issue redwoodspeopleservices.nl www.redwoodspeopleservices.nl`. Kale domein stuurt met 308 door naar www |
-| Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel. Stand 5 nov 2026: DKIM en CNAME `send` staan goed bij Strato, maar CNAME `rsend` wijst door een tikfout naar `rsendrsend-euw1.forge.rmta.net` in plaats van `rsend-euw1.forge.rmta.net`. Verificatie is gestart (status pending) en rondt af zodra dat record is verbeterd; anders opnieuw starten met `POST /domains/{id}/verify`. Formulieren en Mollie-mails werken pas daarna |
+| Resend | account aangemaakt, inlog in Proton Pass | `RESEND_API_KEY` staat in Vercel. Domein geverifieerd op 7 nov 2026 (DKIM, CNAME `send` en `rsend`). Contactformulier en Houd me Vast-aanmelding zijn diezelfde dag live getest: alle mails afgeleverd vanaf `noreply@redwoodspeopleservices.nl` |
 | Mollie | account van Redwoods People Services B.V.; Daniel (Eight) is partner met volledige toegang | Testsleutel in Vercel, testbetaling geslaagd incl. webhook (30 okt 2026). Nog te doen: live-sleutel zetten bij livegang |
 | Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
-| DNS | Strato, beheerd door de domeinhouder | A `@` → 216.150.16.1 en CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com` staan (2 nov 2026). De Resend-records zijn CNAME's (nieuwe Resend-opzet): `send` → `send.forge.rmta.net` staat goed, `rsend` → `rsend-euw1.forge.rmta.net` staat met een tikfout (zie Resend). Google Search Console TXT op `@` staat (5 nov 2026) |
+| DNS | Strato, beheerd door de domeinhouder | A `@` → 216.150.16.1 en CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com` staan (2 nov 2026). De Resend-records zijn CNAME's (nieuwe Resend-opzet): `send` → `send.forge.rmta.net` en `rsend` → `rsend-euw1.forge.rmta.net`, plus TXT `resend._domainkey`; alle drie geverifieerd op 7 nov 2026. Google Search Console TXT op `@` staat (5 nov 2026) |
 
 Openstaand voor de praktijk: definitieve teksten privacybeleid en algemene/annuleringsvoorwaarden, akkoord op de bevestigingsmails (`docs/mail-bevestiging-stel.md`), Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
 
