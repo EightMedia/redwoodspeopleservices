@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { sendMail, MAIL_TO } from "../../lib/mail";
 import { createPayment, mollieEnabled, euro } from "../../lib/mollie";
 import { leesInschrijving, inschrijvingTekst, ontvangers } from "../../lib/inschrijving";
+import { spamFout, verifyTurnstile, TURNSTILE_FOUT } from "../../lib/spam";
 import hmv from "../../data/houd-me-vast.json";
 
 export const prerender = false;
@@ -11,7 +12,7 @@ export const prerender = false;
  * Met MOLLIE_API_KEY: maakt een betaling voor de aanbetaling aan en stuurt door naar de Mollie-checkout.
  * Zonder sleutel: mailt de aanmelding naar het secretariaat (de praktijk regelt de aanbetaling zelf).
  */
-export const POST: APIRoute = async ({ request, redirect, url }) => {
+export const POST: APIRoute = async ({ request, redirect, url, clientAddress }) => {
   const wantsJson = (request.headers.get("accept") || "").includes("application/json");
   const fail = (error: string, status = 400) =>
     wantsJson
@@ -36,6 +37,13 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
 
   if (!weekendOk) return fail("Kies een beschikbaar weekend.");
   if (!akkoord) return fail("Ga akkoord met de algemene en annuleringsvoorwaarden.");
+
+  // Spamwering vóór er een betaling of mail wordt aangemaakt
+  const spam = spamFout(form, {
+    kort: [d.p1, d.p2].flatMap((p) => [p.naam, p.telefoon, p.adres, p.postcode, p.plaats]),
+  });
+  if (spam) return fail(spam);
+  if (!(await verifyTurnstile(form, clientAddress ?? null))) return fail(TURNSTILE_FOUT);
 
   const amount = hmv.aanbetalingBedrag; // bijv. "697.50"
 

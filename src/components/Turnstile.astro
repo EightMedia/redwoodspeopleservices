@@ -1,0 +1,14 @@
+---
+/**
+ * Cloudflare Turnstile-widget (spamcontrole). Rendert alleen als PUBLIC_TURNSTILE_SITE_KEY is ingesteld.
+ * Hoort binnen een <form>; het widget voegt zelf het verborgen veld cf-turnstile-response toe.
+ */
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+---
+
+{siteKey && (
+  <>
+    <div class="cf-turnstile" data-sitekey={siteKey} data-language="nl"></div>
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </>
+)}

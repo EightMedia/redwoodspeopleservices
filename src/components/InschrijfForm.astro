@@ -5,6 +5,7 @@
  * Post naar /api/inschrijven; met Mollie volgt de checkout voor de aanbetaling.
  */
 import hmv from "../data/houd-me-vast.json";
+import Turnstile from "./Turnstile.astro";
 const mollie = Boolean(import.meta.env.PUBLIC_MOLLIE_ENABLED === "true");
 const weekends = hmv.data;
 const fout = Astro.url.searchParams.get("fout");
@@ -107,6 +108,8 @@ const fout = Astro.url.searchParams.get("fout");
       : <p>Na je aanmelding nemen we contact op over de aanbetaling van <strong class="text-ink">{hmv.aanbetaling}</strong> en het intakegesprek.</p>}
   </div>
 
+  <Turnstile />
+
   <div class="flex flex-wrap items-center gap-4">
     <button type="submit" class="btn-primary">{mollie ? "Aanmelden en aanbetaling voldoen" : "Aanmelden"}</button>
     <p class="text-sm text-muted" role="status" aria-live="polite" data-status></p>
@@ -114,6 +117,8 @@ const fout = Astro.url.searchParams.get("fout");
 </form>
 
 <script>
+  import { formData, turnstileBezig, turnstileReset, TURNSTILE_BEZIG } from "../lib/form-client";
+
   const form = document.querySelector<HTMLFormElement>("[data-inschrijf-form]");
   if (form) {
     const status = form.querySelector<HTMLElement>("[data-status]")!;
@@ -132,15 +137,20 @@ const fout = Astro.url.searchParams.get("fout");
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
+      if (turnstileBezig(form)) {
+        status.textContent = TURNSTILE_BEZIG;
+        return;
+      }
       button.disabled = true;
       status.textContent = "Even geduld…";
       try {
-        const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+        const res = await fetch(form.action, { method: "POST", body: formData(form), headers: { Accept: "application/json" } });
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.ok) throw new Error(data.error || "Versturen is niet gelukt.");
         window.location.href = data.checkoutUrl || data.redirect || "/houd-me-vast/bedankt/";
       } catch (err) {
         status.textContent = (err as Error).message;
+        turnstileReset(form);
         button.disabled = false;
       }
     });

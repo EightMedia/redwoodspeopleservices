@@ -3,6 +3,8 @@
  * Contactformulier: naam, e-mail, telefoon, vraag.
  * Verstuurt naar /api/contact (serverless op Vercel) dat via Resend mailt.
  */
+import Turnstile from "./Turnstile.astro";
+
 interface Props {
   subject?: string;
   buttonLabel?: string;
@@ -15,7 +17,6 @@ const {
   questionLabel = "Je vraag",
   questionPlaceholder = "Waar kunnen we je mee helpen?",
 } = Astro.props;
-const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
 ---
 
 <form method="post" action="/api/contact" class="space-y-5" data-contact-form novalidate>
@@ -44,12 +45,7 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
     <textarea id="vraag" name="vraag" rows="5" class="field" required placeholder={questionPlaceholder}></textarea>
   </div>
 
-  {turnstileKey && (
-    <>
-      <div class="cf-turnstile" data-sitekey={turnstileKey} data-language="nl"></div>
-      <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    </>
-  )}
+  <Turnstile />
 
   <p class="text-sm text-muted">We gebruiken je gegevens alleen om je vraag te beantwoorden. Zie ons <a href="/privacybeleid/" class="underline underline-offset-4">privacyverklaring</a>.</p>
 
@@ -64,6 +60,8 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
 </form>
 
 <script>
+  import { formData, turnstileBezig, turnstileReset, TURNSTILE_BEZIG } from "../lib/form-client";
+
   const forms = document.querySelectorAll<HTMLFormElement>("[data-contact-form]");
   forms.forEach((form) => {
     const status = form.querySelector<HTMLElement>("[data-status]")!;
@@ -73,12 +71,16 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.reportValidity()) return;
+      if (turnstileBezig(form)) {
+        status.textContent = TURNSTILE_BEZIG;
+        return;
+      }
       button.disabled = true;
       status.textContent = "Bezig met versturen…";
       try {
         const res = await fetch(form.action, {
           method: "POST",
-          body: new FormData(form),
+          body: formData(form),
           headers: { Accept: "application/json" },
         });
         const data = await res.json().catch(() => ({}));
@@ -93,6 +95,7 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undef
         mail.className = "underline underline-offset-4";
         mail.textContent = "secretariaat@redwoodspeopleservices.nl";
         status.append(mail, ".");
+        turnstileReset(form);
         button.disabled = false;
       }
     });

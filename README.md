@@ -45,7 +45,7 @@ De oude site draaide op WordPress met Elementor en WooCommerce. Die combinatie g
 | **Vercel Speed Insights** (`@vercel/speed-insights`) | Meet laadsnelheid (Core Web Vitals) bij echte bezoekers. | `<SpeedInsights />` in `src/layouts/Base.astro`; cijfers staan in Vercel onder het tabblad Speed Insights. Geen cookies, geen persoonsgegevens. |
 | **Keystatic** (`@keystatic/core`, `@keystatic/astro`) | Git-gebaseerd CMS. | Beheerscherm op `/keystatic` voor blog, team, diensten, tarieven en programmadata. Slaat alles op als bestanden in de repo. |
 | **React** (`react`, `react-dom`, `@astrojs/react`) | UI-bibliotheek. | Alleen nodig voor het Keystatic-beheerscherm. De publieke site gebruikt geen React. |
-| **Cloudflare Turnstile** (optioneel, geen pakket) | Spamcheck zonder CAPTCHA-puzzels. | Beschermt het contactformulier zodra de sleutels zijn ingevuld. Zonder sleutels werkt het formulier met alleen een honeypot. |
+| **Cloudflare Turnstile** (optioneel, geen pakket) | Spamcheck zonder CAPTCHA-puzzels. | Beschermt het contactformulier en het aanmeldformulier Houd me Vast. De sleutels staan sinds 11 nov 2026 in Vercel (Production en Preview). Zonder sleutels werken de formulieren met alleen de honeypot en het inhoudsfilter. |
 
 ## 3. Hoe alles samenwerkt
 
@@ -182,7 +182,7 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 **Flow**
 
 1. De browser stuurt de velden naar `/api/contact` (progressive enhancement: zonder JavaScript werkt een gewone POST met redirect naar `/contact/bedankt/`).
-2. De serverless functie (`src/pages/api/contact.ts`) controleert een verborgen honeypot-veld, valideert naam, e-mail en vraag, en controleert de Turnstile-token als `TURNSTILE_SECRET_KEY` is ingesteld.
+2. De serverless functie (`src/pages/api/contact.ts`) controleert een verborgen honeypot-veld, valideert naam, e-mail en vraag, en draait het spamfilter (`src/lib/spam.ts`) en controleert de Turnstile-token als `TURNSTILE_SECRET_KEY` is ingesteld.
 3. Via Resend gaat één mail naar `MAIL_TO` (het secretariaat) met het e-mailadres van de afzender als reply-to, en één bevestiging naar de afzender.
 4. De functie antwoordt met JSON; de pagina toont een bevestiging. Er wordt niets in een database opgeslagen. Resend bewaart verzonden mails tijdelijk in zijn eigen logboek.
 
@@ -191,7 +191,16 @@ Velden: naam, e-mailadres, telefoonnummer en vraag. Het formulier staat op de co
 - Het Resend-account bestaat; de inloggegevens staan in Proton Pass (Eight). Gratis tot 3.000 mails per maand.
 - Het domein `redwoodspeopleservices.nl` is sinds 7 november 2026 geverifieerd bij Resend (DKIM, SPF `send` en `rsend`); de site verzendt vanaf `noreply@redwoodspeopleservices.nl`.
 - `RESEND_API_KEY`, `MAIL_FROM` en `MAIL_TO` staan in Vercel (Settings → Environment Variables).
-- Optioneel: maak een Turnstile-widget aan in het Cloudflare-dashboard en zet `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` in Vercel.
+- Turnstile: de widget staat in het Cloudflare-dashboard; `PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` staan in Vercel. De site-sleutel wordt bij de build ingebakken, dus na een wijziging opnieuw deployen. Zet altijd beide sleutels: met alleen de geheime sleutel weigert de server elke inzending.
+
+**Spamwering** (sinds 11 nov 2026, na spam via het contactformulier). Beide formulieren gebruiken dezelfde lagen, in `src/lib/spam.ts` (server) en `src/lib/form-client.ts` (browser):
+
+1. Honeypot: een verborgen veld dat mensen niet invullen.
+2. Invultijd: de browser stuurt mee hoe lang het formulier open stond; binnen drie seconden terug is geweigerd.
+3. Inhoud: geen webadressen in naam-, telefoon- en adresvelden, hooguit twee links in de vraag, en geen bericht dat grotendeels in een ander schrift is geschreven (Cyrillisch, Chinees en dergelijke).
+4. Turnstile: zonder geldige token geen mail en geen Mollie-betaling.
+
+Een geweigerde bezoeker krijgt een uitleg en het e-mailadres van het secretariaat. In de Vercel-logs staat per weigering alleen de reden (`Formulier geweigerd (spamfilter): …`), geen persoonsgegevens. De bevestigingsmail van het contactformulier gaat alleen weg als Turnstile aanstaat, zodat een bot niet andermans adres kan laten mailen vanaf het domein van de praktijk. Lokaal testen kan met de dummy-sleutels van Cloudflare (zie hun documentatie onder Testing); `astro dev` zet `.env` niet in `process.env`, dus de serverkant test je met een losse aanroep van `verifyTurnstile`.
 
 ## 8. Aanmelden Houd me Vast met aanbetaling (Mollie)
 

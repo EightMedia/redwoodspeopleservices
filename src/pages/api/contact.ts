@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
+import { spamFout, turnstileEnabled, verifyTurnstile, TURNSTILE_FOUT } from "../../lib/spam";
 
 export const prerender = false;
 
@@ -7,16 +8,6 @@ const MAX = { naam: 120, email: 200, telefoon: 40, vraag: 5000 };
 
 function clean(v: FormDataEntryValue | null, max: number) {
   return (typeof v === "string" ? v : "").trim().slice(0, max);
-}
-
-async function verifyTurnstile(token: string, ip: string | null) {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true; // Turnstile niet geconfigureerd: overslaan
-  const body = new URLSearchParams({ secret, response: token });
-  if (ip) body.set("remoteip", ip);
-  const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
-  const j = (await r.json()) as { success?: boolean };
-  return Boolean(j.success);
 }
 
 export const POST: APIRoute = async ({ request, redirect, clientAddress }) => {
@@ -47,10 +38,10 @@ export const POST: APIRoute = async ({ request, redirect, clientAddress }) => {
     return reply(false, "Vul je naam, een geldig e-mailadres en je vraag in.");
   }
 
-  const token = clean(form.get("cf-turnstile-response"), 4000);
-  if (process.env.TURNSTILE_SECRET_KEY && !(await verifyTurnstile(token, clientAddress ?? null))) {
-    return reply(false, "De spamcontrole is mislukt. Probeer het opnieuw.");
-  }
+  const spam = spamFout(form, { kort: [naam, telefoon], vrij: vraag });
+  if (spam) return reply(false, spam);
+
+  if (!(await verifyTurnstile(form, clientAddress ?? null))) return reply(false, TURNSTILE_FOUT);
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.MAIL_TO || "secretariaat@redwoodspeopleservices.nl";
@@ -86,7 +77,10 @@ export const POST: APIRoute = async ({ request, redirect, clientAddress }) => {
     return reply(false, "Versturen is niet gelukt.", 502);
   }
 
-  // Bevestiging naar de afzender (mislukt dit, dan is het bericht toch binnen)
+  // Bevestiging naar de afzender (mislukt dit, dan is het bericht toch binnen).
+  // Alleen als Turnstile de inzending heeft goedgekeurd: zonder die controle kan een bot
+  // andermans adres invullen en zo vanaf ons domein ongevraagde mail laten versturen.
+  if (!turnstileEnabled()) return reply(true);
   await resend.emails
     .send({
       from,
