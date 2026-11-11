@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 import { siteUrl } from '@/lib/siteUrl';
+import { clientIp, spamFout, TURNSTILE_FOUT, turnstileEnabled, verifyTurnstile } from '@/lib/spam';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,19 +22,6 @@ function requestOrigin(request: Request): string {
     /* fall through */
   }
   return siteUrl();
-}
-
-async function verifyTurnstile(token: string, ip: string | null) {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true; // Turnstile not configured: skip
-  const body = new URLSearchParams({ secret, response: token });
-  if (ip) body.set('remoteip', ip);
-  const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-    method: 'POST',
-    body,
-  });
-  const j = (await r.json()) as { success?: boolean };
-  return Boolean(j.success);
 }
 
 export async function POST(request: Request) {
@@ -65,11 +53,11 @@ export async function POST(request: Request) {
     return reply(false, 'Vul je naam, een geldig e-mailadres en je vraag in.');
   }
 
-  const token = clean(form.get('cf-turnstile-response'), 4000);
-  const clientAddress = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;
-  if (process.env.TURNSTILE_SECRET_KEY && !(await verifyTurnstile(token, clientAddress))) {
-    return reply(false, 'De spamcontrole is mislukt. Probeer het opnieuw.');
-  }
+  // Spam protection before any mail is sent: content filter first, then Turnstile
+  const spam = spamFout(form, { kort: [naam, telefoon], vrij: vraag });
+  if (spam) return reply(false, spam);
+
+  if (!(await verifyTurnstile(form, clientIp(request)))) return reply(false, TURNSTILE_FOUT);
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.MAIL_TO || 'secretariaat@redwoodspeopleservices.nl';
@@ -105,7 +93,10 @@ export async function POST(request: Request) {
     return reply(false, 'Versturen is niet gelukt.', 502);
   }
 
-  // Confirmation to the sender (if this fails the message has still arrived)
+  // Confirmation to the sender (if this fails the message has still arrived).
+  // Only when Turnstile approved the submission: without that check a bot can fill in
+  // someone else's address and have unsolicited mail sent from our domain.
+  if (!turnstileEnabled()) return reply(true);
   await resend.emails
     .send({
       from,

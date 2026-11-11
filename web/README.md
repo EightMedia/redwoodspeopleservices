@@ -50,6 +50,8 @@ Copy `.env.example` to `.env.local` and fill in:
 | `RESEND_API_KEY` | Resend key for the contact and registration mails |
 | `MAIL_FROM` | Sender, a verified domain in Resend |
 | `MAIL_TO` | Recipient of form messages |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key for both forms. Inlined at build time |
+| `TURNSTILE_SECRET_KEY` | Turnstile secret key, server-only. Set both or neither: with only the secret every submission is rejected. To test locally use Cloudflare's published dummy keys (their docs, "Testing") |
 | `KIKKER_LINK_ROOT` | Local only: folder holding both repositories (`/Users/<you>/Sites`) so Turbopack may read the linked packages. Unset on Vercel |
 
 ## Develop
@@ -92,5 +94,6 @@ committing, re-run the `pnpm link …` command above to keep working locally.
 | `src/data/redirects.ts` | Old WordPress URLs, read by `next.config.ts` |
 | `src/lib/metadata.ts` | `pageMetadata()`: title rule, canonical, Open Graph, Twitter card |
 | `src/lib/jsonld.ts` + `src/components/JsonLd.tsx` | Structured data |
+| `src/lib/spam.ts`, `src/lib/form-client.ts`, `src/components/Turnstile/` | Spam protection of the forms: Turnstile, fill-in time and content filter (server), timing and widget handling (browser) |
 | `src/sanity/` | Client, live content, draft mode, GROQ projections |
 | `src/components/` | Project components (`rw-` prefix, plain CSS next to the component) |

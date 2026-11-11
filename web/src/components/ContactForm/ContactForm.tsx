@@ -3,7 +3,9 @@
 import { useState, type FormEvent } from 'react';
 import { usePathname } from 'next/navigation';
 
+import { Turnstile } from '@/components/Turnstile/Turnstile';
 import { site } from '@/data/site';
+import { formData, TURNSTILE_BEZIG, turnstileBezig, turnstileReset } from '@/lib/form-client';
 
 import './ContactForm.css';
 
@@ -18,14 +20,15 @@ export type ContactFormProps = {
 type Status =
   | { state: 'idle' }
   | { state: 'sending' }
+  /** Message without the "mail us directly" suffix (the Turnstile check is still running). */
+  | { state: 'notice'; message: string }
   | { state: 'success' }
   | { state: 'error'; message: string };
 
-const turnstileKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-
 /**
  * Contact form: name, e-mail, phone, question (Astro `ContactForm.astro`). Posts as form
- * data to `/api/contact`, which mails through Resend. Honeypot field `website`.
+ * data to `/api/contact`, which mails through Resend. Spam protection: honeypot field
+ * `website`, fill-in time and Turnstile (see `@/lib/spam`).
  */
 export function ContactForm({
   subject = 'Contactformulier website',
@@ -40,11 +43,15 @@ export function ContactForm({
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
+    if (turnstileBezig(form)) {
+      setStatus({ state: 'notice', message: TURNSTILE_BEZIG });
+      return;
+    }
     setStatus({ state: 'sending' });
     try {
       const res = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData(form),
         headers: { Accept: 'application/json' },
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
@@ -52,6 +59,7 @@ export function ContactForm({
       setStatus({ state: 'success' });
     } catch (err) {
       setStatus({ state: 'error', message: (err as Error).message });
+      turnstileReset(form);
     }
   }
 
@@ -110,12 +118,7 @@ export function ContactForm({
         />
       </div>
 
-      {turnstileKey ? (
-        <>
-          <div className="cf-turnstile" data-sitekey={turnstileKey} data-language="nl" />
-          <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
-        </>
-      ) : null}
+      <Turnstile />
 
       <p className="rw-contact-form__privacy">
         We gebruiken je gegevens alleen om je vraag te beantwoorden. Zie ons{' '}
@@ -131,6 +134,7 @@ export function ContactForm({
         </button>
         <p className="rw-contact-form__status" role="status" aria-live="polite">
           {status.state === 'sending' ? 'Bezig met versturen…' : null}
+          {status.state === 'notice' ? status.message : null}
           {status.state === 'error' ? (
             <>
               {status.message} Mail ons gerust rechtstreeks op{' '}

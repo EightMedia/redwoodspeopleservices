@@ -4,6 +4,7 @@ import { inschrijvingTekst, leesInschrijving, ontvangers } from '@/lib/inschrijv
 import { MAIL_TO, sendMail } from '@/lib/mail';
 import { createPayment, euro, mollieEnabled } from '@/lib/mollie';
 import { siteUrl } from '@/lib/siteUrl';
+import { clientIp, spamFout, TURNSTILE_FOUT, verifyTurnstile } from '@/lib/spam';
 import { sanityFetch } from '@/sanity/fetch';
 
 export const runtime = 'nodejs';
@@ -74,6 +75,13 @@ export async function POST(request: Request) {
 
   if (!weekendOk) return fail('Kies een beschikbaar weekend.');
   if (!akkoord) return fail('Ga akkoord met de algemene en annuleringsvoorwaarden.');
+
+  // Spam protection before a payment or mail is created
+  const spam = spamFout(form, {
+    kort: [d.p1, d.p2].flatMap((p) => [p.naam, p.telefoon, p.adres, p.postcode, p.plaats]),
+  });
+  if (spam) return fail(spam);
+  if (!(await verifyTurnstile(form, clientIp(request)))) return fail(TURNSTILE_FOUT);
 
   const amount = hmv.aanbetalingBedrag.toFixed(2); // e.g. "697.50"
 

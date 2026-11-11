@@ -206,6 +206,8 @@ Port `src/lib/mail.ts`, `src/lib/mollie.ts`, `src/lib/inschrijving.ts` en de dri
 naar `web/src/lib/` en `web/src/app/api/.../route.ts`, functioneel identiek. Env-variabelen
 behouden dezelfde namen: `PUBLIC_MOLLIE_ENABLED` wordt `NEXT_PUBLIC_MOLLIE_ENABLED`,
 `MOLLIE_API_KEY`, `RESEND_API_KEY`, `MAIL_FROM`, `MAIL_TO`, plus `NEXT_PUBLIC_SITE_URL`.
+Spamwering (van `main`, 11 nov 2026): `PUBLIC_TURNSTILE_SITE_KEY` wordt
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` blijft; zie README §5.
 Geen sleutels in de repo; `web/.env.example` documenteert de namen. Formulieren posten met
 `fetch` naar dezelfde paden als nu, met dezelfde foutmeldingen (Nederlands).
 

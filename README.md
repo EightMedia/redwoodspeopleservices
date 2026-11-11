@@ -85,11 +85,20 @@ Het script is herhaalbaar (vaste id's, `createOrReplace`) en zet markdown om naa
 
 ## 5. Formulieren, mail en Mollie
 
-Gelijk aan de Astro-site: `POST /api/contact` (honeypot, validatie, optioneel Turnstile, mail naar het secretariaat plus ontvangstbevestiging), `POST /api/inschrijven` (Houd me Vast, maakt een Mollie-betaling voor `houdMeVast.aanbetalingBedrag` of valt terug op mail), `POST /api/mollie/webhook` (haalt de betaling op bij Mollie en mailt bij `paid` het secretariaat en het stel). Omgevingsvariabelen staan in `web/.env.example`; `PUBLIC_MOLLIE_ENABLED` heet nu `NEXT_PUBLIC_MOLLIE_ENABLED`.
+Gelijk aan de Astro-site: `POST /api/contact` (honeypot, validatie, spamfilter, Turnstile, mail naar het secretariaat plus ontvangstbevestiging), `POST /api/inschrijven` (Houd me Vast, maakt een Mollie-betaling voor `houdMeVast.aanbetalingBedrag` of valt terug op mail), `POST /api/mollie/webhook` (haalt de betaling op bij Mollie en mailt bij `paid` het secretariaat en het stel). Omgevingsvariabelen staan in `web/.env.example`; `PUBLIC_MOLLIE_ENABLED` heet nu `NEXT_PUBLIC_MOLLIE_ENABLED` en `PUBLIC_TURNSTILE_SITE_KEY` heet nu `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
+
+**Spamwering** (overgezet van `main`, waar ze op 11 nov 2026 is toegevoegd na spam via het contactformulier). Het contactformulier en het aanmeldformulier Houd me Vast gebruiken dezelfde lagen, in `web/src/lib/spam.ts` (server), `web/src/lib/form-client.ts` (browser) en `web/src/components/Turnstile/`:
+
+1. Honeypot: een verborgen veld dat mensen niet invullen.
+2. Invultijd: de browser stuurt mee hoe lang het formulier open stond; binnen drie seconden terug is geweigerd.
+3. Inhoud: geen webadressen in naam-, telefoon- en adresvelden, hooguit twee links in de vraag, en geen bericht dat grotendeels in een ander schrift is geschreven (Cyrillisch, Chinees en dergelijke).
+4. Turnstile: zonder geldige token geen mail en geen Mollie-betaling.
+
+Een geweigerde bezoeker krijgt een uitleg en, bij het contactformulier, het e-mailadres van het secretariaat. In de Vercel-logs staat per weigering alleen de reden (`Formulier geweigerd (spamfilter): …`), geen persoonsgegevens. De bevestigingsmail van het contactformulier gaat alleen weg als Turnstile aanstaat, zodat een bot niet andermans adres kan laten mailen vanaf het domein van de praktijk. Zonder sleutels werken de formulieren met alleen de honeypot en het filter. Lokaal testen kan met de dummy-sleutels van Cloudflare (zie hun documentatie onder Testing) in `web/.env.local`; Next leest dat bestand ook aan de serverkant, dus de hele keten is lokaal te testen.
 
 ## 6. Uitrollen op Vercel
 
-Nog niet gedaan voor deze branch. Nodig: root directory `web`, framework Next.js, de omgevingsvariabelen uit `web/.env.example`, en toegang tot GitHub Packages (`.npmrc` met `GITHUB_TOKEN` met `read:packages`) zodra de Kikker-pakketten gepubliceerd zijn. De Studio kan op Sanity's eigen hosting (`pnpm deploy` in `studio/`) of als tweede Vercel-project.
+Nog niet gedaan voor deze branch. Nodig: root directory `web`, framework Next.js, de omgevingsvariabelen uit `web/.env.example` (waaronder `NEXT_PUBLIC_TURNSTILE_SITE_KEY` en `TURNSTILE_SECRET_KEY` voor de spamwering: altijd allebei zetten, want met alleen de geheime sleutel weigert de server elke inzending, en de site-sleutel wordt bij de build ingebakken, dus na een wijziging opnieuw deployen), en toegang tot GitHub Packages (`.npmrc` met `GITHUB_TOKEN` met `read:packages`) zodra de Kikker-pakketten gepubliceerd zijn. De Studio kan op Sanity's eigen hosting (`pnpm deploy` in `studio/`) of als tweede Vercel-project.
 
 ## 7. SEO
 

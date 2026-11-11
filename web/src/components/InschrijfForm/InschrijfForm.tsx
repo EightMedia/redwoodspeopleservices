@@ -3,6 +3,9 @@
 import { Suspense, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
 
+import { Turnstile } from '@/components/Turnstile/Turnstile';
+import { formData, TURNSTILE_BEZIG, turnstileBezig, turnstileReset } from '@/lib/form-client';
+
 import './InschrijfForm.css';
 
 export type InschrijfFormProps = {
@@ -26,6 +29,7 @@ function Foutmelding() {
  * e-mail and phone per partner, the preferred weekend and consent to the terms.
  * Partner 2 lives at the same address by default; unticking shows separate address fields.
  * Posts to /api/inschrijven; with Mollie the checkout for the deposit follows.
+ * Spam protection: honeypot field `website`, fill-in time and Turnstile (see `@/lib/spam`).
  */
 export function InschrijfForm({ weekends, aanbetaling }: InschrijfFormProps) {
   const [zelfdeAdres, setZelfdeAdres] = useState(true);
@@ -36,12 +40,16 @@ export function InschrijfForm({ weekends, aanbetaling }: InschrijfFormProps) {
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
+    if (turnstileBezig(form)) {
+      setStatus(TURNSTILE_BEZIG);
+      return;
+    }
     setBusy(true);
     setStatus('Even geduld…');
     try {
       const res = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData(form),
         headers: { Accept: 'application/json' },
       });
       const data = await res.json().catch(() => ({}));
@@ -49,6 +57,7 @@ export function InschrijfForm({ weekends, aanbetaling }: InschrijfFormProps) {
       window.location.href = data.checkoutUrl || data.redirect || '/houd-me-vast/bedankt/';
     } catch (err) {
       setStatus((err as Error).message);
+      turnstileReset(form);
       setBusy(false);
     }
   }
@@ -210,6 +219,8 @@ export function InschrijfForm({ weekends, aanbetaling }: InschrijfFormProps) {
           </p>
         )}
       </div>
+
+      <Turnstile />
 
       <div className="rw-inschrijf__actions">
         <button type="submit" className="rw-btn--primary" disabled={busy}>
