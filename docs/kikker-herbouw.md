@@ -363,7 +363,7 @@ maximaal 45 minuten); daarna `pnpm build` in `web/`.
   www.redwoodspeopleservices.nl. Read- en write-token staan in de lokale `.env.local`-bestanden
   (niet in git) en horen in Proton Pass en Vercel. De migratie is uitgevoerd: 29 documenten,
   20 afbeeldingen. Studio nog niet gedeployed, praktijk nog geen toegang.
-- Kikker-pakketten publiceren op GitHub Packages voordat de branch op Vercel kan bouwen;
+- De Kikker-pakketten staan sinds 10 oktober 2026 op GitHub Packages (nagekeken op 13 november 2026), behalve `kikker-react` 0.3.0 waartegen deze site lokaal is gebouwd: die release staat klaar als open pull request "chore: version packages" in `kikker-core`. Daarna kan de branch op Vercel bouwen;
   `GITHUB_TOKEN` met `read:packages` als env-variabele in Vercel; root directory `web`.
 - Vercel-env-variabelen overzetten (Mollie, Resend, MAIL_*), Mollie-webhook-URL ongewijzigd.
 

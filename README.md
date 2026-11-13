@@ -119,7 +119,7 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 
 ## 9. Wat nog moet gebeuren voor deze branch live kan
 
-1. Kikker-pakketten publiceren op GitHub Packages (release-flow in `kikker-core`), daarna hier `pnpm install` zonder link en de lockfiles committen.
+1. De Kikker-pakketten staan sinds 10 oktober 2026 op GitHub Packages (tokens 0.1.0, react 0.2.0, groq 1.0.0, next 1.0.0, sanity 1.0.0; nagekeken op 13 november 2026 in de release-run van `kikker-core`). Deze site is gebouwd tegen nieuwere code: `kikker-react` 0.3.0 moet nog uitkomen via de open pull request "chore: version packages" in `kikker-core`. Daarna hier `@eightmedia/kikker-react` op `^0.3.0` zetten, `pnpm install` zonder link en de lockfiles committen. Waar deze README, `web/README.md` of `docs/kikker-herbouw.md` zegt dat de pakketten nog niet gepubliceerd zijn, is dat verouderd.
 2. Sanity-project aanmaken, CORS voor localhost en het domein, read-token en write-token; project-id in `web/.env.local`, `studio/.env.local` en Vercel.
 3. Migratie uitvoeren (`pnpm migrate` zonder `--dry-run`), Studio deployen, de praktijk toegang geven.
 4. Vercel-project voor `web/` met alle omgevingsvariabelen; Mollie-webhook werkt per betaling op het aangevraagde domein, dus geen instelling in het Mollie-dashboard.
