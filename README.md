@@ -236,7 +236,7 @@ Wat er in zit:
 - Eén H1 per pagina, logische koppenhiërarchie, alt-teksten op afbeeldingen.
 - Redirects van alle oude WordPress-URL's (zie `astro.config.mjs`), zodat bestaande posities behouden blijven.
 
-Buiten de code, maar minstens zo belangrijk: Google Bedrijfsprofiel claimen (categorie Psychotherapeut), vermeldingen bij Zorgkaart Nederland en de registers van VIT, RBCZ en SCAG, en na livegang in Google Search Console de nieuwe sitemap indienen en de spam-URL's van de oude site laten verwijderen.
+Buiten de code, maar minstens zo belangrijk: Google Bedrijfsprofiel claimen (niet met de categorie Psychotherapeut: dat is een beschermde titel, zie `docs/seo-analyse-2026-11.md`), vermeldingen bij Zorgkaart Nederland en de registers van VIT, RBCZ en SCAG, en na livegang in Google Search Console de nieuwe sitemap indienen en de spam-URL's van de oude site laten verwijderen.
 
 ### Plaatspagina's en de SEO-analyse
 

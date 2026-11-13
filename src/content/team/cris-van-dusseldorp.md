@@ -1,6 +1,6 @@
 ---
 name: Cris van Dusseldorp
-role: Directeur, integratief psychotherapeut en relatietherapeut
+role: Directeur, integratief therapeut en relatietherapeut
 intro: Begeleidt sinds 2003 mensen en stellen bij complexe hechtingsproblematiek en trauma, met natuur en spiritualiteit als bronnen.
 photo: ../../assets/team/cris-van-dusseldorp.jpg
 order: 1
@@ -18,7 +18,7 @@ registrations:
   - "AGB-code: 90109154"
 ---
 
-Cris is een ervaren en inspirerende professional en directeur bij Redwoods. Hij werkt als (natuur)coach, integratief psychotherapeut, relatietherapeut, supervisor, spiritual director en trainer. Sinds 2003 helpt hij mensen met hun persoonlijke ontwikkeling en professioneel functioneren.
+Cris is een ervaren en inspirerende professional en directeur bij Redwoods. Hij werkt als (natuur)coach, integratief therapeut, relatietherapeut, supervisor, spiritual director en trainer. Sinds 2003 helpt hij mensen met hun persoonlijke ontwikkeling en professioneel functioneren.
 
 Met zijn rijke levenservaring en snelle inzicht in innerlijke dynamiek vindt hij aansluiting bij uiteenlopende mensen. Hij integreert spiritualiteit en natuur in zijn begeleiding en reikt praktische handvatten aan. Mensen voelen zich gehoord en leren hun eigen ervaringen om te buigen naar waardevolle leermomenten.
 

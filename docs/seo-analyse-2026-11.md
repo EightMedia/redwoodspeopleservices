@@ -85,7 +85,7 @@ Geen enkele pagina toont beoordelingen, terwijl concurrenten hun Google-score pr
 
 Gevonden als "Redwoods People Services B.V.", categorie Psycholoog, 4,6 uit 7 reviews, openingstijden en adres kloppen. Verbeterpunten:
 
-- Hoofdcategorie wijzigen naar Psychotherapeut en als extra categorieën Relatietherapeut (Google noemt dit "Huwelijks- of relatietherapeut"), Coach en Supervisor toevoegen. Voor "relatietherapie Velp" staan nu alleen profielen met de categorie Gezinstherapie of Psycholoog in het kaartblok.
+- Hoofdcategorie: niet Psychotherapeut. Dat is een BIG-beschermde titel die de therapeuten van Redwoods niet mogen voeren (bericht Cris, november 2026); het eerdere advies op dit punt is ingetrokken. Kies in overleg met de praktijk een categorie zonder beschermde titel en voeg Relatietherapeut (Google noemt dit "Huwelijks- of relatietherapeut"), Coach en Supervisor toe als extra categorieën. Voor "relatietherapie Velp" staan nu alleen profielen met de categorie Gezinstherapie of Psycholoog in het kaartblok.
 - De beschrijving herschrijven in lijn met de nieuwe site (nu nog de oude tekst over de bomen en "jouw team, jouw gezin, jouw bedrijf").
 - Diensten toevoegen als aparte items (Psychotherapie, EFT-relatietherapie, Coaching, Supervisie, Houd me Vast relatieweekend, Rouwgroep).
 - Reviews: van 7 naar 25 of meer. Vraag na een afgerond traject per mail om een review met een directe link; bij een therapiepraktijk kan dat anoniem en met de nadruk op de ervaring met de praktijk, niet met de behandeling. Concurrenten in het kaartblok voor Velp en Rheden hebben 10 tot 18 reviews.
