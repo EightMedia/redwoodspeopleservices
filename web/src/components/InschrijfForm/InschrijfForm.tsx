@@ -194,10 +194,10 @@ export function InschrijfForm({ weekends, aanbetaling }: InschrijfFormProps) {
           <input type="checkbox" name="voorwaarden" value="ja" required className="rw-inschrijf__checkbox" />
           <span>
             We gaan akkoord met de{' '}
-            <a href="/algemene-voorwaarden/" className="rw-inschrijf__link">
+            <a href="/voorwaarden-houd-me-vast/" className="rw-inschrijf__link">
               algemene en annuleringsvoorwaarden
             </a>{' '}
-            en het{' '}
+            en de{' '}
             <a href="/privacybeleid/" className="rw-inschrijf__link">
               privacyverklaring
             </a>

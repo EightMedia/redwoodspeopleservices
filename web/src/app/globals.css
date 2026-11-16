@@ -256,6 +256,17 @@ svg {
   padding-inline-start: 1.55em;
 }
 
+/* Sublijst in een genummerde lijst (voorwaarden: a, b) */
+.rw-prose ol ol {
+  list-style-type: lower-alpha;
+}
+
+.rw-prose li > ul,
+.rw-prose li > ol {
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+}
+
 .rw-prose h1,
 .rw-prose h2,
 .rw-prose h3,

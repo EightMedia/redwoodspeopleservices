@@ -101,6 +101,7 @@ is gedaan). `nvm` als shellcommando bestaat niet; `nvm use` kun je overslaan.
 /contact/bedankt/                   code (bevestiging contactformulier)
 /privacybeleid/                     Sanity `page` via catch-all
 /algemene-voorwaarden/              Sanity `page` via catch-all
+/voorwaarden-houd-me-vast/          Sanity `page` via catch-all (tekst praktijk, 16 nov 2026)
 /404                                code (not-found.tsx)
 /api/contact                        POST, Resend-mail + ontvangstbevestiging
 /api/inschrijven                    POST, Mollie-betaling aanmaken (of mail-fallback)
@@ -377,6 +378,10 @@ moet kennen:
   `tarieven`, `houdMeVast`, `rouwEnVerlies`; Kikker-settings `<type>_default`
   (`siteHeader_default`, `siteFooter_default`, `siteSettings_default`, `seoSettings_default`,
   `redirects_default`, `analytics_default`). Zie `studio/schemaTypes/ids.ts`.
+- `page.voorwaarden-houd-me-vast` (algemene en annuleringsvoorwaarden van het relatieweekend, tekst van
+  de praktijk van 16 nov 2026) is rechtstreeks in Sanity aangemaakt en zit niet in het migratiescript.
+  De footer, het aanmeldformulier, de weekendpagina en de bevestigingsmail verwijzen naar
+  `/voorwaarden-houd-me-vast/`. Een nieuwe versie past de praktijk aan in de Studio.
 - `news.body` is Kikker-blockcontent plus `image`-blokken (`{ _type: "image", asset, alt }`)
   voor de foto's midden in blogartikelen; de renderer heeft daar een component voor nodig.
 - Link-annotaties (`markDefs`) hebben `_type: "link"`, `href` en `target` (`_self`/`_blank`);

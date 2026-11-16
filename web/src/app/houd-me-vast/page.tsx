@@ -73,7 +73,7 @@ const faq = [
   },
   {
     q: 'Wat gebeurt er na aanmelding?',
-    a: 'We plannen een intakegesprek van ongeveer 30 minuten via Zoom. We bespreken waarom jullie kiezen voor het weekend, jullie interactiepatronen, hoe jullie relatie begon en wat jullie hopen te halen uit het weekend. Bij aanmelding vragen we een aanbetaling van 50%; de rest wordt na de intake gefactureerd.',
+    a: 'We plannen een intakegesprek van ongeveer 30 minuten via Zoom. We bespreken waarom jullie kiezen voor het weekend, jullie interactiepatronen, hoe jullie relatie begon en wat jullie hopen te halen uit het weekend. Bij aanmelding vragen we een aanbetaling van 697,50 euro; de rest wordt na de intake gefactureerd.',
   },
   {
     q: 'En na het weekend?',
@@ -238,10 +238,10 @@ export default async function HoudMeVastPage() {
             <p className="rw-measure rw-hmv__muted rw-hmv__muted--4">
               Bij aanmelding vragen we een aanbetaling van {aanbetaling}. Daarna nemen we contact op voor een intakegesprek via Zoom; het
               restant factureren we na dat gesprek. De{' '}
-              <a href="/algemene-voorwaarden/" className="rw-hmv__link rw-hmv__link--medium">
+              <a href="/voorwaarden-houd-me-vast/" className="rw-hmv__link rw-hmv__link--medium">
                 algemene en annuleringsvoorwaarden
               </a>{' '}
-              zijn van toepassing.
+              van het weekend zijn van toepassing.
             </p>
             <p className="rw-hmv__muted rw-hmv__muted--6">
               Vragen? Mail{' '}

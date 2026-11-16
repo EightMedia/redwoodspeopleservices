@@ -108,6 +108,11 @@ export function SiteFooter() {
                 Algemene voorwaarden
               </a>
             </li>
+            <li>
+              <a href="/voorwaarden-houd-me-vast/" className="rw-footer__link">
+                Voorwaarden Houd me Vast
+              </a>
+            </li>
             {socials.map((social) => (
               <li key={social.href}>
                 <a href={social.href} rel="noopener" target="_blank" className="rw-footer__link">
