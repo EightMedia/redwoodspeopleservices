@@ -12,7 +12,7 @@ Deze teksten verstuurt de website automatisch. Tussen rechte haken staat wat de 
 >
 > Fijn dat we jullie mogen verwelkomen, we kijken ernaar uit.
 >
-> Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden van het Houd-me-Vast-weekend zijn van toepassing. Je vindt ze op de website: https://www.redwoodspeopleservices.nl/algemene-voorwaarden/
+> Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden van het Houd-me-Vast-weekend zijn van toepassing. Je vindt ze op de website: https://www.redwoodspeopleservices.nl/houd-me-vast/voorwaarden/
 >
 > In de bijlage geven we alvast een inkijkje in het weekend. Naast praktische zaken vinden jullie hierin ook enkele tips ter voorbereiding.
 >
@@ -21,7 +21,7 @@ Deze teksten verstuurt de website automatisch. Tussen rechte haken staat wat de 
 > Rosendaalselaan 30, 6891 DG Rozendaal
 > secretariaat@redwoodspeopleservices.nl · +31 6 24913779
 
-Tekst aangepast door Edwin op 16 november 2026. In zijn versie stond "is betaald ontvangen"; dat is hier "is ontvangen" geworden, en achter "op de website" staat het adres van de voorwaardenpagina.
+Tekst aangepast door Edwin op 16 november 2026. In zijn versie stond "is betaald ontvangen"; dat is hier "is ontvangen" geworden, en achter "op de website" staat het adres van de voorwaardenpagina van het weekend (`/houd-me-vast/voorwaarden/`, tekst van Edwin van 16 november 2026).
 
 **Bijlage:** de opvolgbrief van het weekend (praktische informatie, programma, route naar het klooster in Denekamp) gaat als pdf mee, onder de naam "Houd me Vast relatieweekend - informatie.pdf". Het bestand staat in `src/assets/mail/houd-me-vast-opvolgbrief.pdf`. Een nieuwe versie van de praktijk vervangt dat bestand; daarna opnieuw deployen. Weigert Resend de bijlage, dan gaat de mail alsnog zonder bijlage weg en staat dat in de Vercel-logs.
 
