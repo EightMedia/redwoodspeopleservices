@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { getPayment, mollieEnabled, euro } from "../../../lib/mollie";
 import { sendMail, MAIL_TO } from "../../../lib/mail";
 import { inschrijvingTekst, ontvangers, type Inschrijving } from "../../../lib/inschrijving";
+import { opvolgbriefHmv } from "../../../lib/bijlagen";
 
 export const prerender = false;
 
@@ -41,11 +42,24 @@ export const POST: APIRoute = async ({ request }) => {
       "Resterend bedrag factureren na het intakegesprek.",
     ].join("\n");
     await sendMail({ to: MAIL_TO(), subject: `[Website] Aanbetaling ontvangen Houd me Vast – ${m.p1.naam} en ${m.p2.naam}`, text, replyTo: m.p1.email });
-    await sendMail({
+    // Tekst van de praktijk (mail Edwin, 16 nov 2026). De opvolgbrief gaat als pdf mee.
+    const bevestiging = {
       to: ontvangers(m),
       subject: "Bevestiging aanmelding Houd me Vast relatieweekend",
-      text: `Beste ${m.p1.naam} en ${m.p2.naam},\n\nJullie aanmelding voor het Houd me Vast relatieweekend (${m.weekend}) is ontvangen en de aanbetaling van ${bedrag} is betaald. Betaalkenmerk: ${payment.id}.\n\nWat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden zijn van toepassing.\n\nTip: lees alvast samen het boek Houd me Vast van Sue Johnson.\n\nHartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\nsecretariaat@redwoodspeopleservices.nl · +31 6 24913779`,
-    });
+      text: [
+        `Beste ${m.p1.naam} en ${m.p2.naam},`,
+        `Jullie aanmelding voor het Houd me Vast relatieweekend (${m.weekend}) is ontvangen en de aanbetaling van ${bedrag} is ontvangen. Betaalkenmerk: ${payment.id}. De factuur wordt apart per mail verstuurd.`,
+        "Fijn dat we jullie mogen verwelkomen, we kijken ernaar uit.",
+        "Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden van het Houd-me-Vast-weekend zijn van toepassing. Je vindt ze op de website: https://www.redwoodspeopleservices.nl/algemene-voorwaarden/",
+        "In de bijlage geven we alvast een inkijkje in het weekend. Naast praktische zaken vinden jullie hierin ook enkele tips ter voorbereiding.",
+        "Hartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\nsecretariaat@redwoodspeopleservices.nl · +31 6 24913779",
+      ].join("\n\n"),
+    };
+    // Weigert Resend de bijlage, dan gaat de bevestiging alsnog zonder: het stel heeft betaald.
+    if (!(await sendMail({ ...bevestiging, attachments: [opvolgbriefHmv] }))) {
+      console.error("Bevestiging Houd me Vast: versturen met bijlage mislukt, opnieuw zonder bijlage");
+      await sendMail(bevestiging);
+    }
   }
   // Altijd 200, anders blijft Mollie het opnieuw proberen
   return new Response("OK", { status: 200 });

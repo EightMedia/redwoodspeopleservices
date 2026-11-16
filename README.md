@@ -210,6 +210,8 @@ Het aanmeldformulier op `/houd-me-vast/` (`src/components/InschrijfForm.astro`) 
 2. De bezoeker betaalt op de Mollie-checkout (iDEAL, creditcard) en komt terug op `/houd-me-vast/bedankt/?id=tr_…`, die de status toont.
 3. Mollie roept `POST /api/mollie/webhook` aan. De site haalt de betaling op bij Mollie (echtheidscontrole) en mailt bij status `paid` het secretariaat én het stel. Het restant factureert de praktijk na de intake.
 
+De bevestiging aan het stel krijgt de opvolgbrief van het weekend als pdf-bijlage (sinds 16 november 2026, op verzoek van Edwin). Het bestand staat in `src/assets/mail/houd-me-vast-opvolgbrief.pdf` en wordt via `src/lib/bijlagen.ts` bij de build in de serverfunctie opgenomen; het staat dus niet openbaar op de site. Een nieuwe versie: bestand vervangen en opnieuw deployen. De brief hoort bij de locatie in Denekamp; komt er een weekend op een andere locatie, dan is er een brief per locatie nodig. Mislukt het versturen met bijlage, dan gaat de bevestiging zonder bijlage weg (zie de Vercel-logs). De teksten staan in `docs/mail-bevestiging-stel.md`.
+
 Zonder `MOLLIE_API_KEY` valt het formulier terug op een aanmelding per mail; de praktijk regelt de aanbetaling dan zelf. Zet daarom ook `PUBLIC_MOLLIE_ENABLED=true` zodra de sleutel er is, zodat het formulier de betaalstap aankondigt.
 
 Testen: gebruik de `test_`-sleutel van Mollie op een publiek bereikbare Vercel-omgeving (de webhook werkt niet op localhost). Mollie's testmodus laat je elke betaalstatus simuleren. De webhook- en terugkeer-URL worden per betaling uit het aangevraagde domein opgebouwd, dus in het Mollie-dashboard hoeft geen webhook ingesteld te worden.

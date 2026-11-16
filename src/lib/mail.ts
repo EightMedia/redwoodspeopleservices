@@ -1,7 +1,8 @@
 import { Resend } from "resend";
+import type { Bijlage } from "./bijlagen";
 
-/** Verstuurt platte-tekstmail via Resend. Geeft false terug als er geen sleutel is of het mislukt. */
-export async function sendMail(opts: { to: string | string[]; subject: string; text: string; replyTo?: string }) {
+/** Verstuurt platte-tekstmail via Resend, eventueel met bijlagen (base64). Geeft false terug als er geen sleutel is of het mislukt. */
+export async function sendMail(opts: { to: string | string[]; subject: string; text: string; replyTo?: string; attachments?: Bijlage[] }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error("RESEND_API_KEY ontbreekt");
@@ -9,7 +10,7 @@ export async function sendMail(opts: { to: string | string[]; subject: string; t
   }
   const from = process.env.MAIL_FROM || "Redwoods website <onboarding@resend.dev>";
   const resend = new Resend(apiKey);
-  const { error } = await resend.emails.send({ from, to: Array.isArray(opts.to) ? opts.to : [opts.to], subject: opts.subject, text: opts.text, replyTo: opts.replyTo });
+  const { error } = await resend.emails.send({ from, to: Array.isArray(opts.to) ? opts.to : [opts.to], subject: opts.subject, text: opts.text, replyTo: opts.replyTo, attachments: opts.attachments });
   if (error) console.error("Resend fout:", error.message);
   return !error;
 }
