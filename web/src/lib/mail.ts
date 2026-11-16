@@ -1,12 +1,15 @@
 import 'server-only';
 import { Resend } from 'resend';
 
-/** Sends a plain-text mail via Resend. Returns false when there is no key or sending fails. */
+import type { Attachment } from './attachments';
+
+/** Sends a plain-text mail via Resend, optionally with attachments (base64). Returns false when there is no key or sending fails. */
 export async function sendMail(opts: {
   to: string | string[];
   subject: string;
   text: string;
   replyTo?: string;
+  attachments?: Attachment[];
 }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -21,6 +24,7 @@ export async function sendMail(opts: {
     subject: opts.subject,
     text: opts.text,
     replyTo: opts.replyTo,
+    attachments: opts.attachments,
   });
   if (error) console.error('Resend fout:', error.message);
   return !error;

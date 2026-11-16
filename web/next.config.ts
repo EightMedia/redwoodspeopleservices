@@ -8,6 +8,10 @@ const root = process.env.KIKKER_LINK_ROOT;
 const nextConfig: NextConfig = {
   ...(root ? { turbopack: { root }, outputFileTracingRoot: root } : {}),
   trailingSlash: true,
+  // The follow-up letter is read from disk by the Mollie webhook (src/lib/attachments.ts).
+  outputFileTracingIncludes: {
+    '/api/mollie/webhook': ['./src/assets/mail/*.pdf'],
+  },
   // Agent instructions live in ../docs/kikker-herbouw.md; do not generate web/AGENTS.md.
   agentRules: false,
   images: {

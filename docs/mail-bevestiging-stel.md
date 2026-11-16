@@ -8,16 +8,22 @@ Deze teksten verstuurt de website automatisch. Tussen rechte haken staat wat de 
 
 > Beste [naam partner 1] en [naam partner 2],
 >
-> Jullie aanmelding voor het Houd me Vast relatieweekend ([gekozen weekend]) is ontvangen en de aanbetaling van [bedrag] is betaald. Betaalkenmerk: [Mollie-kenmerk].
+> Jullie aanmelding voor het Houd me Vast relatieweekend ([gekozen weekend]) is ontvangen en de aanbetaling van [bedrag] is ontvangen. Betaalkenmerk: [Mollie-kenmerk]. De factuur wordt apart per mail verstuurd.
 >
-> Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden zijn van toepassing.
+> Fijn dat we jullie mogen verwelkomen, we kijken ernaar uit.
 >
-> Tip: lees alvast samen het boek Houd me Vast van Sue Johnson.
+> Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden van het Houd-me-Vast-weekend zijn van toepassing. Je vindt ze op de website: https://www.redwoodspeopleservices.nl/algemene-voorwaarden/
+>
+> In de bijlage geven we alvast een inkijkje in het weekend. Naast praktische zaken vinden jullie hierin ook enkele tips ter voorbereiding.
 >
 > Hartelijke groet,
 > Redwoods People Services
 > Rosendaalselaan 30, 6891 DG Rozendaal
 > secretariaat@redwoodspeopleservices.nl · +31 6 24913779
+
+Tekst aangepast door Edwin op 16 november 2026. In zijn versie stond "is betaald ontvangen"; dat is hier "is ontvangen" geworden, en achter "op de website" staat het adres van de voorwaardenpagina.
+
+**Bijlage:** de opvolgbrief van het weekend (praktische informatie, programma, route naar het klooster in Denekamp) gaat als pdf mee, onder de naam "Houd me Vast relatieweekend - informatie.pdf". Op deze branch staat het bestand in `web/src/assets/mail/houd-me-vast-opvolgbrief.pdf`; `web/src/lib/attachments.ts` leest het en `outputFileTracingIncludes` in `web/next.config.ts` neemt het mee in de webhook-functie. Een nieuwe versie van de praktijk vervangt dat bestand; daarna opnieuw deployen. Lukt het versturen met bijlage niet, dan gaat de mail alsnog zonder bijlage weg en staat dat in de Vercel-logs.
 
 ## 2. Aan het secretariaat, zodra de aanbetaling is betaald
 

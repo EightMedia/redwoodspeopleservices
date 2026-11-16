@@ -85,7 +85,7 @@ Het script is herhaalbaar (vaste id's, `createOrReplace`) en zet markdown om naa
 
 ## 5. Formulieren, mail en Mollie
 
-Gelijk aan de Astro-site: `POST /api/contact` (honeypot, validatie, spamfilter, Turnstile, mail naar het secretariaat plus ontvangstbevestiging), `POST /api/inschrijven` (Houd me Vast, maakt een Mollie-betaling voor `houdMeVast.aanbetalingBedrag` of valt terug op mail), `POST /api/mollie/webhook` (haalt de betaling op bij Mollie en mailt bij `paid` het secretariaat en het stel). Omgevingsvariabelen staan in `web/.env.example`; `PUBLIC_MOLLIE_ENABLED` heet nu `NEXT_PUBLIC_MOLLIE_ENABLED` en `PUBLIC_TURNSTILE_SITE_KEY` heet nu `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
+Gelijk aan de Astro-site: `POST /api/contact` (honeypot, validatie, spamfilter, Turnstile, mail naar het secretariaat plus ontvangstbevestiging), `POST /api/inschrijven` (Houd me Vast, maakt een Mollie-betaling voor `houdMeVast.aanbetalingBedrag` of valt terug op mail), `POST /api/mollie/webhook` (haalt de betaling op bij Mollie en mailt bij `paid` het secretariaat en het stel; het stel krijgt de opvolgbrief van het weekend als pdf-bijlage, zie `docs/mail-bevestiging-stel.md`). Omgevingsvariabelen staan in `web/.env.example`; `PUBLIC_MOLLIE_ENABLED` heet nu `NEXT_PUBLIC_MOLLIE_ENABLED` en `PUBLIC_TURNSTILE_SITE_KEY` heet nu `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
 
 **Spamwering** (overgezet van `main`, waar ze op 11 nov 2026 is toegevoegd na spam via het contactformulier). Het contactformulier en het aanmeldformulier Houd me Vast gebruiken dezelfde lagen, in `web/src/lib/spam.ts` (server), `web/src/lib/form-client.ts` (browser) en `web/src/components/Turnstile/`:
 
