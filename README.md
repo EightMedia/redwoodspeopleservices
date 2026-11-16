@@ -111,7 +111,7 @@ De oude site draaide op WordPress met Elementor en WooCommerce. Die combinatie g
 │   │   ├── houd-me-vast.astro, rouw-en-verlies.astro, greenwoods.astro
 │   │   ├── over-ons.astro, tarieven.astro, contact/index.astro
 │   │   ├── privacybeleid.astro, algemene-voorwaarden.astro, 404.astro
-│   │   ├── houd-me-vast/voorwaarden.astro   Voorwaarden Houd me Vast (tekst van de praktijk)
+│   │   ├── voorwaarden-houd-me-vast.astro   Voorwaarden Houd me Vast (tekst van de praktijk)
 │   │   └── api/contact.ts            Serverless endpoint voor het formulier
 │   └── styles/global.css   Tailwind-import, huisstijltokens, basisstijlen
 ├── public/                 Bestanden die 1-op-1 worden gekopieerd (favicon, robots.txt)
@@ -271,7 +271,7 @@ Wachtwoorden en sleutels staan in Proton Pass (Eight), nooit in deze repo.
 | Keystatic | `/keystatic` | Lokaal werkend; toegang voor de klant (Cloud of GitHub-app) nog in te richten |
 | DNS | Strato, beheerd door de domeinhouder | A `@` → 216.150.16.1 en CNAME `www` → `1c372f4ef3c47e2c.vercel-dns-016.com` staan (2 nov 2026). De Resend-records zijn CNAME's (nieuwe Resend-opzet): `send` → `send.forge.rmta.net` en `rsend` → `rsend-euw1.forge.rmta.net`, plus TXT `resend._domainkey`; alle drie geverifieerd op 7 nov 2026. Google Search Console TXT op `@` staat (5 nov 2026) |
 
-De algemene en annuleringsvoorwaarden van het Houd me Vast relatieweekend staan sinds 16 nov 2026 op `/houd-me-vast/voorwaarden/` (`src/pages/houd-me-vast/voorwaarden.astro`, tekst van Edwin). Die pagina is de enige bron: footer, aanmeldformulier, de pagina van het weekend en de bevestigingsmail verwijzen ernaar. Bij een nieuwe versie van de praktijk de tekst en de datum onderaan de pagina aanpassen.
+De algemene en annuleringsvoorwaarden van het Houd me Vast relatieweekend staan sinds 16 nov 2026 op `/voorwaarden-houd-me-vast/` (`src/pages/voorwaarden-houd-me-vast.astro`, tekst van Edwin). Die pagina is de enige bron: footer, aanmeldformulier, de pagina van het weekend en de bevestigingsmail verwijzen ernaar. Bij een nieuwe versie van de praktijk de tekst en de datum onderaan de pagina aanpassen.
 
 Openstaand voor de praktijk: definitieve tekst van de algemene voorwaarden voor therapie en coaching, voorwaarden voor retraites, akkoord op de bevestigingsmails (`docs/mail-bevestiging-stel.md`), Google Bedrijfsprofiel, en na de DNS-omzetting de oude WordPress-site uitzetten en in Search Console de spam-URL's laten verwijderen.
 

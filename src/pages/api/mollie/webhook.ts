@@ -50,7 +50,7 @@ export const POST: APIRoute = async ({ request }) => {
         `Beste ${m.p1.naam} en ${m.p2.naam},`,
         `Jullie aanmelding voor het Houd me Vast relatieweekend (${m.weekend}) is ontvangen en de aanbetaling van ${bedrag} is ontvangen. Betaalkenmerk: ${payment.id}. De factuur wordt apart per mail verstuurd.`,
         "Fijn dat we jullie mogen verwelkomen, we kijken ernaar uit.",
-        "Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden van het Houd-me-Vast-weekend zijn van toepassing. Je vindt ze op de website: https://www.redwoodspeopleservices.nl/houd-me-vast/voorwaarden/",
+        "Wat nu? We nemen contact met jullie op om een intakegesprek van ongeveer 30 minuten via Zoom in te plannen. Het resterende bedrag factureren we na dat gesprek. De algemene en annuleringsvoorwaarden van het Houd-me-Vast-weekend zijn van toepassing. Je vindt ze op de website: https://www.redwoodspeopleservices.nl/voorwaarden-houd-me-vast/",
         "In de bijlage geven we alvast een inkijkje in het weekend. Naast praktische zaken vinden jullie hierin ook enkele tips ter voorbereiding.",
         "Hartelijke groet,\nRedwoods People Services\nRosendaalselaan 30, 6891 DG Rozendaal\nsecretariaat@redwoodspeopleservices.nl · +31 6 24913779",
       ].join("\n\n"),
