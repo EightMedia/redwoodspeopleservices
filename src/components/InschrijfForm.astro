@@ -65,23 +65,25 @@ const fout = Astro.url.searchParams.get("fout");
         <input id="telefoon2" name="telefoon2" type="tel" class="field" required autocomplete="section-p2 tel" />
       </div>
     </div>
-    <label class="flex items-start gap-3 text-sm">
-      <input type="checkbox" name="zelfdeAdres" value="ja" checked class="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand" data-zelfde-adres />
-      <span>Woont op hetzelfde adres als partner 1</span>
-    </label>
-    <div class="space-y-5" data-adres2>
-      <div>
-        <label for="adres2" class="label">Straat en huisnummer</label>
-        <input id="adres2" name="adres2" type="text" class="field" autocomplete="section-p2 street-address" />
-      </div>
-      <div class="grid gap-5 sm:grid-cols-[10rem_1fr]">
+    <div>
+      <label class="flex items-start gap-3 text-sm">
+        <input type="checkbox" name="zelfdeAdres" value="ja" checked class="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand" data-zelfde-adres />
+        <span>Woont op hetzelfde adres als partner 1</span>
+      </label>
+      <div class="mt-5 space-y-5" data-adres2>
         <div>
-          <label for="postcode2" class="label">Postcode</label>
-          <input id="postcode2" name="postcode2" type="text" class="field" autocomplete="section-p2 postal-code" />
+          <label for="adres2" class="label">Straat en huisnummer</label>
+          <input id="adres2" name="adres2" type="text" class="field" autocomplete="section-p2 street-address" />
         </div>
-        <div>
-          <label for="plaats2" class="label">Woonplaats</label>
-          <input id="plaats2" name="plaats2" type="text" class="field" autocomplete="section-p2 address-level2" />
+        <div class="grid gap-5 sm:grid-cols-[10rem_1fr]">
+          <div>
+            <label for="postcode2" class="label">Postcode</label>
+            <input id="postcode2" name="postcode2" type="text" class="field" autocomplete="section-p2 postal-code" />
+          </div>
+          <div>
+            <label for="plaats2" class="label">Woonplaats</label>
+            <input id="plaats2" name="plaats2" type="text" class="field" autocomplete="section-p2 address-level2" />
+          </div>
         </div>
       </div>
     </div>

@@ -87,3 +87,31 @@
     @apply mb-1.5 block text-sm font-medium text-ink;
   }
 }
+
+/*
+ * Buiten de lagen, zodat deze regels ook van de utility-klassen winnen.
+ */
+
+/* @apply prose neemt de reset voor het eerste en laatste element niet mee: de plugin zoekt naar .prose. */
+.prose-site > :first-child {
+  margin-top: 0;
+}
+.prose-site > :last-child {
+  margin-bottom: 0;
+}
+
+/* Lange links (e-mailadressen) en lange woorden in koppen breken af in plaats van de pagina breder te maken. */
+.prose-site a,
+a[href^="mailto:"] {
+  overflow-wrap: anywhere;
+}
+h1, h2, h3, h4 {
+  overflow-wrap: break-word;
+}
+
+/* Twee secties met dezelfde achtergrond na elkaar: één keer witruimte, niet twee keer. */
+main > .bg-paper + .bg-paper,
+main > .bg-sand + .bg-sand,
+main > .bg-brand-tint + .bg-brand-tint {
+  padding-top: 0;
+}
