@@ -54,10 +54,21 @@
   color: var(--rw-color-muted);
 }
 
+.rw-footer__keurmerken {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
 .rw-footer__keurmerk {
   width: auto;
-  height: 4rem;
-  margin-top: 1.5rem;
+  height: 3.5rem;
+}
+
+.rw-footer__keurmerk--rounded {
+  border-radius: 0.25rem;
 }
 
 .rw-footer__title {
