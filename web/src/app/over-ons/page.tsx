@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
+import certificaatCz from '@/assets/logo-certificaat-christelijke-zorg.png';
 import rbcz from '@/assets/logo-rbcz.jpg';
 import vit from '@/assets/logo-vit.jpg';
 import pand from '@/assets/pand-rosendaalselaan.jpg';
@@ -155,6 +156,7 @@ export default function OverOnsPage() {
         <p className="rw-measure rw-about-quality">
           Onze therapeuten zijn aangesloten bij beroepsverenigingen en koepels zoals VIT, RBCZ, NFG, LVSC en ECP, en
           hebben een AGB-code. Daardoor wordt therapie vaak (deels) vergoed vanuit een aanvullende zorgverzekering.
+          Redwoods heeft ook het Certificaat Christelijke Zorg.
         </p>
         <div className="rw-about-logos">
           <Image src={vit} alt="VIT, Vereniging van Integraal Therapeuten" width={104} height={77} className="rw-about-logo" />
@@ -164,6 +166,13 @@ export default function OverOnsPage() {
             width={200}
             height={97}
             className="rw-about-logo"
+          />
+          <Image
+            src={certificaatCz}
+            alt="Certificaat Christelijke Zorg"
+            width={246}
+            height={192}
+            className="rw-about-logo rw-about-logo--keurmerk"
           />
         </div>
         <p className="rw-about-networks">

@@ -1,3 +1,6 @@
+import Image from 'next/image';
+
+import certificaatCz from '@/assets/logo-certificaat-christelijke-zorg.png';
 import { site } from '@/data/site';
 
 import './SiteFooter.css';
@@ -76,6 +79,14 @@ export function SiteFooter() {
           <p className="rw-footer__hours">
             Telefonisch bereikbaar op maandag, woensdag en donderdag van 09:00 tot 13:00 uur.
           </p>
+          {/* Keurmerk moet zichtbaar op de site staan: voorwaarde van de zorgverzekeraar voor vergoeding (mail Edwin, 23 nov 2026) */}
+          <Image
+            src={certificaatCz}
+            alt="Certificaat Christelijke Zorg"
+            width={246}
+            height={192}
+            className="rw-footer__keurmerk"
+          />
         </div>
         {columns.map((column) => (
           <div key={column.title} className="rw-footer__column">

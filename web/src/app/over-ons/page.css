@@ -73,6 +73,11 @@
   border-radius: 0.25rem;
 }
 
+.rw-about-logo--keurmerk {
+  height: 6rem;
+  border-radius: 0;
+}
+
 .rw-about-networks {
   margin: 1.5rem 0 0;
   color: var(--rw-color-muted);
