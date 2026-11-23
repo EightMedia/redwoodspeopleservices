@@ -1,7 +1,7 @@
 /* Blog article (Astro `blog/[id].astro`). Breakpoint: sm 640px. */
 
 .rw-post {
-  padding-block: 3rem;
+  padding-block: 3rem 4rem;
 }
 
 .rw-post__head {
@@ -58,7 +58,7 @@
 
 @media (min-width: 640px) {
   .rw-post {
-    padding-block: 4rem;
+    padding-block: 4rem 6rem;
   }
 
   .rw-post__title {

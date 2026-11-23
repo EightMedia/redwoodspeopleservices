@@ -135,7 +135,8 @@
   gap: 0.75rem;
 }
 
-.rw-header__contact {
+/* Twee klassen: anders wint de knopstijl (inline-flex) en duwt de knop het menu-icoon uit beeld. */
+.rw-header__actions .rw-header__contact {
   display: none;
 }
 
@@ -224,7 +225,7 @@
 }
 
 @media (min-width: 640px) {
-  .rw-header__contact {
+  .rw-header__actions .rw-header__contact {
     display: inline-flex;
   }
 }

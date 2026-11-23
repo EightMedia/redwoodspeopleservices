@@ -272,8 +272,8 @@ export default async function HomePage() {
             <p className="rw-eyebrow rw-home-eyebrow">Blog</p>
             <h2 className="rw-home-h2">Inspiratie en inzichten</h2>
           </div>
-          <a href="/blog/" className="rw-btn--ghost">
-            Alle artikelen →
+          <a href="/blog/" className="rw-btn--secondary">
+            Alle artikelen
           </a>
         </div>
         <div className="rw-home-posts">

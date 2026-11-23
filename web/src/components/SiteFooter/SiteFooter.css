@@ -1,12 +1,12 @@
 /* Site footer (Astro Footer.astro, Tailwind → plain CSS). Breakpoints: md 768px, lg 1024px. */
 
 .rw-footer {
-  margin-top: 6rem;
   border-top: 1px solid var(--rw-color-line);
   background-color: var(--rw-color-sand);
 }
 
-.rw-footer p {
+/* :where houdt de reset licht, zodat de marges per element hieronder blijven gelden. */
+.rw-footer :where(p) {
   margin: 0;
 }
 

@@ -158,7 +158,7 @@
 }
 
 .rw-home-roots__text--first {
-  margin-top: 1.25rem;
+  margin-top: 1rem;
 }
 
 .rw-home-roots .rw-home-btn--outline-white {
@@ -337,7 +337,7 @@
 }
 
 .rw-home-practice__text {
-  margin: 1.25rem 0 0;
+  margin: 1rem 0 0;
   font-size: 1.125rem;
   color: var(--rw-color-muted);
 }

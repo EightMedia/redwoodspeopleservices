@@ -413,3 +413,26 @@ svg {
   gap: 0.75rem;
   margin-top: 2rem;
 }
+
+/* Lange links (e-mailadressen) en lange woorden in koppen breken af in plaats van de pagina breder te maken. */
+.rw-prose a,
+a[href^='mailto:'] {
+  overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}
+
+/* Twee secties met dezelfde achtergrond na elkaar: één keer witruimte, niet twee keer. */
+.rw-section[data-surface='default'] + .rw-section[data-surface='default'],
+.rw-section[data-surface='default'] + .rw-cta,
+.rw-post + .rw-cta,
+.rw-section[data-surface='subtle'] + .rw-section[data-surface='subtle'],
+.rw-section[data-surface='loud-alt'] + .rw-section[data-surface='loud-alt'] {
+  padding-top: 0;
+}
+
