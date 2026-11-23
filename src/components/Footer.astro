@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { site } from "../data/site";
+import certificaatCz from "../assets/logo-certificaat-christelijke-zorg.png";
 const year = new Date().getFullYear();
 const cols = [
   {
@@ -54,6 +56,8 @@ const cols = [
         </p>
       </address>
       <p class="mt-4 text-sm text-muted">Telefonisch bereikbaar op maandag, woensdag en donderdag van 09:00 tot 13:00 uur.</p>
+      {/* Keurmerk moet zichtbaar op de site staan: voorwaarde van de zorgverzekeraar voor vergoeding (mail Edwin, 23 nov 2026) */}
+      <Image src={certificaatCz} alt="Certificaat Christelijke Zorg" width={246} height={192} class="mt-6 h-24 w-auto" />
     </div>
     {cols.map((col) => (
       <div>
