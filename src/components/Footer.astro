@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import { site } from "../data/site";
 import certificaatCz from "../assets/logo-certificaat-christelijke-zorg.png";
+import vit from "../assets/logo-vit.jpg";
+import rbcz from "../assets/logo-rbcz.jpg";
 const year = new Date().getFullYear();
 const cols = [
   {
@@ -57,7 +59,11 @@ const cols = [
       </address>
       <p class="mt-4 text-sm text-muted">Telefonisch bereikbaar op maandag, woensdag en donderdag van 09:00 tot 13:00 uur.</p>
       {/* Keurmerk moet zichtbaar op de site staan: voorwaarde van de zorgverzekeraar voor vergoeding (mail Edwin, 23 nov 2026) */}
-      <Image src={certificaatCz} alt="Certificaat Christelijke Zorg" width={164} height={128} class="mt-6 h-16 w-auto" />
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        <Image src={certificaatCz} alt="Certificaat Christelijke Zorg" width={144} height={112} class="h-14 w-auto" />
+        <Image src={vit} alt="VIT, Vereniging van Integraal Therapeuten" width={104} height={77} class="h-14 w-auto rounded" />
+        <Image src={rbcz} alt="RBCZ, Register Beroepsbeoefenaren Complementaire Zorg" width={200} height={97} class="h-14 w-auto rounded" />
+      </div>
     </div>
     {cols.map((col) => (
       <div>
